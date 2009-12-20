@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  ip: 42.42.42.1
+  port: 2222
+  name: Dummy Cashbox 1
+  printer_id: 1
+
+two:
+  id: 2
+  ip: 42.42.42.2
+  port: 4444
+  name: Dummy Cashbox 2
+  printer_id: 2

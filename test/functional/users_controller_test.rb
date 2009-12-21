@@ -10,6 +10,11 @@ class UsersControllerTest < ActionController::TestCase
   include AuthenticatedTestHelper
 
   fixtures :users
+  
+  test "get index" do
+    get :index
+    assert_response :success
+  end
 
   def test_should_allow_signup
     assert_difference 'User.count' do

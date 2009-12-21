@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
+  
+  def index
+    @admins = User.admins
+    @angels = User.angels
+  end
 
-  # render new.rhtml
+
   def new
     @user = User.new
   end

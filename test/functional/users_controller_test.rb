@@ -8,6 +8,10 @@ class UsersControllerTest < ActionController::TestCase
   # Be sure to include AuthenticatedTestHelper in test/test_helper.rb instead
   # Then, you can remove it from this and the units test.
   include AuthenticatedTestHelper
+  
+  def setup
+    login_as :quentin
+  end
 
   fixtures :users
   
@@ -15,35 +19,20 @@ class UsersControllerTest < ActionController::TestCase
     get :index
     assert_response :success
   end
-
-  def test_should_allow_signup
-    assert_difference 'User.count' do
-      create_user
-      assert_response :redirect
-    end
+  
+  test "get new" do
+    get :new
+    assert_response :success
   end
-
-  def test_should_require_login_on_signup
-    assert_no_difference 'User.count' do
-      create_user(:login => nil)
-      assert assigns(:user).errors.on(:login)
-      assert_response :success
-    end
-  end
-
-  def test_should_require_password_on_signup
-    assert_no_difference 'User.count' do
-      create_user(:password => nil)
-      assert assigns(:user).errors.on(:password)
-      assert_response :success
-    end
-  end
-
-  def test_should_require_password_confirmation_on_signup
-    assert_no_difference 'User.count' do
-      create_user(:password_confirmation => nil)
-      assert assigns(:user).errors.on(:password_confirmation)
-      assert_response :success
+  
+  test "create new angel user" do
+    assert_difference "User.count", +1 do
+      post :create, :user => {
+        :login                  => "peter",
+        :name                   => "Peter",
+        :password               => "foobar",
+        :password_confirmation  => "foobar",
+      }
     end
   end
 

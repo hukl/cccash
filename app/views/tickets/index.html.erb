@@ -1,0 +1,34 @@
+<h1>Tickets</h1>
+<table>
+  <tr>
+    <th>
+      Name
+    </th>
+    <th>
+      Price
+    </th>
+    <th>
+      Custom?
+    </th>
+    <th>
+      Actions
+    </th>
+  </tr>
+  <% @tickets.each do |ticket| %>
+ <tr>
+    <td>
+      <%= ticket.name %>
+    </td>
+    <td>
+      <%= ticket.price %>
+    </td>
+    <td>
+      <%= "✔" if ticket.custom? %>
+    </td>
+    <td>
+      <%= link_to "edit", edit_ticket_path(ticket) %>
+      <%= link_to "delete", ticket_path(ticket), :method => :delete, :confirm => "Sure?" %>
+    </td>
+  </tr>
+  <% end %>
+</table>

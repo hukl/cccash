@@ -1,0 +1,25 @@
+<%= error_messages_for :ticket %>
+
+<% form_for @ticket do |f| %>
+  <table>
+    <tr>
+      <td>Name</td>
+      <td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <td>Price</td>
+      <td><%= f.text_field :price %></td>
+    </tr>
+    <tr>
+      <td>Comment</td>
+      <td><%= f.text_field :comment %></td>
+    </tr>
+    <tr>
+      <td>Custom?</td>
+      <td><%= f.check_box :custom %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><%= f.submit %></td>
+    </tr>
+<% end %>

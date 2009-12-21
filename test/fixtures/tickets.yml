@@ -2,14 +2,14 @@
 
 one:
   id: 1
-  name: one
-  price: 1
+  name: Dummy ticket 1
+  price: 23
   custom: false
-  comment: MyText
+  comment: Dummy comment 1
 
 two:
   id: 2
-  name: two
-  price: 1
-  custom: false
-  comment: MyText
+  name: Dummy ticket 2
+  price: 42
+  custom: true
+  comment: Dummy comment 2

@@ -2,6 +2,10 @@ require 'test_helper'
 
 class PrintersControllerTest < ActionController::TestCase
   
+  def setup
+    login_as :quentin
+  end
+  
   test "get index" do
     get :index
     assert_response :success

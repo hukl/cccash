@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class GroupsControllerTest < ActionController::TestCase
+  
+  def setup
+    login_as :quentin
+  end
 
   test "get index" do
     get :index

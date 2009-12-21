@@ -1,4 +1,7 @@
 class GroupsController < ApplicationController
+  
+  before_filter :login_required
+  
   def index
     @groups = Group.all
   end

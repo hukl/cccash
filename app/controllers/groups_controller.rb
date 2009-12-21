@@ -1,15 +1,17 @@
 class GroupsController < ApplicationController
   def index
+    @groups = Group.all
   end
 
   def new
+    @group = Group.new params[:group]
   end
 
   def create
     @group = Group.new params[:group]
 
     if @group.save
-      redirect_to admin_path
+      redirect_to groups_path
     else
       render :new
     end
@@ -19,13 +21,14 @@ class GroupsController < ApplicationController
   end
 
   def edit
+    @group = Group.find(params[:id])
   end
 
   def update
     @group = Group.find(params[:id])
 
     if @group.update_attributes(params[:group])
-      redirect_to admin_path
+      redirect_to groups_path
     else
       render :edit
     end
@@ -36,7 +39,7 @@ class GroupsController < ApplicationController
 
     group.destroy if group
 
-    redirect_to admin_path
+    redirect_to groups_path
   end
 
 end

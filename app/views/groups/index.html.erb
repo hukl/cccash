@@ -1,2 +1,14 @@
-<h1>Groups#index</h1>
-<p>Find me in app/views/groups/index.html.erb</p>
+<h1>Groups</h1>
+<table>
+  <% @groups.each do |group| %>
+  <tr>
+    <td>
+      <%= group.name %>
+    </td>
+    <td>
+      <%= link_to "edit", edit_group_path(group) %>
+      <%= link_to "delete", group_path(group), :method => :delete, :confirm => "Sicher?" %>
+    </td>
+  </tr>
+  <% end %>
+</table>

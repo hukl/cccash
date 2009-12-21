@@ -22,7 +22,7 @@ class GroupsControllerTest < ActionController::TestCase
     group = Group.last
 
     assert_equal "friends", group.name
-    assert_redirected_to admin_path
+    assert_redirected_to groups_path
   end
 
   test "get edit" do
@@ -35,7 +35,7 @@ class GroupsControllerTest < ActionController::TestCase
       :name   => "members"
     }
 
-    assert_redirected_to admin_path
+    assert_redirected_to groups_path
 
     assert_equal "members", Group.find(1).name
   end
@@ -45,7 +45,7 @@ class GroupsControllerTest < ActionController::TestCase
       delete :destroy, :id => 1
     end
 
-    assert_redirected_to admin_path
+    assert_redirected_to groups_path
   end
 
 end

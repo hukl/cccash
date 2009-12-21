@@ -1,0 +1,13 @@
+<%= error_messages_for :group %>
+
+<% form_for @group do |f| %>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><%= f.submit %></td>
+    </tr>
+<% end %>

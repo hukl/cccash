@@ -2,3 +2,4 @@ log/*
 config/database.yml
 db/schema.rb
 *.swp
+.DS_Store

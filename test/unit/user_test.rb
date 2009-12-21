@@ -86,6 +86,11 @@ class UserTest < ActiveSupport::TestCase
     assert_not_nil users(:quentin).remember_token_expires_at
     assert users(:quentin).remember_token_expires_at.between?(before, after)
   end
+  
+  test "admin flag is false by default" do
+    user = User.create! :login => "bernd", :name => "Bernd", :password => "foobar", :password_confirmation => "foobar"
+    assert_equal false, user.admin?
+  end
 
 protected
   def create_user(options = {})

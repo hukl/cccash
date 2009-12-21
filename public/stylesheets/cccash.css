@@ -1,0 +1,68 @@
+body {
+  font-family: verdana, sans-serif;
+  font-size: 9pt;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+a {
+  color: #474040;
+}
+
+a img {
+  border: none;
+}
+
+input, select, textarea {
+  border: 1px solid #000000;
+  color: #000000;
+  background-color: #FFFFFF;
+}
+
+table {
+  border: 2px solid #DFDFDF;
+}
+
+table.checkouts {
+  width: 90%;
+}
+
+#content {
+  margin: 0 auto;
+  padding-top: 20px;
+  width: 860px;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  text-align: left;
+}
+
+#menu {
+  margin: 0 auto;
+  text-align: center;
+  width: 900px;
+  background-color: #000000;
+  border-left: 1px solid #000000;
+  border-right: 1px solid #000000;
+  border-top: 1px solid #000000;
+  line-height: 2em;
+}
+
+#menu a, #menu .menu_text {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#header {
+  margin: 0 auto;
+  width: 900px;
+  height: 140px;
+  border-left: 1px solid #000000;
+  border-right: 1px solid #000000;
+}

@@ -6,10 +6,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   
     <title>untitled</title>
-    
+    <%= stylesheet_link_tag 'cccash' %>
   </head>
   
   <body>
-    <%= yield %>
+    <div id="header">
+      <%= image_tag 'kasse-06.jpg' %>
+    </div>
+    <div id="menu">
+      <%= menu_for_user %>
+    </div>
+    <div id="content">
+      <%= yield %>
+    </div>
   </body>
 </html>

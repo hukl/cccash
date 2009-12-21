@@ -32,7 +32,7 @@ class CashboxesControllerTest < ActionController::TestCase
   end
   
   test "get edit" do
-    get :edit
+    get :edit, :id => 1
     assert_response :success
   end
   

@@ -3,6 +3,7 @@ class CashboxesController < ApplicationController
   end
 
   def new
+    @cashbox = Cashbox.new params[:cashbox]
   end
 
   def create
@@ -19,6 +20,7 @@ class CashboxesController < ApplicationController
   end
 
   def edit
+    @cashbox = Cashbox.find(params[:id])
   end
 
   def update

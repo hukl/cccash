@@ -1,0 +1,19 @@
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Kassenname</th>
+    <th>IP</th>
+    <th>Port</th>
+  </tr>
+  <% @cashboxes.each do |cashbox| %>
+  <tr class="<%= cycle('even', 'uneven')%>">
+    <td><%= cashbox.id %></td>
+    <td><%= cashbox.name %></td>
+    <td><%= cashbox.ip %></td>
+    <td><%= cashbox.port %></td>
+    <td><%= link_to 'Edit', edit_cashbox_path(cashbox) %></td>
+    <td><%= link_to 'Delete', cashbox_path(cashbox), :method => :delete, :confirm => 'Sicher?' %></td>
+  </tr>
+  <% end %>
+</table>
+<%= link_to 'Kasse hinzufügen', new_cashbox_path %>

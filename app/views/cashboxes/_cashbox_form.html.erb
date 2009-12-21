@@ -1,0 +1,21 @@
+<%= error_messages_for :cashbox %>
+
+<% form_for @cashbox do |f| %>
+  <table>
+    <tr>
+      <td>Name</td>
+      <td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <td>IP</td>
+      <td><%= f.text_field :ip %></td>
+    </tr>
+    <tr>
+      <td>Port</td>
+      <td><%= f.text_field :port %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><%= f.submit %></td>
+    </tr>
+<% end %>

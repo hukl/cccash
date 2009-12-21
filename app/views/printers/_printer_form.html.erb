@@ -1,0 +1,16 @@
+<% form_for @printer do |f| %>
+<table>
+  <tr>
+    <td>Name</td>
+    <td><%= f.text_field :name %></td>
+  </tr>
+  <tr>
+    <td>Cups Name</td>
+    <td><%= f.text_field :cups_name %></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><%= f.submit %></td>
+  </tr>
+</table>
+<% end %>

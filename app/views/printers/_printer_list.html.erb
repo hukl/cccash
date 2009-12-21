@@ -1,0 +1,19 @@
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Bondruckername</th>
+        <th>CUPS</th>
+    </tr>
+    <% @printers.each do |printer| %>
+    <tr class="<%= cycle('even', 'uneven')%>">
+        <td><%= printer.id %></td>
+        <td><%= printer.name %></td>
+        <td><%= printer.cups_name %></td>
+        <td><%= link_to 'Edit', edit_printer_url(:id => printer.id) %></td>
+        <td>
+          <%= link_to 'Delete', printer, :method => :delete, :confirm => 'Sicher?' %>
+        </td>
+    </tr>
+    <% end %>
+</table>
+<%= link_to 'Drucker hinzufügen', new_printer_url %>

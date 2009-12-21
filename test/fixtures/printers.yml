@@ -1,0 +1,10 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  name: Dummy Printer 1
+  cups_name: dummy_printer_1
+
+two:
+  name: Dummy Printer 2
+  cups_name: dummy_printer_2

@@ -36,9 +36,7 @@ class CashboxesController < ApplicationController
   def destroy
     cashbox = Cashbox.find(params[:id])
     
-    if cashbox
-      cashbox.destroy
-    end
+    cashbox.destroy if cashbox
     
     redirect_to admin_path
   end

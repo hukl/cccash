@@ -6,5 +6,6 @@ one:
   cups_name: dummy_printer_1
 
 two:
+  id: 2
   name: Dummy Printer 2
   cups_name: dummy_printer_2

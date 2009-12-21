@@ -49,4 +49,10 @@ class CashboxTest < ActiveSupport::TestCase
       Cashbox.create! :ip => "42.42.42.42", :port => 23, :name => "Dummy Cashbox 1", :printer_id => 1
     end
   end
+  
+  test "cashbox must have a printer" do
+    assert_raise ActiveRecord::RecordInvalid do
+      Cashbox.create! :ip => "42.42.42.42", :port => 23, :name => "Dummy Cashbox 23"
+    end
+  end
 end

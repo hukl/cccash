@@ -15,6 +15,10 @@
       <td><%= f.text_field :port %></td>
     </tr>
     <tr>
+      <td>Printer</td>
+      <td><%= f.select :printer_id, printers_for_select %></td>
+    </tr>
+    <tr>
       <td></td>
       <td><%= f.submit %></td>
     </tr>

@@ -11,4 +11,10 @@ module ApplicationHelper
     end
   end
   
+  def nice_price(price)
+    if price.is_a?(Numeric)
+      number_to_currency(price ,{:unit => "", :seperator => ","}) + '&euro;'
+    end
+  end
+  
 end

@@ -22,7 +22,7 @@ class TransactionTest < ActiveSupport::TestCase
     end
     
     transaction.save
-    transaction.errors.include?(:ticket_sales)
+    transaction.errors.invalid?(:ticket_sales)
   end
   
   test "builing a transaction with ticket sale" do

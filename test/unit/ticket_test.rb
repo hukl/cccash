@@ -25,4 +25,12 @@ class TicketTest < ActiveSupport::TestCase
       Ticket.create! :name => "Dummy ticket 1", :price => 2342
     end
   end
+  
+  test "ticket has ticket_sales method" do
+    assert_nothing_raised { tickets(:one).ticket_sales }
+  end
+  
+  test "ticket has transactions method" do
+    assert_nothing_raised { tickets(:one).tickets }
+  end
 end

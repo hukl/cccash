@@ -1,7 +1,7 @@
 <h1>Groups</h1>
 
 <p>
-  <%= link_to "Neue Gruppe anlegen", new_group_path %>
+  <%= link_to "Create new group", new_group_path %>
 </p>
 
 <table>
@@ -12,7 +12,7 @@
     </td>
     <td>
       <%= link_to "edit", edit_group_path(group) %>
-      <%= link_to "delete", group_path(group), :method => :delete, :confirm => "Sicher?" %>
+      <%= link_to "delete", group_path(group), :method => :delete, :confirm => "Sure?" %>
     </td>
   </tr>
   <% end %>

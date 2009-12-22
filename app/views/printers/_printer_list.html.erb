@@ -1,7 +1,7 @@
 <table>
     <tr>
         <th>Id</th>
-        <th>Bondruckername</th>
+        <th>Printer name</th>
         <th>CUPS</th>
     </tr>
     <% @printers.each do |printer| %>
@@ -11,9 +11,9 @@
         <td><%= printer.cups_name %></td>
         <td><%= link_to 'Edit', edit_printer_url(:id => printer.id) %></td>
         <td>
-          <%= link_to 'Delete', printer, :method => :delete, :confirm => 'Sicher?' %>
+          <%= link_to 'Delete', printer, :method => :delete, :confirm => 'Sure?' %>
         </td>
     </tr>
     <% end %>
 </table>
-<%= link_to 'Drucker hinzufügen', new_printer_url %>
+<%= link_to 'Create new printer', new_printer_url %>

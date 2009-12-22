@@ -1,7 +1,7 @@
 <table>
   <tr>
     <th>Id</th>
-    <th>Kassenname</th>
+    <th>Cashbox name</th>
     <th>IP</th>
     <th>Port</th>
   </tr>
@@ -12,8 +12,8 @@
     <td><%= cashbox.ip %></td>
     <td><%= cashbox.port %></td>
     <td><%= link_to 'Edit', edit_cashbox_path(cashbox) %></td>
-    <td><%= link_to 'Delete', cashbox_path(cashbox), :method => :delete, :confirm => 'Sicher?' %></td>
+    <td><%= link_to 'Delete', cashbox_path(cashbox), :method => :delete, :confirm => 'Sure?' %></td>
   </tr>
   <% end %>
 </table>
-<%= link_to 'Kasse hinzufügen', new_cashbox_path %>
+<%= link_to 'Create new cashbox', new_cashbox_path %>

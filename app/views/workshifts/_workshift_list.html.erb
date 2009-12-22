@@ -3,11 +3,11 @@
 <table id="workshifts">
     <tr>
         <th>ID</th>
-        <th>Kasse</th>
-        <th>Engel</th>
-        <th>Wechselgeld</th>
+        <th>Cashbox</th>
+        <th>Angel</th>
+        <th>Money</th>
         <th>Status</th>
-        <th></th>
+        <th>Actions</th>
     </tr>
     <% @workshifts.group_by(&:status).each do |gruppe, workshifts| %>
     <% workshifts.each do |workshift| %>
@@ -17,9 +17,12 @@
         <td><%= workshift.user.login %></td>
         <td class="right"><%= nice_price(workshift.money) %></td>
         <td><strong><%= gruppe %></strong></td>
-        <td><%= workshift.active ? "active" : "inactive" %></td>
+        <td><%# workshift.active ? "active" : "inactive" %></td>
         <td id="activate_workshift_<%= workshift.id -%>">
           <%# toggle_activation_link workshift %>
+        <% if workshift.transactions.empty? %>
+          <%= link_to 'Delete', workshift_path(workshift), :method => :delete, :confirm => "Are you sure?" %>
+        <% end %>
         </td>
         <td><%# link_to 'Abrechnung', :action => 'workshift_bill', :controller => 'transactions', :id => workshift.id %></td>
     </tr>

@@ -14,6 +14,12 @@ class TransactionTest < ActiveSupport::TestCase
     end
   end
   
+  test "transaction belongs to workshift" do
+    assert_nothing_raised do
+      transactions(:one).workshift
+    end
+  end
+  
   test "transaction must have at least one ticket sale" do
     transaction = Transaction.new
     
@@ -26,8 +32,8 @@ class TransactionTest < ActiveSupport::TestCase
   end
   
   test "builing a transaction with ticket sale" do
-    transaction = Transaction.new
-    transaction.ticket_sales.build :ticket => tickets(:one)
+    transaction = Transaction.new(:workshift => workshifts(:one))
+    transaction.ticket_sales.build(:ticket => tickets(:one))
     assert transaction.save
     assert_equal 1, transaction.tickets.count
     assert_equal 1, transaction.ticket_sales.count

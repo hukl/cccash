@@ -16,7 +16,8 @@ class WorkshiftsControllerTest < ActionController::TestCase
     assert_difference "Workshift.count", +1 do
       post :create, :workshift => {
         :cashbox  => cashboxes(:one),
-        :user     => users(:aaron)
+        :user     => users(:aaron),
+        :money    => 100
       }
     end
     

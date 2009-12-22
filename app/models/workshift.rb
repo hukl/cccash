@@ -1,9 +1,11 @@
 class Workshift < ActiveRecord::Base
   
-  belongs_to :cashbox
-  belongs_to :user
+  has_many    :transactions
+  belongs_to  :cashbox
+  belongs_to  :user
   
-  validates_presence_of :user, :cashbox
+  validates_presence_of       :user,  :cashbox, :money
+  validates_numericality_of   :money, :greater_than => 0
   
   named_scope :unfinished, :conditions => { :cleared => false }
   

@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
       if self.current_user.admin?
         redirect_to admin_path
       else
-        raise "No Engel Interface Yet"
+        redirect_to cart_path
       end
       flash[:notice] = "Logged in successfully"
     else

@@ -1,0 +1,25 @@
+<div id="ticket_selection">
+  
+  <h1>Tickets</h1>
+  <table>
+    <tr>
+      <th>Ticket</th>
+      <th>Price</th>
+    </tr>
+    <% Ticket.all.each do |ticket| %>
+    <tr>
+      <td>
+        <%= link_to_remote(
+              ticket.name, 
+              :url => add_ticket_to_cart_path(:id => ticket.id), 
+              :method => :put
+            ) %>
+      </td>
+      <td><%= nice_price ticket.price %></td>
+    </tr>
+    <% end %>
+  </table>
+
+</div>
+
+<%= render :partial => 'cart' %>

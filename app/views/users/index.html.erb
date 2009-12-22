@@ -1,18 +1,30 @@
 <h1>Users</h1>
 
-<p><%= link_to "Add new user", new_user_path %></p>
+<p>
+  <%= link_to "Create new user", new_user_path %>
+</p>
 
 <h2>Admins</h2>
 <table>
   <tr>
-    <th>login</th>
-    <th>name</th>
-    <th>actions</th>
+    <th>
+      login
+    </th>
+    <th>
+      name
+    </th>
+    <th>
+      actions
+    </th>
   </tr>
   <% @admins.each do |user| %>
   <tr>
-    <td><%= user.login %></td>
-    <td><%= user.name %></td>
+    <td>
+      <%= user.login %>
+    </td>
+    <td>
+      <%= user.name %>
+    </td>
     <td></td>
   </tr>
   <% end %>
@@ -22,14 +34,24 @@
 <h2>Angels</h2>
 <table>
   <tr>
-    <th>login</th>
-    <th>name</th>
-    <th>actions</th>
+    <th>
+      login
+    </th>
+    <th>
+      name
+    </th>
+    <th>
+      actions
+    </th>
   </tr>
   <% @angels.each do |user| %>
   <tr>
-    <td><%= user.login %></td>
-    <td><%= user.name %></td>
+    <td>
+      <%= user.login %>
+    </td>
+    <td>
+      <%= user.name %>
+    </td>
     <td></td>
   </tr>
   <% end %>

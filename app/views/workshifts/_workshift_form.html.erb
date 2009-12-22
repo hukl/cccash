@@ -1,0 +1,18 @@
+<%= error_messages_for :workshift %>
+
+<% form_for @workshift do |f| %>
+  <table>
+    <tr>
+      <td>Cashbox</td>
+      <td><%= f.select :cashbox_id, cashboxes_for_select %></td>
+    </tr>
+    <tr>
+      <td>User</td>
+      <td><%= f.select :user_id, users_for_select %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><%= f.submit %></td>
+    </tr>
+  </table>
+<% end %>

@@ -1,0 +1,28 @@
+<p><%= link_to "Create new Workshift", new_workshift_path %></p>
+
+<table id="workshifts">
+    <tr>
+        <th>ID</th>
+        <th>Kasse</th>
+        <th>Engel</th>
+        <th>Wechselgeld</th>
+        <th>Status</th>
+        <th></th>
+    </tr>
+    <% @workshifts.group_by(&:status).each do |gruppe, workshifts| %>
+    <% workshifts.each do |workshift| %>
+    <tr class="<%= cycle('even', 'uneven')%>">
+        <td><%= workshift.id %></td>
+        <td><%= workshift.cashbox.name %></td>
+        <td><%= workshift.user.login %></td>
+        <td class="right"><%= nice_price(workshift.money) %></td>
+        <td><strong><%= gruppe %></strong></td>
+        <td><%= workshift.active ? "active" : "inactive" %></td>
+        <td id="activate_workshift_<%= workshift.id -%>">
+          <%# toggle_activation_link workshift %>
+        </td>
+        <td><%# link_to 'Abrechnung', :action => 'workshift_bill', :controller => 'transactions', :id => workshift.id %></td>
+    </tr>
+    <% end %>
+    <% end %>
+</table>

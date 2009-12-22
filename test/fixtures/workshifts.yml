@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  user_id: 1
+  money: 1
+  active: false
+  activated_at: 2009-12-22 13:08:09
+  deactivated_at: 2009-12-22 13:08:09
+  cleared: false
+  cleared_at: 2009-12-22 13:08:09
+  balanced: false
+
+two:
+  id: 2
+  user_id: 1
+  money: 1
+  active: false
+  activated_at: 2009-12-22 13:08:09
+  deactivated_at: 2009-12-22 13:08:09
+  cleared: false
+  cleared_at: 2009-12-22 13:08:09
+  balanced: false

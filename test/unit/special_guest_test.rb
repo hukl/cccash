@@ -30,5 +30,13 @@ class SpecialGuestTest < ActiveSupport::TestCase
     SpecialGuest.create! :name => "fnord1"
     SpecialGuest.create! :name => "fnord2"
   end
+  
+  test "has reservation association" do
+    assert_nothing_raised { special_guests(:one).reservation }
+  end
+  
+  test "has ticket throug reservation association" do
+    assert_nothing_raised { special_guests(:one).ticket }
+  end
 
 end

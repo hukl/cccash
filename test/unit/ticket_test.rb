@@ -31,6 +31,14 @@ class TicketTest < ActiveSupport::TestCase
   end
   
   test "ticket has transactions method" do
-    assert_nothing_raised { tickets(:one).tickets }
+    assert_nothing_raised { tickets(:one).transactions }
+  end
+  
+  test "has reservations association" do
+    assert_nothing_raised { tickets(:one).reservations }
+  end
+  
+  test "has special_guests association" do
+    assert_nothing_raised { tickets(:one).special_guests }
   end
 end

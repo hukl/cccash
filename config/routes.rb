@@ -22,6 +22,15 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :workshifts
 
   map.admin   '/admin', :controller => :admin, :action => :index
+  
+  if Rails.env != 'production'
+    map.with_options :controller => 'mock_cashbox' do |mock|
+      %w(open status wait_for_close print).each do |command|
+        mock.cashbox command, :action => command
+      end
+    end
+  end
+  
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end

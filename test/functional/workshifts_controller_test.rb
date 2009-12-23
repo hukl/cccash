@@ -49,4 +49,8 @@ class WorkshiftsControllerTest < ActionController::TestCase
     end
     assert_redirected_to admin_path
   end
+  
+  test "activating a workshift" do
+    put :toggle_activation, :id => 3
+  end
 end

@@ -42,12 +42,12 @@ class WorkshiftsController < ApplicationController
     redirect_to admin_path
   end
   
-  def toggle_activate
+  def toggle_activation
     workshift   = Workshift.find params[:id]
     
     respond_to do |format|
       format.js do
-        if workshift.toggle_activation(params[:workshift])
+        if workshift.toggle_activation
           @workshifts = Workshift.all
           render :update do |page|
             page['workshifts'].replace(render(:partial => 'workshift_list'))

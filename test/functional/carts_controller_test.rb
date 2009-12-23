@@ -38,10 +38,11 @@ class CartsControllerTest < ActionController::TestCase
     assert_no_difference "Transaction.count" do
       get :checkout
     end
-    assert_response :success
-    assert_template :show
     
-    assert_equal "Invalid Transaction", flash[:error]
+    assert_redirected_to cart_path
+    
+    expected = "Invalid Transaction: You must sell something!"
+    assert_equal expected, flash[:notice]
     assert_equal [], session[:cart].tickets
   end
   
@@ -51,6 +52,8 @@ class CartsControllerTest < ActionController::TestCase
     assert_difference "Transaction.count", +1 do
       get :checkout
     end
+    
+    assert_redirected_to cart_path
     
     transaction = Transaction.last
     assert_equal 2, transaction.tickets.count

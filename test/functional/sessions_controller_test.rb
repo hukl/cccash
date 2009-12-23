@@ -10,6 +10,22 @@ class SessionsControllerTest < ActionController::TestCase
   include AuthenticatedTestHelper
 
   fixtures :users
+  
+  test "angels without workshift should not be able to login" do
+    post :create, :login => 'yesper', :password => 'monkey'
+    assert_nil session[:user_id]
+    assert_response :success
+    assert_template :new
+    assert_equal "No workshift or workshift deactivated", flash[:notice]
+  end
+  
+  test "angels without active workshift should not be able to login" do
+    post :create, :login => 'melchior', :password => 'monkey'
+    assert_nil session[:user_id]
+    assert_response :success
+    assert_template :new
+    assert_equal "No workshift or workshift deactivated", flash[:notice]
+  end
 
   def test_should_login_and_redirect
     post :create, :login => 'quentin', :password => 'monkey'

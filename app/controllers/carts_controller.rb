@@ -1,6 +1,8 @@
 class CartsController < ApplicationController
   
+  before_filter :login_required
   before_filter :get_cart, :get_cashbox
+  before_filter :check_for_workshift
   
   def show
     @cart.reset
@@ -60,6 +62,14 @@ class CartsController < ApplicationController
     
     def get_cashbox
       @cashbox = current_user.workshift.cashbox
+    end
+    
+    def check_for_workshift
+      unless current_user && current_user.workshift.try(:active)
+        "Your workshift has ended - please report"
+        session[:user_id] = nil
+        redirect_to new_session_path
+      end
     end
     
     def transaction_errors

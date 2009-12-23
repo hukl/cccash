@@ -20,7 +20,7 @@ class Workshift < ActiveRecord::Base
     "popelnd"
   end
   
-  def activate_or_deactivate options
+  def toggle_activation options
     options.reject! { |key, value| key != "active" }
     self.update_attributes options
   end

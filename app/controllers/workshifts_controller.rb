@@ -47,7 +47,7 @@ class WorkshiftsController < ApplicationController
     
     respond_to do |format|
       format.js do
-        if workshift.activate_or_deactivate(params[:workshift])
+        if workshift.toggle_activation(params[:workshift])
           @workshifts = Workshift.all
           render :update do |page|
             page['workshifts'].replace(render(:partial => 'workshift_list'))

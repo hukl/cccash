@@ -15,14 +15,14 @@ class WorkshiftsControllerTest < ActionController::TestCase
   test "create new workshift" do
     assert_difference "Workshift.count", +1 do
       post :create, :workshift => {
-        :cashbox  => cashboxes(:one),
+        :cashbox  => cashboxes(:four),
         :user     => users(:aaron),
         :money    => 100
       }
     end
     
     assert_redirected_to admin_path
-    assert_equal 1, Workshift.last.cashbox_id
+    assert_equal 4, Workshift.last.cashbox_id
     assert_equal "aaron", Workshift.last.user.login
   end
   
@@ -33,13 +33,13 @@ class WorkshiftsControllerTest < ActionController::TestCase
   
   test "update a workshift" do
     put :update, :id => 1, :workshift => {
-      :cashbox  => cashboxes(:two),
+      :cashbox  => cashboxes(:four),
       :user     => users(:yesper)
     }
     
     workshift = Workshift.find(1)
     assert_redirected_to admin_path
-    assert_equal 2, workshift.cashbox_id
+    assert_equal 4, workshift.cashbox_id
     assert_equal "yesper", workshift.user.login
   end
   

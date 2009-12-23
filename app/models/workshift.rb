@@ -6,6 +6,7 @@ class Workshift < ActiveRecord::Base
   
   validates_presence_of       :user,  :cashbox, :money
   validates_numericality_of   :money, :greater_than => 0
+  validates_uniqueness_of     :cashbox_id
   
   named_scope :unfinished, :conditions => { :cleared => false }
   

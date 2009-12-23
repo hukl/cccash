@@ -26,7 +26,9 @@ class Cart
       transaction.ticket_sales.build(:ticket => ticket)
     end
     
-    @tickets = []
+    if transaction.save
+      @tickets = []
+    end
     
     transaction
   end

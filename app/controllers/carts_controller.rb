@@ -26,7 +26,7 @@ class CartsController < ApplicationController
   def checkout
     @transaction = @cart.create_transaction(:workshift => current_user.workshift)
     
-    if @transaction.save
+    if @transaction.errors.empty?
       flash[:notice] = "Super"
       render :show
     else

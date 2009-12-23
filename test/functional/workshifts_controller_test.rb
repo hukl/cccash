@@ -51,6 +51,16 @@ class WorkshiftsControllerTest < ActionController::TestCase
   end
   
   test "activating a workshift" do
-    put :toggle_activation, :id => 3
+    assert_equal false, Workshift.find(3).active?
+    put :toggle_activation, :id => 3, :format => "js"
+    assert_response :success
+    assert_equal true, Workshift.find(3).active?
+  end
+  
+  test "deactivating a workshift" do
+    assert_equal true, Workshift.find(2).active?
+    put :toggle_activation, :id => 2, :format => "js"
+    assert_response :success
+    assert_equal false, Workshift.find(2).active?
   end
 end

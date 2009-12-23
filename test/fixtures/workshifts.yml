@@ -27,7 +27,7 @@ two:
 three:
   id: 3
   user_id: 4
-  cashbox_id: 2
+  cashbox_id: 3
   money: 1
   active: false
   started_at: 2009-12-22 13:08:09

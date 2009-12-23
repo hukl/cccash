@@ -23,6 +23,17 @@ class CartsController < ApplicationController
     end
   end
   
+  def checkout
+    @transaction = @cart.create_transaction(:workshift => current_user.workshift)
+    
+    if @transaction.save
+      flash[:notice] = "Super"
+      render :show
+    else
+      flash[:error] = "Invalid Transaction"
+      render :show
+    end
+  end
   
   
   private

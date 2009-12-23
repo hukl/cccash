@@ -19,4 +19,14 @@ class Cart
     @tickets.inject(0) { |sum, ticket| sum + ticket.price }
   end
   
+  def create_transaction options
+    transaction = Transaction.new options
+    
+    @tickets.each do |ticket|
+      transaction.ticket_sales.build(:ticket => ticket)
+    end
+    
+    transaction
+  end
+  
 end

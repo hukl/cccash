@@ -3,7 +3,7 @@ require 'test_helper'
 class CartsControllerTest < ActionController::TestCase
   
   def setup
-    login_as :yesper
+    login_as :aaron
   end
   
   test "cart has an empty tickets array" do
@@ -30,5 +30,18 @@ class CartsControllerTest < ActionController::TestCase
     assert_equal 2, session[:cart].tickets.size
     assert_equal [1,1], session[:cart].tickets.map {|t| t.id} # 2x Dummy ticket 1
     assert_select( "#cart table tr td", "Dummy ticket 1" )
+  end
+  
+  test "checking out an empty cart should not work" do
+    session[:cart] = Cart.new
+    
+    assert_no_difference "Transaction.count" do
+      get :checkout
+    end
+    assert_response :success
+    assert_template :show
+    
+    assert_equal "Invalid Transaction", flash[:error]
+    assert_equal [], session[:cart].tickets
   end
 end

@@ -170,7 +170,12 @@ table.checkouts {
   background-color: #D1FF81;
 }
 
-.button_add a, .button_delete a {
+.button_delete a:hover {
+  background-color: red;
+  text-decoration: none;
+}
+
+.button_add a {
   width: 20px;
   display: block;
   float: right;

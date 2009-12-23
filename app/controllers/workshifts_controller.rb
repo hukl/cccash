@@ -28,15 +28,9 @@ class WorkshiftsController < ApplicationController
     @workshift = Workshift.find params[:id]
     
     if @workshift.update_attributes( params[:workshift] )
-      respond_to do |format|
-        format.html { redirect_to admin_path }
-        format.js   { render_workshift_list }
-      end
+      redirect_to admin_path
     else
-      respond_to do |format|
-        format.html { render :edit }
-        format.js   { render :nothing => true}
-      end
+      render :edit
     end
   end
 
@@ -48,11 +42,20 @@ class WorkshiftsController < ApplicationController
     redirect_to admin_path
   end
   
-  
-  def render_workshift_list
-    render :update do |page|
-      @workshifts = Workshift.all
-      page['workshifts'].replace(render(:partial => 'workshifts/workshift_list'))
+  def toggle_activate
+    workshift   = Workshift.find params[:id]
+    
+    respond_to do |format|
+      format.js do
+        if workshift.activate_or_deactivate(params[:workshift])
+          @workshifts = Workshift.all
+          render :update do |page|
+            page['workshifts'].replace(render(:partial => 'workshift_list'))
+          end
+        else
+          render :nothing => true
+        end
+      end
     end
   end
 

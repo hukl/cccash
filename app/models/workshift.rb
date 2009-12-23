@@ -19,4 +19,9 @@ class Workshift < ActiveRecord::Base
     return "cleared"                if cleared? and active == false
     "popelnd"
   end
+  
+  def activate_or_deactivate options
+    options.reject! { |key, value| key != "active" }
+    self.update_attributes options
+  end
 end

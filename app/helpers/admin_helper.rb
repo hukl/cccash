@@ -3,13 +3,17 @@ module AdminHelper
     if workshift.active?
       link_to_remote(
         'Deaktivieren',
-        :url => workshift_path(workshift, :workshift => {:active => false}),
+        :url => toggle_activate_workshift_path(
+          workshift, :workshift => {:active => false}
+        ),
         :method => :put
       )
     else 
       link_to_remote(
         'Aktivieren',
-        :url => workshift_path(workshift, :workshift => {:active => true}),
+        :url => toggle_activate_workshift_path(
+          workshift, :workshift => {:active => true}
+        ),
         :method => :put
       )
     end 

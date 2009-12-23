@@ -21,7 +21,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :groups
   map.resources :printers
   map.resources :tickets
-  map.resources :workshifts
+  map.resources :workshifts, :member => { :toggle_activate => :put }
 
   if Rails.env != 'production'
     map.with_options :controller => 'mock_cashbox' do |mock|

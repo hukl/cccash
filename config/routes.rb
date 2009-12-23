@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   map.login     '/login',     :controller => 'sessions',  :action => 'new'
   map.register  '/register',  :controller => 'users',     :action => 'create'
   map.signup    '/signup',    :controller => 'users',     :action => 'new'
+  map.admin     '/admin', :controller => :admin, :action => :index
   
   map.resources :users
   map.resource  :session
@@ -21,12 +22,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tickets
   map.resources :workshifts
 
-  map.admin   '/admin', :controller => :admin, :action => :index
-  
   if Rails.env != 'production'
     map.with_options :controller => 'mock_cashbox' do |mock|
       %w(open status wait_for_close print).each do |command|
-        mock.cashbox command, :action => command
+        mock.mock_cashbox command, :action => command
       end
     end
   end

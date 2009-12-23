@@ -33,7 +33,7 @@ class CartsControllerTest < ActionController::TestCase
   end
   
   test "checking out an empty cart should not work" do
-    session[:cart] = Cart.new
+    session[:cart] ||= Cart.new
     
     assert_no_difference "Transaction.count" do
       get :checkout
@@ -43,5 +43,33 @@ class CartsControllerTest < ActionController::TestCase
     
     assert_equal "Invalid Transaction", flash[:error]
     assert_equal [], session[:cart].tickets
+  end
+  
+  test "checking out a valid cart" do
+    create_valid_shopping_cart
+    
+    assert_difference "Transaction.count", +1 do
+      get :checkout
+    end
+    
+    transaction = Transaction.last
+    assert_equal 2, transaction.tickets.count
+    assert_equal users(:aaron).workshift, transaction.workshift
+    
+    ticket_names = ["Dummy ticket 1", "Dummy ticket 2"]
+    assert_equal ticket_names, transaction.tickets.map {|t| t.name}
+  end
+  
+  test "valid checkout empties cart" do
+    create_valid_shopping_cart
+    
+    get :checkout
+    assert_equal 0, session[:cart].tickets.count
+  end
+  
+  def create_valid_shopping_cart
+    session[:cart] ||= Cart.new
+    session[:cart].tickets << tickets(:one)
+    session[:cart].tickets << tickets(:two)
   end
 end

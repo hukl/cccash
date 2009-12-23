@@ -27,11 +27,10 @@ class CartsController < ApplicationController
     @transaction = @cart.create_transaction(:workshift => current_user.workshift)
     
     if @transaction.errors.empty?
-      flash[:notice] = "Super"
-      render :show
+      redirect_to cart_path
     else
-      flash[:error] = "Invalid Transaction"
-      render :show
+      flash[:notice] = "Invalid Transaction: #{transaction_errors}"
+      redirect_to cart_path
     end
   end
   
@@ -40,6 +39,18 @@ class CartsController < ApplicationController
     
     def get_cart
       @cart = ( session[:cart] ||= Cart.new )
+    end
+    
+    def get_cashbox
+      @cashbox = current_user.workshift.cashbox
+    end
+    
+    def transaction_errors
+      errors = []
+      @transaction.errors.each_error do |field, error|
+        errors << error.message
+      end
+      errors.join(",")
     end
   
 end

@@ -17,4 +17,19 @@ module ApplicationHelper
     end
   end
   
+  def show_notice(secs = 3)
+    visual_effect(:fade, 'notice', 
+                  :queue => {:position => 'end', :scope => 'notice' }, 
+                  :delay => secs, :duration => 0.5) + 
+    visual_effect(:appear, 'notice',
+                  :queue => {:position => 'front', :scope => 'notice' }, 
+                  :duration => 0.5)
+  end
+  
+  def flash_js_tag
+    if flash[:notice]
+      javascript_tag(show_notice)
+    end
+  end
+  
 end

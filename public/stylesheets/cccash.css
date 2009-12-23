@@ -1,6 +1,6 @@
 body {
   font-family: verdana, sans-serif;
-  font-size: 9pt;
+  font-size: 12px;
   padding: 0;
   margin: 0;
   text-align: center;
@@ -35,7 +35,9 @@ table.checkouts {
   padding-top: 20px;
   width: 860px;
   background-color: #ffffff;
-  border: 1px solid #000000;
+  border-left: 1px solid #000000;
+  border-right: 1px solid #000000;
+  border-bottom: 1px solid #000000;
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 20px;
@@ -242,5 +244,18 @@ td.quantity {
 
 #tickets_list li:hover {
   background-color: #A2FF00;
+}
 
+#flash_container {
+  width: 900px;
+  height: 30px;
+  margin: 0 auto;
+  border-left: 1px solid #000000;
+  border-right: 1px solid #000000;
+}
+
+#flash_container #notice {
+  padding-top: 6px;
+  padding-bottom: 8px;
+  background-color: yellow;
 }

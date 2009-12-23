@@ -53,9 +53,9 @@ class CartsControllerTest < ActionController::TestCase
       get :checkout
     end
     
-    assert_redirected_to cart_path
-    
     transaction = Transaction.last
+    assert_response   :success
+    assert_template   :checkout
     assert_equal 2, transaction.tickets.count
     assert_equal users(:aaron).workshift, transaction.workshift
     
@@ -63,10 +63,9 @@ class CartsControllerTest < ActionController::TestCase
     assert_equal ticket_names, transaction.tickets.map {|t| t.name}
   end
   
-  test "valid checkout empties cart" do
+  test "reloading :show action empties cart" do
     create_valid_shopping_cart
-    
-    get :checkout
+    get :show
     assert_equal 0, session[:cart].tickets.count
   end
   

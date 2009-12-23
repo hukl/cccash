@@ -15,6 +15,10 @@ class Cart
     @tickets.delete_at position
   end
   
+  def reset
+    @tickets = []
+  end
+  
   def total_price
     @tickets.inject(0) { |sum, ticket| sum + ticket.price }
   end
@@ -26,10 +30,7 @@ class Cart
       transaction.ticket_sales.build(:ticket => ticket)
     end
     
-    if transaction.save
-      @tickets = []
-    end
-    
+    transaction.save
     transaction
   end
   

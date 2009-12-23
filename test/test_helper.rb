@@ -39,3 +39,13 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+
+class Cashbox
+  def cashbox_response_for( url, timeout=5)
+    case url
+    when "/open"
+      "open"
+    end
+  end
+end

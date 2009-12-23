@@ -14,7 +14,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resource  :cart, :member => {
     :add_ticket_to      => :put,
     :remove_ticket_from => :delete,
-    :checkout           => :get
+    :checkout           => :get,
+    :wait_for_cashbox   => :post
   }
   map.resources :cashboxes
   map.resources :groups

@@ -13,7 +13,13 @@ class Cashbox < ActiveRecord::Base
     :conditions => ["workshifts.cashbox_id = cashboxes.id"]
   )
   
+  def open_drawer
+    cashbox_response_for('/open').match(/open/) != nil
+  end
   
+  def wait_for_closed_drawer
+    cashbox_response_for('/wait_for_close',180).match(/closed/) != nil
+  end
   
   def cashbox_response_for( url, timeout=5)
     begin

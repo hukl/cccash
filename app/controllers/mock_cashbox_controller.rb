@@ -15,7 +15,7 @@ class MockCashboxController < ApplicationController
     end
   end
   def wait_for_close
-    how_long = 7
+    how_long = 3
     log_debug("warte #{how_long} Sekunden, dann ist Schublade wieder geschlossen")
     sleep how_long
     render :text => 'closed'

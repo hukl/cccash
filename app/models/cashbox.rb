@@ -12,4 +12,33 @@ class Cashbox < ActiveRecord::Base
     :joins => :workshift,
     :conditions => ["workshifts.cashbox_id = cashboxes.id"]
   )
+  
+  
+  
+  def cashbox_response_for( url, timeout=5)
+    begin
+      http = Net::HTTP.new(ip, port)
+      http.read_timeout = timeout
+      response, data = http.get( url, nil )
+      return data
+    rescue Errno::ECONNREFUSED
+      raise NotFound, "Cashbox refused connection: #{url(request_uri)}"
+    rescue Timeout::Error
+      raise NotFound, "Cashbox did not respond (timeout): #{url(request_uri)}"
+    rescue Net::HTTPExceptions => e
+      raise Borken, "Cashbox has fundamental issues: #{e}"
+    end
+  end
 end
+
+
+__END__
+
+TODO Review code snippet in case of shitty behavior
+  
+The reinit code could be useful one day
+
+=> return response_for('/reinit', 10, 0)
+
+apparently the original c daemon returned a "vanished" status if the cashbox
+wasn't responding at all

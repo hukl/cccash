@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
   
-  before_filter :get_cart
+  before_filter :get_cart, :get_cashbox
   
   def show
     

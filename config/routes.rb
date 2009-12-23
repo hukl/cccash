@@ -12,7 +12,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resource  :session
   map.resource  :cart, :member => {
     :add_ticket_to      => :put,
-    :remove_ticket_from => :delete
+    :remove_ticket_from => :delete,
+    :checkout           => :get
   }
   map.resources :cashboxes
   map.resources :groups

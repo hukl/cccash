@@ -1,13 +1,13 @@
 <div id="ticket_selection">
   
   <h1>Tickets</h1>
-  <table>
+  <table id="tickets">
     <tr>
       <th>Ticket</th>
       <th>Price</th>
     </tr>
     <% Ticket.all.each do |ticket| %>
-    <tr>
+    <tr class="<%= cycle('even', 'uneven')%>">
       <td>
         <%= link_to_remote(
               ticket.name, 
@@ -15,7 +15,7 @@
               :method => :put
             ) %>
       </td>
-      <td><%= nice_price ticket.price %></td>
+      <td class="price"><%= nice_price ticket.price %></td>
     </tr>
     <% end %>
   </table>

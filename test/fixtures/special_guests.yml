@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  uid: 0123456789foobar
+  forename: Dein
+  name: Arsch
+
+two:
+  id: 2
+  uid: blablub0xfnord
+  forename: Du
+  name: Opfer

@@ -20,12 +20,6 @@ class TicketTest < ActiveSupport::TestCase
     end
   end
 
-  test "ticket name must be unique" do
-    assert_raise ActiveRecord::RecordInvalid do
-      Ticket.create! :name => "Dummy ticket 1", :price => 2342
-    end
-  end
-  
   test "ticket has ticket_sales method" do
     assert_nothing_raised { tickets(:one).ticket_sales }
   end

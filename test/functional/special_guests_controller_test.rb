@@ -14,7 +14,7 @@ class SpecialGuestsControllerTest < ActionController::TestCase
   
   test "create special guest with regular ticket" do
     assert_difference "Reservation.count", +1 do
-      post :create, 
+      post :create,
       :special_guest => {
         :forename   => "Peter",
         :name       => "fnord",
@@ -22,6 +22,23 @@ class SpecialGuestsControllerTest < ActionController::TestCase
       },
       :ticket => {
         :base_ticket_id => 1
+      }
+    end
+    
+    assert_response :success
+  end
+  
+  test "create special guest with custom ticket" do
+    assert_difference "Reservation.count", +1 do
+      post :create,
+      :special_guest => {
+        :forename   => "Peter",
+        :name       => "fnord",
+        :uid        => "2342foo",
+      },
+      :ticket => {
+        :base_ticket_id => 1,
+        :price => 40
       }
     end
     

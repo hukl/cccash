@@ -1,2 +1,37 @@
-<h1>SpecialGuests#new</h1>
-<p>Find me in app/views/special_guests/new.html.erb</p>
+<h1>Add new Special Guest</h1>
+
+<%= error_messages_for :special_guest %>
+
+<% form_for @special_guest do |f| %>
+  <table>
+    <tr>
+      <td>Forename</td>
+      <td><%= f.text_field :forename %></td>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <td>UID</td>
+      <td><%= f.text_field :uid %></td>
+    </tr>
+    <tr>
+      <td>Group</td>
+      <td><%= f.select :group_id, groups_for_select %></td>
+    </tr>
+    <tr>
+      <td>Ticket</td>
+      <td><%= select_tag 'ticket[base_ticket_id]', options_for_select(tickets_for_select) %></td>
+    </tr>
+    <tr>
+      <td>Custom Price</td>
+      <td><%= text_field_tag 'ticket[price]' %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><%= f.submit %></td>
+    </tr>
+    
+  </table>
+<% end %>

@@ -26,7 +26,7 @@ class SpecialGuestsControllerTest < ActionController::TestCase
       }
     end
     
-    assert_response :success
+    assert_response :redirect
   end
   
   test "create special guest with custom ticket" do
@@ -44,6 +44,6 @@ class SpecialGuestsControllerTest < ActionController::TestCase
       }
     end
     
-    assert_response :success
+    assert_response :redirect
   end
 end

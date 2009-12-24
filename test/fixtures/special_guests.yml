@@ -5,9 +5,11 @@ one:
   uid: 0123456789foobar
   forename: Dein
   name: Arsch
+  group_id: 1
 
 two:
   id: 2
   uid: blablub0xfnord
   forename: Du
   name: Opfer
+  group_id: 1

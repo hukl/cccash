@@ -5,5 +5,5 @@ one:
   ticket_id: 1
 
 two:
-  special_guest_id: 1
-  ticket_id: 1
+  special_guest_id: 2
+  ticket_id: 2

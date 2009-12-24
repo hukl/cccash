@@ -1,2 +1,21 @@
-<h1>SpecialGuests#index</h1>
-<p>Find me in app/views/special_guests/index.html.erb</p>
+<h1>SpecialGuests</h1>
+
+<table>
+  <tr>
+    <th>Group</th>
+    <th>Forename</th>
+    <th>Name</th>
+    <th>UID</th>
+    <th>Ticket</th>
+    <th>Price</th>
+  </tr>
+<% @special_guests.each do |special_guest| %>
+  <tr>
+    <td><%= special_guest.group.name %></td>
+    <td><%= special_guest.forename %></td>
+    <td><%= special_guest.name %></td>
+    <td><%= special_guest.uid %></td>
+    <td><%= special_guest.ticket.name %></td>
+    <td><%= nice_price special_guest.ticket.price %></td>
+  </tr>
+<% end %>

@@ -19,6 +19,7 @@ class SpecialGuestsControllerTest < ActionController::TestCase
         :forename   => "Peter",
         :name       => "fnord",
         :uid        => "2342foo",
+        :group_id => 1
       },
       :ticket => {
         :base_ticket_id => 1
@@ -35,6 +36,7 @@ class SpecialGuestsControllerTest < ActionController::TestCase
         :forename   => "Peter",
         :name       => "fnord",
         :uid        => "2342foo",
+        :group_id   => 1
       },
       :ticket => {
         :base_ticket_id => 1,

@@ -1,8 +1,9 @@
 require 'test_helper'
 
 class GroupTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+  
+  test "groups have special_guests association" do
+    assert_nothing_raised { groups(:one).special_guests }
   end
+  
 end

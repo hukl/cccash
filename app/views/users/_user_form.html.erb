@@ -1,0 +1,33 @@
+<%= error_messages_for :user %>
+
+<% form_for @user do |f| %>
+  <table>
+    <tr>
+      <td>Login</td>
+      <td><%= f.text_field :login %></td>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <td>Password</td>
+      <td><%= f.text_field :password %></td>
+    </tr>
+    <tr>
+      <td>Confirmation</td>
+      <td><%= f.text_field :password_confirmation %></td>
+    </tr>
+    <tr>
+      <td>Admin?</td>
+      <td>
+        <%= f.check_box :admin, :disabled => true if @user.id == current_user.id %>
+        <%= f.check_box :admin if not @user.id == current_user.id %>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><%= f.submit %></td>
+    </tr>
+  </table>
+<% end %>

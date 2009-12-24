@@ -1,0 +1,5 @@
+<h1>
+  Edit user '<%= @user.login %>' <%= " (Administrator)" if @user.admin? %>
+</h1>
+
+<%= render :partial => "user_form" %>

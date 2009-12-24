@@ -1,13 +1,15 @@
 class SpecialGuest < ActiveRecord::Base
   
-  has_one :reservation
-  has_one :ticket,          :through => :reservation
+  has_one     :reservation
+  has_one     :ticket,      :through => :reservation
+  belongs_to  :group
 
   validates_uniqueness_of   :uid,   :allow_blank => true
   validates_presence_of     :uid,   :if => Proc.new { |special_guest|
     # fail if all fields are blank
     special_guest.name.blank? and special_guest.forename.blank?
   }
+  validates_presence_of     :group
 
   def assign_ticket options
     base_ticket = Ticket.find(options[:base_ticket_id])

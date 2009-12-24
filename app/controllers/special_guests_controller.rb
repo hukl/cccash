@@ -1,5 +1,7 @@
 class SpecialGuestsController < ApplicationController
+  
   def index
+    @special_guests = SpecialGuest.all
   end
 
   def new

@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   validates_format_of       :name,     :with => Authentication.name_regex,  :message => Authentication.bad_name_message, :allow_nil => true
   validates_length_of       :name,     :maximum => 100
-
+  
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
@@ -50,6 +50,15 @@ class User < ActiveRecord::Base
   
   def angel?
     !admin?
+  end
+  
+  def destroy
+    if 0 < Workshift.find_all_by_user_id(id).count
+      errors.add(:workshifts, "Can't delete User with workshift(s)")
+      return false
+    else
+      super
+    end
   end
 
   protected

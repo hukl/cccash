@@ -28,4 +28,16 @@ class UsersController < ApplicationController
       render :action => 'new'
     end
   end
+  
+  def destroy
+    user = User.find(params[:id])
+    
+    unless user.destroy
+      messages = []
+      user.errors.each_error { |field, error| messages << error.message }.join
+      flash[:notice] = messages
+    end
+    
+    redirect_to users_path
+  end
 end

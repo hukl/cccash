@@ -91,6 +91,16 @@ class UserTest < ActiveSupport::TestCase
     user = User.create! :login => "bernd", :name => "Bernd", :password => "foobar", :password_confirmation => "foobar"
     assert_equal false, user.admin?
   end
+  
+  test "destroying a user with workshifts should not work" do
+    user = users(:quentin)
+    assert_not_nil user.workshift
+    assert_no_difference "User.count" do
+      user.destroy
+    end
+    debugger
+    assert user.errors.invalid?(:workshifts)
+  end
 
 protected
   def create_user(options = {})

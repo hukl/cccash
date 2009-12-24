@@ -98,7 +98,6 @@ class UserTest < ActiveSupport::TestCase
     assert_no_difference "User.count" do
       user.destroy
     end
-    debugger
     assert user.errors.invalid?(:workshifts)
   end
 

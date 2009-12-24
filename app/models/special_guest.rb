@@ -34,7 +34,7 @@ class SpecialGuest < ActiveRecord::Base
     
     unless custom_ticket
       custom_ticket = Ticket.create!(
-        base_ticket.attributes.merge(:price => price)
+        base_ticket.attributes.merge(:price => price, :custom => true)
       )
     end
     custom_ticket

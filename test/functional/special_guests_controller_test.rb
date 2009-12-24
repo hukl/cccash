@@ -30,7 +30,7 @@ class SpecialGuestsControllerTest < ActionController::TestCase
   end
   
   test "create special guest with custom ticket" do
-    assert_difference "Reservation.count", +1 do
+    assert_difference ["Reservation.count", "Ticket.count"], +1 do
       post :create,
       :special_guest => {
         :forename   => "Peter",
@@ -44,6 +44,7 @@ class SpecialGuestsControllerTest < ActionController::TestCase
       }
     end
     
+    assert Ticket.last.custom?
     assert_response :redirect
   end
 end

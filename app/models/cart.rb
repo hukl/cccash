@@ -3,7 +3,7 @@ class Cart
   attr_accessor :tickets, :special_guest_id
   
   def initialize
-    @tickets = []
+    @tickets          = []
     @special_guest_id = nil
   end
   

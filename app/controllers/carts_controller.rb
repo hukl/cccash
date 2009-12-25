@@ -40,6 +40,7 @@ class CartsController < ApplicationController
     
     if @transaction.errors.empty?
       @cashbox.open_drawer
+      @cart.reset
     else
       flash[:notice] = "Invalid Transaction: #{transaction_errors}"
       redirect_to cart_path

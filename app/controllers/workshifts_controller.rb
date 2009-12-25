@@ -18,6 +18,7 @@ class WorkshiftsController < ApplicationController
   end
 
   def show
+    @workshift = Workshift.find params[:id]
   end
 
   def edit

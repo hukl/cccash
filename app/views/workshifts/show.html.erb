@@ -1,2 +1,70 @@
-<h1>Workshifts#show</h1>
-<p>Find me in app/views/workshifts/show.html.erb</p>
+<h1>Chaos Computer Club Veranstaltungsgesellschaft mbH</h1>
+<h3>Chaos Communication Congress 2008</h3>
+<h3>Kassenabrechnung:</h3>
+<ul id="kassenabrechnung">
+  <li>Kasse: <%= @workshift.cashbox.name %> [Schicht: <%= @workshift.id  %>]</li>
+  <li>Zeitraum: <%= @workshift.started_at.to_s(:db) %> Uhr bis: <%= @workshift.ended_at.to_s(:db) %> Uhr (Berlin)</li>
+  <li>Kassierer/in: <%= @workshift.user.name %></li>
+</ul>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Ticket Typ</th>
+        <th>Preis</th>
+        <th>Anzahl ( -storniert )</th>
+        <th>Summe</th>
+    </tr>
+    <% total = 0 %>
+    <% @workshift.grouped_tickets_count.each do |id, stat| %>
+        <tr class="<%= cycle('even', 'uneven')%>">
+            <% sub_total = (stat[:gesamt] * stat[:ticket].price) %>
+            <% total += sub_total %>
+            <td><%= id %></td>
+            <td><%= stat[:ticket].name %></td>
+            <td class="right"><%= nice_price(stat[:ticket].price) %></td>
+            <td class="centered">
+              <%= stat[:gesamt] %>
+              <% if stat[:storniert] > 0 %>
+                ( -<%= stat[:storniert] -%> )
+              <% end %>
+            </td>
+            <td class="right"><%= nice_price(sub_total) %></td>
+        </tr>
+        <% end %>
+        <tr class="bargeld">
+            <td>Bargeld:</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="right"><%= nice_price(@workshift.money) %></td>
+        </tr>
+        <tr class="ticket-sum">
+            <td>Betrag:</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><%= nice_price(total + @workshift.money.to_i) %></td>
+        </tr>
+        <tr class="ticket-total">
+            <td>Einnahmen:</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="right"><%= nice_price(total) %></td>
+        </tr>
+</table>
+
+<% unless @workshift.cleared? or @workshift.active? %>
+    <%= button_to 'Ist alles OK', {:controller => 'admin', :action => 'clear_workshift', :id => s.id}, :confirm => 'Schicht wirklich als abgerechnet markieren?' %>
+<% end %>
+
+<div id="kassierer">
+        <legend>Unterschrift Kassierer</legend>
+</div>
+
+<div id="schichtleiter">
+        <legend>Unterschrift Schichtleiter</legend>
+</div>
+
+

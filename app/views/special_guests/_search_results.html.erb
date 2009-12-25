@@ -21,7 +21,7 @@
         <% special_guest.available_tickets.each do |ticket| %>
           <tr>
             <td><%= ticket.name %></td>
-            <td><%= ticket.price %></td>
+            <td><%= nice_price ticket.price %></td>
             <td>
               <%= link_to_remote(
                     ticket.name,
@@ -33,6 +33,15 @@
                   ) %>
             </td>
           </tr>
+          <% end %>
+          
+          <% special_guest.bought_tickets.each do |ticket| %>
+            <tr>
+              <td colspan="3" class="strike">
+                <%= ticket.name %>
+                <%= nice_price ticket.price %>
+              <td>
+            </tr>
           <% end %>
         </table>
       </td>

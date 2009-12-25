@@ -33,10 +33,17 @@ class TransactionTest < ActiveSupport::TestCase
   
   test "builing a transaction with ticket sale" do
     transaction = Transaction.new(:workshift => workshifts(:one))
-    transaction.ticket_sales.build(:ticket => tickets(:one))
+    transaction.tickets << tickets(:one)
     assert transaction.save
     assert_equal 1, transaction.tickets.count
     assert_equal 1, transaction.ticket_sales.count
     assert_equal "Dummy ticket 1", transaction.tickets.first.name
+  end
+  
+  test "transaction cannot have more than one custom ticket" do
+    transaction = Transaction.new :workshift => workshifts(:one)
+    2.times { transaction.tickets << tickets(:two) }
+    transaction.save
+    assert transaction.invalid?
   end
 end

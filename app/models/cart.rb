@@ -32,7 +32,7 @@ class Cart
     transaction = Transaction.new options
     
     @tickets.each do |ticket|
-      transaction.ticket_sales.build(:ticket => ticket)
+      transaction.tickets << ticket
     end
     
     transaction.save

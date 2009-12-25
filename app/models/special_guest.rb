@@ -10,6 +10,15 @@ class SpecialGuest < ActiveRecord::Base
     special_guest.name.blank? and special_guest.forename.blank?
   }
   validates_presence_of     :group
+  
+  # Fulltext SpecialGuest Search Indexes
+  
+  define_index do
+    indexes forename
+    indexes :name
+    indexes :uid
+  end
+  
 
   def assign_ticket options
     base_ticket = Ticket.find(options[:base_ticket_id])

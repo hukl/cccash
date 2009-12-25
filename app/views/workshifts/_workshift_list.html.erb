@@ -10,21 +10,21 @@
       <th>Status</th>
       <th>Actions</th>
     </tr>
-    <% @workshifts.group_by(&:status).each do |gruppe, workshifts| %>
+    <% @workshifts.group_by(&:status).each do |status, workshifts| %>
     <% workshifts.each do |workshift| %>
     <tr class="<%= cycle('even', 'uneven')%>">
       <td><%= workshift.id %></td>
       <td><%= workshift.cashbox.name %></td>
       <td><%= workshift.user.login %></td>
       <td class="right"><%= nice_price(workshift.money) %></td>
-      <td><strong><%= gruppe %></strong></td>
+      <td><strong><%= status %></strong></td>
       <td id="activate_workshift_<%= workshift.id -%>">
         <%= toggle_activation_link workshift %>
       <% if workshift.transactions.empty? %>
         <%= link_to 'Delete', workshift_path(workshift), :method => :delete, :confirm => "Are you sure?" %>
       <% end %>
+      <%= link_to 'Billing', workshift_path(workshift) %>
       </td>
-      <td><%# link_to 'Abrechnung', :action => 'workshift_bill', :controller => 'transactions', :id => workshift.id %></td>
     </tr>
     <% end %>
     <% end %>

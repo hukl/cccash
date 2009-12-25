@@ -26,6 +26,20 @@ class SessionsControllerTest < ActionController::TestCase
     assert_template :new
     assert_equal "No workshift or workshift deactivated", flash[:notice]
   end
+  
+  test "angels with active workshift shoud set started_at properly" do
+    post :create, :login => 'aaron', :password => 'monkey'
+    assert session[:user_id]
+    assert @controller.send(:logged_in?)
+    assert_equal "active", User.find(2).workshift.status
+  end
+  
+  test "angels with active workshift should set ended_at on logout" do
+    post  :create, :login => 'aaron', :password => 'monkey'
+    get   :destroy
+    assert_nil session[:user_id]
+    assert_equal "inactive", User.find(2).workshift.status
+  end
 
   def test_should_login_and_redirect
     post :create, :login => 'quentin', :password => 'monkey'

@@ -273,3 +273,7 @@ td.quantity {
   padding-bottom: 8px;
   background-color: yellow;
 }
+
+.strike {
+  color: red;
+}

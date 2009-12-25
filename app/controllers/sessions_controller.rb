@@ -19,6 +19,7 @@ class SessionsController < ApplicationController
       if self.current_user.admin?
         redirect_to admin_path
       else
+        self.current_user.workshift.start!
         redirect_to cart_path
       end
       flash[:notice] = "Logged in successfully"
@@ -37,6 +38,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    self.current_user.workshift.end! if self.current_user.angel?
     logout_killing_session!
     flash[:notice] = "You have been logged out."
     redirect_back_or_default('/')

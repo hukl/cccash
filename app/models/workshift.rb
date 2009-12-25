@@ -24,4 +24,28 @@ class Workshift < ActiveRecord::Base
     active? ? self.active = false : self.active = true
     self.save
   end
+  
+  def start!
+    self.update_attributes(:started_at => Time.now)
+  end
+  
+  def end!
+    self.update_attributes(:ended_at => Time.now)
+  end
+  
+  def grouped_tickets_count
+    stats = {}
+    transactions.each do |tr|
+      tr.tickets.map{|t| t }.flatten.each do |tick|
+        stats[tick.id] ||= {}
+        stats[tick.id][:ticket] ||= tick
+        stats[tick.id][:gesamt] ||= 0
+        stats[tick.id][:storniert] ||= 0
+        stats[tick.id][:nicht_storniert] ||= 0
+        stats[tick.id][:gesamt] += 1
+      end
+    end
+    stats
+  end
+  
 end

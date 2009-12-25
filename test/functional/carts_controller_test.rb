@@ -79,6 +79,27 @@ class CartsControllerTest < ActionController::TestCase
     assert_equal 0, session[:cart].tickets.count
   end
   
+  test "cancel a transaction" do
+    assert_not_nil transaction = create_valid_transaction(users(:aaron).workshift)
+    assert transaction.valid?
+    assert_equal false, !!transaction.canceled
+    post(
+      :confirm_cancel,
+      :login => "quentin",
+      :password => "monkey",
+      :transaction_id => transaction.id
+    )
+    
+    assert transaction.reload.canceled
+  end
+  
+  def create_valid_transaction workshift
+    transaction = Transaction.new( :workshift => workshift )
+    transaction.tickets << tickets(:one)
+    transaction.save
+    transaction
+  end
+  
   def create_valid_shopping_cart
     session[:cart] ||= Cart.new
     session[:cart].tickets << tickets(:one)

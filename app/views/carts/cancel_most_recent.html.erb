@@ -1,0 +1,11 @@
+<%= render :partial => "last_transaction" %>
+
+<% form_tag confirm_cancel_cart_path do -%>
+<p><%= label_tag 'login' %><br />
+<%= text_field_tag 'login', @login %></p>
+
+<p><%= label_tag 'password' %><br/>
+<%= password_field_tag 'password', nil %></p>
+<%= hidden_field_tag :transaction_id, @last_transaction.id %>
+<p><%= submit_tag %></p>
+<% end %>

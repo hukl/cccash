@@ -46,6 +46,26 @@ class CartsController < ApplicationController
     end
   end
   
+  def cancel_most_recent
+    @last_transaction = current_user.workshift.transactions.last
+    
+    unless @last_transaction && !@last_transaction.canceled? 
+      flash[:notice] = "Could not cancel transcation"
+      redirect_to cart_path
+    end
+  end
+  
+  def confirm_cancel
+    if User.authenticate(params[:login], params[:password]).try(:admin?)
+      @last_transaction = Transaction.find(params[:transaction_id])
+      @last_transaction.cancel if @last_transaction
+      @cashbox.open_drawer
+    else
+      flash[:notice] = "Invalid Admin Account"
+      redirect_to cart_path
+    end
+  end
+  
   def wait_for_cashbox
     respond_to do |format|
       format.js do

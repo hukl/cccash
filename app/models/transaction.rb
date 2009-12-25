@@ -15,4 +15,12 @@ class Transaction < ActiveRecord::Base
       errors.add_to_base("Only one custom ticket per transaction allowed")
     end
   end
+  
+  def total
+    tickets.inject(0) {|sum, ticket| sum += ticket.price}
+  end
+  
+  def cancel
+    self.update_attributes(:canceled => true)
+  end
 end

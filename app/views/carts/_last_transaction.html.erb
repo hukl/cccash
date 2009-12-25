@@ -1,0 +1,21 @@
+<table>
+  <tr>
+    <th>Ticket Type</th>
+    <th>Price</th>
+  </tr>
+  <% @last_transaction.tickets.group_by(&:id).each do |id, tickets| %>
+  <tr>
+    <td><%= tickets.size %></td>
+    <td><%= tickets.first.name %></td>
+    <td><%= nice_price tickets.inject(0) { |sum,t| sum += t.price } %></td>
+  </tr>
+  <tr>
+    
+  </tr>
+  <% end %>
+  <tr>
+    <td></td>
+    <td><strong>Sum:</strong></td>
+    <td><%= nice_price @last_transaction.total %></td>
+  </tr>
+</table>

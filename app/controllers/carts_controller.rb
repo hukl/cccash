@@ -11,7 +11,9 @@ class CartsController < ApplicationController
   def add_ticket_to
     ticket = Ticket.find(params[:id])
     
-    @cart.special_guest_id = params[:special_guest_id]
+    if params[:special_guest_id]
+      @cart.special_guest_id = params[:special_guest_id]
+    end
         
     render :update do |page|
       unless @cart.add( ticket )

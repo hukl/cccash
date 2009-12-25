@@ -48,5 +48,31 @@ class SpecialGuestTest < ActiveSupport::TestCase
     assert special_guests.invalid?
     assert special_guests.errors.invalid?(:group)
   end
+  
+  test "available tickets with standard first custom second" do
+    user          = users(:aaron)
+    workshift     = user.workshift
+    special_guest = special_guests(:two)
+    transaction   = Transaction.new :workshift => workshift, :special_guest_id => 2
+    transaction.tickets << tickets(:one)
+    transaction.tickets << tickets(:two)
+    assert transaction.save
+    
+    assert_equal [tickets(:two)], special_guest.bought_tickets
+    assert_equal [], special_guest.available_tickets
+  end
+  
+  test "available tickets with custom first standard second" do
+    user          = users(:aaron)
+    workshift     = user.workshift
+    special_guest = special_guests(:two)
+    transaction   = Transaction.new :workshift => workshift, :special_guest_id => 2
+    transaction.tickets << tickets(:two)
+    transaction.tickets << tickets(:one)
+    assert transaction.save
+    
+    assert_equal [tickets(:two)], special_guest.bought_tickets
+    assert_equal [], special_guest.available_tickets
+  end
 
 end

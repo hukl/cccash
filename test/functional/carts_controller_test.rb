@@ -29,6 +29,18 @@ class CartsControllerTest < ActionController::TestCase
     assert_equal 2, Transaction.last.special_guest_id
   end
   
+  test "special_guest_id will not be overwritten" do
+    put :add_ticket_to, :id => tickets(:two).id, :special_guest_id => 2
+    put :add_ticket_to, :id => tickets(:one).id
+    assert_response :success
+    
+    assert_difference "Transaction.count", +1 do
+      get :checkout
+    end
+    
+    assert_equal 2, Transaction.last.special_guest_id
+  end
+  
   test "adding multiple tickets to the cart and delete one" do
     get :show
     

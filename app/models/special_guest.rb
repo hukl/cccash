@@ -49,12 +49,12 @@ class SpecialGuest < ActiveRecord::Base
   end
   
   def bought_tickets
-    bought_tickets = self.transactions.map {|tr| tr.tickets}
+    bought_tickets = self.transactions.map {|tr| tr.tickets.custom}
     bought_tickets.flatten
   end
 
   def available_tickets
-    available_tickets = tickets - bought_tickets.flatten
+    available_tickets = tickets.custom - bought_tickets.flatten
   end
 
 end

@@ -71,6 +71,8 @@ class CartsControllerTest < ActionController::TestCase
     assert_equal users(:aaron).workshift, transaction.workshift
     ticket_names = ["Dummy ticket 1", "Dummy ticket 2"]
     assert_equal ticket_names, transaction.tickets.map {|t| t.name}.sort
+    assert_equal [], session[:cart].tickets
+    assert_nil session[:cart].special_guest_id
   end
   
   test "reloading :show action empties cart" do

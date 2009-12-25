@@ -22,6 +22,7 @@ class Cart
   end
   
   def reset
+    @special_guest_id = nil
     @tickets = []
   end
   

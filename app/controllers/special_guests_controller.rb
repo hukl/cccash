@@ -31,6 +31,18 @@ class SpecialGuestsController < ApplicationController
 
   def destroy
   end
+  
+  def search
+    unless params[:search_term].blank?
+      @results = SpecialGuest.search params[:search_term], :star => true
+    else
+      @results = []
+    end
+    
+    render :update do |page|
+      page[:search_results].replace :partial => 'search_results'
+    end
+  end
 
 end
 

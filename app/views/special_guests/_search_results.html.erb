@@ -18,16 +18,15 @@
       <td><%= special_guest.group.name %></td>
       <td>
         <table>
-        <% special_guest.reservations.each do |reservation| %>
+        <% special_guest.available_tickets.each do |ticket| %>
           <tr>
-            <td><%= reservation.ticket.name %></td>
-            <td><%= reservation.ticket.price %></td>
+            <td><%= ticket.name %></td>
+            <td><%= ticket.price %></td>
             <td>
               <%= link_to_remote(
-                    reservation.ticket.name, 
+                    ticket.name,
                     :url => add_ticket_to_cart_path(
-                      :id => reservation.ticket.id,
-                      :reservation_id   => reservation.id,
+                      :id => ticket.id,
                       :special_guest_id => special_guest.id
                     ), 
                     :method => :put

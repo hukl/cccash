@@ -18,6 +18,17 @@ class CartsControllerTest < ActionController::TestCase
     assert_equal 1, session[:cart].tickets.size
   end
   
+  test "adding a custom ticket sets special_guest_id on transaction" do
+    put :add_ticket_to, :id => tickets(:two).id, :special_guest_id => 2
+    assert_response :success
+    
+    assert_difference "Transaction.count", +1 do
+      get :checkout
+    end
+    
+    assert_equal 2, Transaction.last.special_guest_id
+  end
+  
   test "adding multiple tickets to the cart and delete one" do
     get :show
     
@@ -58,7 +69,6 @@ class CartsControllerTest < ActionController::TestCase
     assert_template   :checkout
     assert_equal 2, transaction.tickets.count
     assert_equal users(:aaron).workshift, transaction.workshift
-    
     ticket_names = ["Dummy ticket 1", "Dummy ticket 2"]
     assert_equal ticket_names, transaction.tickets.map {|t| t.name}.sort
   end

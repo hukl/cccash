@@ -1,7 +1,8 @@
 class SpecialGuest < ActiveRecord::Base
   
-  has_many     :reservations
-  has_many     :tickets,      :through => :reservations
+  has_many    :reservations
+  has_many    :tickets,     :through => :reservations
+  has_many    :transactions
   belongs_to  :group
 
   validates_uniqueness_of   :uid,   :allow_blank => true
@@ -45,6 +46,11 @@ class SpecialGuest < ActiveRecord::Base
       )
     end
     custom_ticket
+  end
+
+  def available_tickets
+    bought_tickets = SpecialGuest.first.transactions.map {|tr| tr.tickets}
+    available_tickets = tickets - bought_tickets.flatten
   end
 
 end

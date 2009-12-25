@@ -1,9 +1,10 @@
 class Cart
   
-  attr_accessor :tickets
+  attr_accessor :tickets, :special_guest_id
   
   def initialize
     @tickets = []
+    @special_guest_id = nil
   end
   
   def add ticket
@@ -29,7 +30,7 @@ class Cart
   end
   
   def create_transaction options
-    transaction = Transaction.new options
+    transaction = Transaction.new options.merge(:special_guest_id => @special_guest_id)
     
     @tickets.each do |ticket|
       transaction.tickets << ticket

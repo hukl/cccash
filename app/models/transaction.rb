@@ -3,6 +3,7 @@ class Transaction < ActiveRecord::Base
   has_many    :ticket_sales
   has_many    :tickets,      :through => :ticket_sales
   belongs_to  :workshift
+  belongs_to  :special_guest
   
   validates_presence_of :tickets, :message => "You must sell something!"
   validates_presence_of :workshift

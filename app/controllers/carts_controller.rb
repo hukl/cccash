@@ -40,6 +40,7 @@ class CartsController < ApplicationController
     
     if @transaction.errors.empty?
       @cashbox.open_drawer
+      render
       @cart.reset
     else
       flash[:notice] = "Invalid Transaction: #{transaction_errors}"

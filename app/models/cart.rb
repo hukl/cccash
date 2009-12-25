@@ -10,11 +10,15 @@ class Cart
   def add ticket
     @tickets ||= []
     
-    unless ticket.custom && ( 0 < @tickets.select { |t| t.custom? }.size )
-      @tickets << ticket
-    else
+    if ticket.custom? && 0 < custom_tickets.size
       false
+    else
+      @tickets << ticket
     end
+  end
+  
+  def custom_tickets
+    @tickets.select { |ticket| ticket.custom }
   end
   
   def remove position

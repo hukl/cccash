@@ -47,9 +47,13 @@ class UsersController < ApplicationController
 
   def destroy
     user = User.find(params[:id])
-
-    user.destroy if user
-
+    
+    unless user.destroy
+      messages = []
+      user.errors.each_error { |field, error| messages << error.message }.join
+      flash[:notice] = messages
+    end
+    
     redirect_to users_path
   end
 

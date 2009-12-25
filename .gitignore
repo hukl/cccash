@@ -3,3 +3,5 @@ config/database.yml
 db/schema.rb
 *.swp
 .DS_Store
+config/*.sphinx.conf
+db/sphinx

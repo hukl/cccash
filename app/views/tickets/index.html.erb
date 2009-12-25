@@ -28,8 +28,7 @@
       <%= ticket.price %>
     </td>
     <td>
-      <%= "✔" if ticket.custom? %>
-      <%= "✘" if not ticket.custom? %>
+      <%= ticket.custom? ? "✔" : "✘" %>
     </td>
     <td>
       <%= link_to "edit", edit_ticket_path(ticket) %>

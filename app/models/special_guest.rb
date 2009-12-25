@@ -1,7 +1,7 @@
 class SpecialGuest < ActiveRecord::Base
   
-  has_one     :reservation
-  has_one     :ticket,      :through => :reservation
+  has_many     :reservations
+  has_many     :tickets,      :through => :reservations
   belongs_to  :group
 
   validates_uniqueness_of   :uid,   :allow_blank => true
@@ -28,7 +28,7 @@ class SpecialGuest < ActiveRecord::Base
       custom_ticket = find_or_create_custom_ticket(base_ticket, price)
     end
     
-    self.ticket = custom_ticket || base_ticket
+    self.tickets << custom_ticket || base_ticket
   end
 
   def find_or_create_custom_ticket base_ticket, price

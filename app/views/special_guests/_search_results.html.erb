@@ -16,17 +16,26 @@
       <td><%= special_guest.name %></td>
       <td><%= special_guest.uid %></td>
       <td><%= special_guest.group.name %></td>
-      <td><%= special_guest.ticket.name %></td>
-      <td><%= nice_price(special_guest.ticket.price) %></td>
       <td>
-        <%= link_to_remote(
-              special_guest.ticket.name, 
-              :url => add_ticket_to_cart_path(
-                :id => special_guest.ticket.id,
-                :reservation_id => special_guest
-              ), 
-              :method => :put
-            ) %>
+        <table>
+        <% special_guest.reservations.each do |reservation| %>
+          <tr>
+            <td><%= reservation.ticket.name %></td>
+            <td><%= reservation.ticket.price %></td>
+            <td>
+              <%= link_to_remote(
+                    reservation.ticket.name, 
+                    :url => add_ticket_to_cart_path(
+                      :id => reservation.ticket.id,
+                      :reservation_id   => reservation.id,
+                      :special_guest_id => special_guest.id
+                    ), 
+                    :method => :put
+                  ) %>
+            </td>
+          </tr>
+          <% end %>
+        </table>
       </td>
     </tr>
     <% end %>

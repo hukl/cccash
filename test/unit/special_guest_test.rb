@@ -32,11 +32,11 @@ class SpecialGuestTest < ActiveSupport::TestCase
   end
   
   test "has reservation association" do
-    assert_nothing_raised { special_guests(:one).reservation }
+    assert_nothing_raised { special_guests(:one).reservations }
   end
   
   test "has ticket throug reservation association" do
-    assert_nothing_raised { special_guests(:one).ticket }
+    assert_nothing_raised { special_guests(:one).tickets }
   end
   
   test "has group association" do

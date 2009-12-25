@@ -10,9 +10,12 @@ class CartsController < ApplicationController
   
   def add_ticket_to
     ticket = Ticket.find(params[:id])
-    @cart.add ticket
-    
+        
     render :update do |page|
+      unless @cart.add( ticket )
+        flash[:notice] = "Cannot add another custom ticket"
+        page[:notice].replace :partial => 'shared/notice'
+      end
       page[:cart].replace render(:partial => 'cart')
     end
   end

@@ -21,14 +21,12 @@ class SpecialGuest < ActiveRecord::Base
   
 
   def assign_ticket options
-    base_ticket = Ticket.find(options[:base_ticket_id])
-    price       = options[:price].to_i
+    base_ticket   = Ticket.find(options[:base_ticket_id])
+    price         = options[:price].to_i
     
-    if price && price != base_ticket.price
-      custom_ticket = find_or_create_custom_ticket(base_ticket, price)
-    end
+    custom_ticket = find_or_create_custom_ticket(base_ticket, price)
     
-    self.tickets << custom_ticket || base_ticket
+    self.tickets << custom_ticket
   end
 
   def find_or_create_custom_ticket base_ticket, price

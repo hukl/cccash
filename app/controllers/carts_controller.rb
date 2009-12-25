@@ -16,6 +16,8 @@ class CartsController < ApplicationController
         flash[:notice] = "Cannot add another custom ticket"
         page[:notice].replace :partial => 'shared/notice'
       end
+      
+      flash[:notice] = nil
       page[:cart].replace render(:partial => 'cart')
     end
   end

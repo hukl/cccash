@@ -7,7 +7,6 @@ class UsersController < ApplicationController
     @angels = User.angels
   end
 
-
   def new
     @user = User.new
   end
@@ -28,7 +27,24 @@ class UsersController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
+    def show
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+
+    if @user.update_attributes(params[:user])
+      redirect_to users_path
+    else
+      render :edit
+    end
+  end
+
   def destroy
     user = User.find(params[:id])
     
@@ -40,4 +56,5 @@ class UsersController < ApplicationController
     
     redirect_to users_path
   end
+
 end

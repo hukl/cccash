@@ -277,3 +277,8 @@ td.quantity {
 .strike {
   color: red;
 }
+
+#special_guest_search {
+  position: absolute;
+  top: 300px;
+}

@@ -42,6 +42,7 @@ class CartsController < ApplicationController
     
     if @transaction.errors.empty?
       @cashbox.open_drawer
+      @cashbox.printer.print(@transaction.to_bon)
       render
       @cart.reset
     else

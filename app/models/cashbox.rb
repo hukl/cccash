@@ -1,6 +1,7 @@
 class Cashbox < ActiveRecord::Base
 
-  has_one :workshift
+  has_one     :workshift
+  belongs_to  :printer
 
   validates_presence_of   :ip,    :port, :name, :printer_id
   validates_format_of     :ip,    :with => /^(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$/

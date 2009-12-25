@@ -20,7 +20,47 @@ class Transaction < ActiveRecord::Base
     tickets.inject(0) {|sum, ticket| sum += ticket.price}
   end
   
+  def total_mwst
+    
+  end
+  
   def cancel
     self.update_attributes(:canceled => true)
+  end
+  
+  def total_mwst
+    ((( total*19.0) / 119.0 ).round(2) )
+  end
+  
+  def to_bon delimiter="\n"
+    (
+    [
+      "Chaos Communication Congress".center(Printer::BON_WIDTH),
+      "26C3 - Here be dragons".center(Printer::BON_WIDTH),
+      "Chaos Computer Club".center(Printer::BON_WIDTH),
+      "Veranstaltungsgesellschaft mbH".center(Printer::BON_WIDTH),
+      "Postfach 00 00 00".center(Printer::BON_WIDTH),
+      "00000 Berlin\n".center(Printer::BON_WIDTH)
+    ] +
+      #bon_rechnungs_part +
+    [
+      "Ticket                                 EUR",
+      "-" * Printer::BON_WIDTH,
+      tickets.collect(&:to_bon_line),
+      "-" * Printer::BON_WIDTH,
+      sprintf( '%s %.2f', 'enthaltene MwSt', total_mwst.to_s).rjust(Printer::BON_WIDTH),
+      sprintf( '%s %.2f', 'Summe:', total.to_s).rjust(Printer::BON_WIDTH),
+      "=" * Printer::BON_WIDTH + "\n",
+      "Leistungsdatum gleich Rechnungsdatum".center(Printer::BON_WIDTH),
+      "Preise inkl. 19% MwSt".center(Printer::BON_WIDTH),
+      "VIELEN DANK!\n".center(Printer::BON_WIDTH),
+      "AG Charlottenburg HRB 00000".center(Printer::BON_WIDTH),
+      "USt-ID: DE000000000".center(Printer::BON_WIDTH),
+      (Time.now.strftime('%d. %b %Y - %H:%M ') + workshift.cashbox.name).center(Printer::BON_WIDTH),
+      ("Belegnummer: " + self.id.to_s).center(Printer::BON_WIDTH)
+      
+      
+    ]).flatten.join(delimiter) +
+    Printer::END_OF_BON
   end
 end

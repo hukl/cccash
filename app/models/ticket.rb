@@ -11,4 +11,14 @@ class Ticket < ActiveRecord::Base
   
   named_scope :custom,      :conditions => {:custom => true}
   named_scope :standard,    :conditions => {:custom => false}
+  
+  
+  def to_bon_line
+    line = ''
+    p = sprintf('%.2f', price)
+    t = name.convert_umlauts
+    line << t
+    line << " " * ( Printer::BON_WIDTH - (p.length + t.length) )
+    line << p
+  end
 end

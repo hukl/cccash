@@ -6,7 +6,7 @@
       <th>Ticket</th>
       <th>Price</th>
     </tr>
-    <% Ticket.all.each do |ticket| %>
+    <% Ticket.standard.each do |ticket| %>
     <tr class="<%= cycle('even', 'uneven')%>">
       <td>
         <%= link_to_remote(
@@ -21,5 +21,17 @@
   </table>
 
 </div>
+
+<div id="special_guest_search">
+  <%= text_field_tag :search_term %>
+  <%= observe_field(
+        :search_term, 
+        :url => search_special_guests_path, 
+        :with => :search_term,
+        :frequency => 1 
+      ) %>
+  <%= render :partial => 'special_guests/search_results' %>
+</div>
+
 
 <%= render :partial => 'cart' %>

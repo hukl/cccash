@@ -18,8 +18,7 @@
       <%= menu_for_user %>
     </div>
     <div id="flash_container">
-      <div id="notice" style="display: none"><%= flash[:notice] %></div> 
-      <%= flash_js_tag %>
+      <%= render :partial => 'shared/notice' %>
     </div>
     <div id="content">
       <%= yield %>

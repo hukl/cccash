@@ -1,0 +1,43 @@
+<div id="search_results">
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Forname</th>
+      <th>Name</th>
+      <th>UID</th>
+      <th>Group</th>
+      <th>Ticket Type</th>
+      <th>Price</th>
+    </tr>
+    <% (@results || []).each do |special_guest| %>
+    <tr>
+      <td><%= special_guest.id %></td>
+      <td><%= special_guest.forename %></td>
+      <td><%= special_guest.name %></td>
+      <td><%= special_guest.uid %></td>
+      <td><%= special_guest.group.name %></td>
+      <td>
+        <table>
+        <% special_guest.reservations.each do |reservation| %>
+          <tr>
+            <td><%= reservation.ticket.name %></td>
+            <td><%= reservation.ticket.price %></td>
+            <td>
+              <%= link_to_remote(
+                    reservation.ticket.name, 
+                    :url => add_ticket_to_cart_path(
+                      :id => reservation.ticket.id,
+                      :reservation_id   => reservation.id,
+                      :special_guest_id => special_guest.id
+                    ), 
+                    :method => :put
+                  ) %>
+            </td>
+          </tr>
+          <% end %>
+        </table>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>

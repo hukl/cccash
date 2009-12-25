@@ -1,3 +1,7 @@
+html {
+  height: 100%;
+}
+
 body {
   font-family: verdana, sans-serif;
   font-size: 12px;
@@ -6,6 +10,7 @@ body {
   text-align: center;
   background-color: #FFFFFF;
   color: #000000;
+  height: 100%;
 }
 
 a {
@@ -42,6 +47,8 @@ table.checkouts {
   padding-right: 20px;
   padding-bottom: 20px;
   text-align: left;
+  position: relative;
+  height: 70%;
 }
 
 #menu {
@@ -156,7 +163,9 @@ table.checkouts {
 }
 
 #cart {
-  margin-left: 400px;
+  position: absolute;
+  top: 20px;
+  left: 600px;
 }
 
 #cart table td, #schichten td, #ticket_list td {

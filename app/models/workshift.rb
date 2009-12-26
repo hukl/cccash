@@ -36,13 +36,14 @@ class Workshift < ActiveRecord::Base
   def grouped_tickets_count
     stats = {}
     transactions.each do |tr|
-      tr.tickets.map{|t| t }.flatten.each do |tick|
+      tr.tickets.flatten.each do |tick|
         stats[tick.id] ||= {}
         stats[tick.id][:ticket] ||= tick
-        stats[tick.id][:gesamt] ||= 0
-        stats[tick.id][:storniert] ||= 0
-        stats[tick.id][:nicht_storniert] ||= 0
-        stats[tick.id][:gesamt] += 1
+        stats[tick.id][:total] ||= 0
+        stats[tick.id][:canceled] ||= 0
+        stats[tick.id][:valid] ||= 0
+        stats[tick.id][(tr.canceled? ? :canceled : :valid)] += 1
+        stats[tick.id][:total] += 1
       end
     end
     stats

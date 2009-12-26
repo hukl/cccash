@@ -18,15 +18,15 @@
     <% total = 0 %>
     <% @workshift.grouped_tickets_count.each do |id, stat| %>
         <tr class="<%= cycle('even', 'uneven')%>">
-            <% sub_total = (stat[:gesamt] * stat[:ticket].price) %>
+            <% sub_total = (stat[:valid] * stat[:ticket].price) %>
             <% total += sub_total %>
             <td><%= id %></td>
             <td><%= stat[:ticket].name %></td>
             <td class="right"><%= nice_price(stat[:ticket].price) %></td>
             <td class="centered">
-              <%= stat[:gesamt] %>
-              <% if stat[:storniert] > 0 %>
-                ( -<%= stat[:storniert] -%> )
+              <%= stat[:total] %>
+              <% if stat[:canceled] > 0 %>
+                ( -<%= stat[:canceled] -%> )
               <% end %>
             </td>
             <td class="right"><%= nice_price(sub_total) %></td>

@@ -1,7 +1,7 @@
 class SpecialGuestsController < ApplicationController
   
   def index
-    @special_guests = SpecialGuest.all
+    @special_guests = SpecialGuest.paginate :page => params[:page]
   end
 
   def new

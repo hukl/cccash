@@ -3,9 +3,11 @@ class CartsController < ApplicationController
   before_filter :login_required
   before_filter :get_cart, :get_cashbox
   before_filter :check_for_workshift
+  before_filter :check_valid_session, :only => :checkout
   
   def show
     @cart.reset
+    session[:valid] = true
   end
   
   def add_ticket_to
@@ -38,6 +40,7 @@ class CartsController < ApplicationController
   # and workshift. If the resulting transaction is valid the regular checkout
   # template is rendered. If not it redirects back to the cart to start over.
   def checkout
+    session[:valid] = false
     @transaction = @cart.create_transaction(:workshift => current_user.workshift)
     
     if @transaction.errors.empty?
@@ -101,6 +104,13 @@ class CartsController < ApplicationController
         "Your workshift has ended - please report"
         session[:user_id] = nil
         redirect_to new_session_path
+      end
+    end
+    
+    def check_valid_session
+      if session[:valid] == false
+        flash[:notice] = "Exessive Checkout Error - Calm down or fix your mouse"
+        redirect_to cart_path
       end
     end
     

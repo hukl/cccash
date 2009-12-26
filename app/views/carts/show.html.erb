@@ -6,7 +6,7 @@
       <th>Ticket</th>
       <th>Price</th>
     </tr>
-    <% Ticket.standard.each do |ticket| %>
+    <% Ticket.standard.available.each do |ticket| %>
     <tr class="<%= cycle('even', 'uneven')%>">
       <td>
         <%= link_to_remote(

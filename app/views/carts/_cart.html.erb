@@ -35,7 +35,9 @@
     </tr>
     <tr>
       <td colspan="3" id="checkout">
-        <%= link_to 'Checkout!', checkout_cart_path %>
+        <% unless params[:action] == "checkout" %>
+          <%= link_to 'Checkout!', checkout_cart_path %>
+        <% end %>
       </td>
     </tr>
   </table>

@@ -100,7 +100,7 @@ class CartsController < ApplicationController
     end
     
     def check_for_workshift
-      unless current_user && current_user.workshift.try(:active)
+      unless current_user && current_user.active_workshift
         "Your workshift has ended - please report"
         session[:user_id] = nil
         redirect_to new_session_path

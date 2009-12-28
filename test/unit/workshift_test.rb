@@ -46,15 +46,4 @@ class WorkshiftTest < ActiveSupport::TestCase
     assert workshift.errors.invalid?(:money)
   end
   
-  test "workshift must have unique cashbox_id" do
-    workshift = Workshift.new(
-      :user     => users(:quentin),
-      :cashbox  => cashboxes(:one),
-      :money    => 800
-    )
-    
-    assert_equal false, workshift.valid?, "Workshift should not be valid"
-    assert workshift.errors.invalid?(:cashbox_id)
-  end
-  
 end

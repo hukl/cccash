@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   named_scope(
     :busy,
     :joins => :workshift,
-    :conditions => ["workshifts.user_id = users.id"]
+    :conditions => ["workshifts.user_id = users.id AND workshifts.cleared = false"]
   )
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
@@ -60,9 +60,9 @@ class User < ActiveRecord::Base
       super
     end
   end
-
-  protected
-    
-
-
+  
+  def active_workshift
+    Workshift.find(:first, :conditions => {:active => true, :user_id => id})
+  end
+  
 end

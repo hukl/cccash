@@ -1,0 +1,11 @@
+<h1>Tasks</h1>
+
+
+<h3>Reprint Receipt</h3>
+
+<% form_tag url_for(:controller => :tasks, :action => :print_receipt) do %>
+  <p>
+    <%= text_field_tag :transaction_id %> <%= submit_tag "Print" %>
+  </p>
+  
+<% end %>

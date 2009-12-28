@@ -10,7 +10,7 @@ class TasksController < ApplicationController
     cashbox     = current_user.workshift.cashbox
     
     if transaction && cashbox
-      cashbox.printer.print transaction.to_bon
+      cashbox.printer.print transaction.to_bon params[:billing_address]
     end
     
     redirect_to :controller => :tasks, :action => :index

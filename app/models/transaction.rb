@@ -32,7 +32,7 @@ class Transaction < ActiveRecord::Base
     ((( total*19.0) / 119.0 ).round(2) )
   end
   
-  def to_bon delimiter="\n"
+  def to_bon billing_address="", delimiter="\n"
     (
     [
       "Chaos Communication Congress".center(Printer::BON_WIDTH),
@@ -42,9 +42,9 @@ class Transaction < ActiveRecord::Base
       "Postfach 00 00 00".center(Printer::BON_WIDTH),
       "00000 Berlin\n".center(Printer::BON_WIDTH)
     ] +
-      #bon_rechnungs_part +
+      [billing_address] +
     [
-      "Ticket                                 EUR",
+      "\nTicket                                 EUR",
       "-" * Printer::BON_WIDTH,
       tickets.collect(&:to_bon_line),
       "-" * Printer::BON_WIDTH,

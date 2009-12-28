@@ -3,7 +3,7 @@
 <h3>Kassenabrechnung:</h3>
 <ul id="kassenabrechnung">
   <li>Kasse: <%= @workshift.cashbox.name %> [Schicht: <%= @workshift.id  %>]</li>
-  <li>Zeitraum: <%= @workshift.started_at.to_s(:db) %> Uhr bis: <%= @workshift.ended_at.to_s(:db) %> Uhr (Berlin)</li>
+  <li>Zeitraum: <%= @workshift.started_at.to_s(:db) if @workshift.started_at %> Uhr bis: <%= @workshift.ended_at.to_s(:db) if @workshift.ended_at %> Uhr (Berlin)</li>
   <li>Kassierer/in: <%= @workshift.user.name %></li>
 </ul>
 
@@ -56,7 +56,7 @@
 </table>
 
 <% unless @workshift.cleared? or @workshift.active? %>
-    <%= button_to 'Ist alles OK', {:controller => 'admin', :action => 'clear_workshift', :id => s.id}, :confirm => 'Schicht wirklich als abgerechnet markieren?' %>
+    <%= button_to 'Ist alles OK', clear_workshift_path(:id => @workshift.id), :confirm => 'Really mark as cleared?' %>
 <% end %>
 
 <div id="kassierer">

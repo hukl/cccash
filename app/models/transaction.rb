@@ -32,6 +32,16 @@ class Transaction < ActiveRecord::Base
     ((( total*19.0) / 119.0 ).round(2) )
   end
   
+  def transcode_billing_address address
+    
+    address_lines = address.split(/\r\n/).collect {|l| "  " + l.convert_umlauts[0...Printer::BON_WIDTH-2]}
+    
+    (
+      [ "Leistungsempfaenger:" ] +
+      address_lines
+    ).flatten.compact.collect {|line| line.ljust(Printer::BON_WIDTH)}
+  end
+  
   def to_bon billing_address="", delimiter="\n"
     (
     [
@@ -42,7 +52,7 @@ class Transaction < ActiveRecord::Base
       "Postfach 00 00 00".center(Printer::BON_WIDTH),
       "00000 Berlin\n".center(Printer::BON_WIDTH)
     ] +
-      [billing_address] +
+      [transcode_billing_address(billing_address)] +
     [
       "\nTicket                                 EUR",
       "-" * Printer::BON_WIDTH,

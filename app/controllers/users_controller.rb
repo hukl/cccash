@@ -1,7 +1,4 @@
 class UsersController < ApplicationController
-  
-  before_filter :login_required
-  
   def index
     @admins = User.admins
     @angels = User.angels

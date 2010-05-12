@@ -1,8 +1,6 @@
 class WorkshiftsController < ApplicationController
-	before_filter :login_required
-  
 	def index
-  	
+ 		@workshifts = Workshift.find :all
 	end
 
   def new

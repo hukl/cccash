@@ -1,32 +1,43 @@
 <h1>Transactions</h1>
 
+<p><%= will_paginate @transactions %></p>
 
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Workshift ID</th>
-    <th>Angel</th>
-    <th>Time</th>
-  </tr>
-  
-  <% @transactions.each do |transaction| %>
-  <tr>
-    <td><%= transaction.id %></td>
-    <td><%= transaction.workshift.id %></td>
-    <td><%= transaction.workshift.user.login %></td>
-    <td><%= transaction.created_at.to_s(:db) %></td>
-    <td>
-      
-      <table>
-        <% transaction.grouped_tickets.each do |ticket_type, ticket_stats| %>
-        <tr>
-          <td><%= ticket_stats[:total] %> x </td>
-          <td><%= ticket_stats[:ticket] %></td>
-          <td><%= nice_price ticket_stats[:sum] %></td>
-        </tr>
-        <% end %>
-      </table>
-    </td>
-  </tr>
-  <% end %>
+<table class="overview">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Workshift</th>
+      <th>Angel</th>
+      <th>Time</th>
+      <th>Valid</th>
+      <th>Tickets</th>
+      <th class="total">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @transactions.each do |transaction| %>
+    <tr class="<%= cycle("uneven", "even") %> <%= "canceled" if transaction.canceled  %>">
+      <td><%= transaction.id %></td>
+      <td><%= transaction.workshift.id %></td>
+      <td><%= link_to transaction.workshift.user.login, user_path(transaction.workshift.user) %></td>
+      <td><%= transaction.created_at.to_s(:db) %></td>
+      <td><%= transaction.canceled ? "✘" : "✔" %></td>
+      <td>
+        
+        <table class="ticket_summary">
+          <% transaction.grouped_tickets.each do |ticket_type, ticket_stats| %>
+          <tr>
+            <td><%= ticket_stats[:total] %> x </td>
+            <td><%= ticket_stats[:ticket] %></td>
+            <td class="right"><%= nice_price ticket_stats[:sum] %></td>
+          </tr>
+          <% end %>
+        </table>
+      </td>
+      <td class="right"><strong><%= nice_price transaction.total %></strong></td>
+    </tr>
+    <% end %>
+  </tbody>
 </table>
+
+<p><%= will_paginate @transactions %></p>

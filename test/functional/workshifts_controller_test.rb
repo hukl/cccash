@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class WorkshiftsControllerTest < ActionController::TestCase
-  
+  def setup
+    login_as :quentin
+  end
+ 
   test "get index" do
     get :index
     assert_response :success

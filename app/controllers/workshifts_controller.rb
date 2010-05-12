@@ -1,7 +1,7 @@
 class WorkshiftsController < ApplicationController
-
-  def index
-  end
+	def index
+ 		@workshifts = Workshift.find :all
+	end
 
   def new
     @workshift = Workshift.new params[:workshift]

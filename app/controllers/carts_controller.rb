@@ -1,6 +1,5 @@
 class CartsController < ApplicationController
   
-  before_filter :login_required
   before_filter :get_cart, :get_cashbox
   before_filter :check_for_workshift
   before_filter :check_valid_session, :only => :checkout

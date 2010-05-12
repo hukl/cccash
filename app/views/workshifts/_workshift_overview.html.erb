@@ -1,4 +1,6 @@
 <div id="workshifts">
+  <p><%= link_to "Create new Workshift", new_workshift_path %></p>
+  
   <table>
     <tr>
       <th>ID</th>
@@ -6,15 +8,23 @@
       <th>Angel</th>
       <th>Money</th>
       <th>Status</th>
+      <th>Actions</th>
     </tr>
     <% @workshifts.group_by(&:status).each do |status, workshifts| %>
     <% workshifts.each do |workshift| %>
     <tr class="<%= cycle('even', 'uneven')%>">
       <td><%= workshift.id %></td>
       <td><%= workshift.cashbox.name %></td>
-      <td><%= link_to(workshift.user.login, edit_user_path(workshift.user)) %></td>
+      <td><%= workshift.user.login %></td>
       <td class="right"><%= nice_price(workshift.money) %></td>
       <td><strong><%= status %></strong></td>
+      <td id="activate_workshift_<%= workshift.id -%>">
+        <%= toggle_activation_link workshift %>
+      <% if workshift.transactions.empty? %>
+        <%= link_to 'Delete', workshift_path(workshift), :method => :delete, :confirm => "Are you sure?" %>
+      <% end %>
+      <%= link_to 'Billing', workshift_path(workshift) %>
+      </td>
     </tr>
     <% end %>
     <% end %>

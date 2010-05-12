@@ -51,7 +51,7 @@ class WorkshiftsController < ApplicationController
         if workshift.toggle_activation
           @workshifts = Workshift.active
           render :update do |page|
-            page['workshifts'].replace(render(:partial => 'workshift_list'))
+            page['workshifts'].replace(render(:partial => 'workshift_overview'))
           end
         else
           render :nothing => true

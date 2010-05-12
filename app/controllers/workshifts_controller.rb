@@ -1,7 +1,9 @@
 class WorkshiftsController < ApplicationController
-
-  def index
-  end
+	before_filter :login_required
+  
+	def index
+  	
+	end
 
   def new
     @workshift = Workshift.new params[:workshift]

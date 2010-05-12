@@ -1,4 +1,7 @@
 class MockCashboxController < ApplicationController
+  
+  skip_before_filter :login_required
+  
   def open
     log_debug('öffnet sich')
     kasching = File.expand_path(File.dirname(__FILE__) + "/../../public/cashbox_open.wav")

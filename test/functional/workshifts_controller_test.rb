@@ -66,4 +66,18 @@ class WorkshiftsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal false, Workshift.find(2).active?
   end
+
+	test "clearing a workshift" do
+		my_workshift = Workshift.find(1)
+		assert !my_workshift.cleared?, "Workshift shouldn't be cleared at this point"
+		assert !my_workshift.cleared_at, "Workshift shouldn't be cleared at this point"
+		
+		post :clear, :id => 1
+		
+		assert_redirected_to admin_path
+		my_workshift = Workshift.find(1)
+		assert my_workshift.cleared?, "Workshift not marked as cleared"
+		assert_not_nil my_workshift.cleared_at, "Timestamp of clearance is nil"
+		assert_equal users(:quentin).id, my_workshift.cleared_by_id, "Workshift not cleared by quentin"
+	end
 end

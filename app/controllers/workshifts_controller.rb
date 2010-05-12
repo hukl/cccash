@@ -61,7 +61,7 @@ class WorkshiftsController < ApplicationController
         if workshift.toggle_activation
           @workshifts = Workshift.active
           render :update do |page|
-            page['workshifts'].replace(render(:partial => 'workshift_list'))
+            page['workshifts'].replace(render(:partial => 'workshift_overview'))
           end
         else
           render :nothing => true
@@ -72,7 +72,9 @@ class WorkshiftsController < ApplicationController
   
   def clear
     @workshift = Workshift.find params[:id]
-    @workshift.update_attributes(:cleared => true)
+    @workshift.update_attributes! :cleared 	     => true,
+																  :cleared_at    => DateTime.now,
+																  :cleared_by_id => current_user.id
     redirect_to admin_path
   end
 

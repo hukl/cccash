@@ -35,6 +35,11 @@ class UsersControllerTest < ActionController::TestCase
       }
     end
   end
+  
+  test "get show" do
+    get :show, :id => 1
+    assert_response :success
+  end
 
   protected
     def create_user(options = {})

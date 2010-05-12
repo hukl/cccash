@@ -10,6 +10,11 @@ class WorkshiftsControllerTest < ActionController::TestCase
     assert_response :success
   end
   
+  test "get billing" do
+    get :billing, :id => 1
+    assert_response :success
+  end
+  
   test "get new" do
     get :new
     assert_response :success

@@ -1,0 +1,43 @@
+<h1>User: <%= @user.login %></h1>
+
+
+<table>
+  <tr>
+    <td>Created at:</td>
+    <td><%= @user.created_at.to_s(:db) %></td>
+  </tr>
+</table>
+
+<h2>Workshifts</h2>
+
+<table class="overview">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Money</th>
+      <th>Started</th>
+      <th>Ended</th>
+      <th>Cleared</th>
+      <th>Info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.workshifts.each do |workshift| %>
+    <tr class="<%= cycle("uneven", "even") %>">
+      <td><%= workshift.id %></td>
+      <td><%= nice_price workshift.money %></td>
+      <td><%= workshift.started_at.to_s(:db)  rescue "not started" %></td>
+      <td><%= workshift.ended_at.to_s(:db)    rescue "in progress" %></td>
+      <td>
+        <%= workshift.cleared ? "✔" : "✘" %>
+        <%= workshift.cleared_at.to_s(:db) if workshift.cleared %>
+      </td>
+      <td>
+        <%= link_to "Billing", billing_workshift_path(workshift) %>
+        <%= link_to "Details", workshift_path(workshift)%>
+      </td>
+      
+    </tr>
+    <% end %>
+  </tbody>
+</table>

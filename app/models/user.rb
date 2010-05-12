@@ -52,6 +52,10 @@ class User < ActiveRecord::Base
     !admin?
   end
   
+  def workshifts
+    Workshift.all(:conditions => {:user_id => id})
+  end
+  
   def destroy
     if 0 < Workshift.find_all_by_user_id(id).count
       errors.add(:workshifts, "Can't delete User with workshift(s)")

@@ -2,7 +2,7 @@
 
 <p><%= will_paginate @transactions %></p>
 
-<table id="transactions">
+<table class="overview">
   <thead>
     <tr>
       <th>ID</th>
@@ -19,7 +19,7 @@
     <tr class="<%= cycle("uneven", "even") %> <%= "canceled" if transaction.canceled  %>">
       <td><%= transaction.id %></td>
       <td><%= transaction.workshift.id %></td>
-      <td><%= transaction.workshift.user.login %></td>
+      <td><%= link_to transaction.workshift.user.login, user_path(transaction.workshift.user) %></td>
       <td><%= transaction.created_at.to_s(:db) %></td>
       <td><%= transaction.canceled ? "✘" : "✔" %></td>
       <td>

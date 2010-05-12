@@ -277,17 +277,17 @@ td.quantity {
   top: 300px;
 }
 
-table#transactions {
+table.overview {
   width: 840px;
   border-collapse: collapse;
   border: none;
 }
 
-table#transactions thead {
+table.overview thead {
   border-bottom: 1px solid #666;
 }
 
-table#transactions tbody td {
+table.overview tbody td {
   padding-top: 5px;
   padding-bottom: 5px;
   padding-right: 10px;
@@ -295,7 +295,7 @@ table#transactions tbody td {
   height: 70px;
 }
 
-table#transactions tbody tr.canceled {
+table.overview tbody tr.canceled {
   background-color: #ffbaba;
 }
 
@@ -303,13 +303,13 @@ table.ticket_summary {
   border: none;
 }
 
-table#transactions tbody table.ticket_summary td {
+table.overview tbody table.ticket_summary td {
   padding-right: 10px;
   padding-top: 0px;
   padding-bottom: 0px;
   height: auto;
 }
 
-table#transactions th.total {
+table.overview th.total {
   width: 90px;
 }

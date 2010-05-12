@@ -1,7 +1,7 @@
 class WorkshiftsController < ApplicationController
-	def index
- 		@workshifts = Workshift.find :all
-	end
+  def index
+    @workshifts = Workshift.find :all
+  end
 
   def new
     @workshift = Workshift.new params[:workshift]
@@ -18,7 +18,13 @@ class WorkshiftsController < ApplicationController
   end
 
   def show
-    @workshift = Workshift.find params[:id]
+    @workshift    = Workshift.find params[:id]
+    @transactions = Transaction.paginate(
+      :page       => params[:page],
+      :per_page   => 15,
+      :conditions => {:workshift_id => @workshift.id},
+      :order      => "created_at desc"
+    )
   end
   
   def billing

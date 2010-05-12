@@ -1,3 +1,23 @@
 <h1>Workshift Details</h1>
 
-<h2>Transactions</h2>
+
+<h1>Transactions</h1>
+
+<p><%= will_paginate @transactions %></p>
+
+<table class="overview">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Time</th>
+      <th>Valid</th>
+      <th>Tickets</th>
+      <th class="total">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => @transactions %>
+  </tbody>
+</table>
+
+<p><%= will_paginate @transactions %></p>

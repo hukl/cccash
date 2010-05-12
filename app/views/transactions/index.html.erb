@@ -1,0 +1,32 @@
+<h1>Transactions</h1>
+
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Workshift ID</th>
+    <th>Angel</th>
+    <th>Time</th>
+  </tr>
+  
+  <% @transactions.each do |transaction| %>
+  <tr>
+    <td><%= transaction.id %></td>
+    <td><%= transaction.workshift.id %></td>
+    <td><%= transaction.workshift.user.login %></td>
+    <td><%= transaction.created_at.to_s(:db) %></td>
+    <td>
+      
+      <table>
+        <% transaction.grouped_tickets.each do |ticket_type, ticket_stats| %>
+        <tr>
+          <td><%= ticket_stats[:total] %> x </td>
+          <td><%= ticket_stats[:ticket] %></td>
+          <td><%= nice_price ticket_stats[:sum] %></td>
+        </tr>
+        <% end %>
+      </table>
+    </td>
+  </tr>
+  <% end %>
+</table>

@@ -2,6 +2,8 @@
 
 one:
   id: 1
+  workshift_id: 1
 
 two:
   id: 2
+  workshift_id: 1

@@ -10,6 +10,24 @@ class Transaction < ActiveRecord::Base
   
   validate :transaction_contains_only_one_custom_ticket
   
+  def grouped_tickets
+    stats = {}
+    
+    tickets.flatten.each do |tick|
+      stats[tick.id]            ||= {}
+      stats[tick.id][:ticket]   ||= tick.name
+      stats[tick.id][:total]    ||= 0
+      stats[tick.id][:sum]      ||= 0
+      stats[tick.id][:canceled] ||= 0
+      stats[tick.id][:valid]    ||= 0
+      stats[tick.id][(canceled? ? :canceled : :valid)] += 1
+      stats[tick.id][:total]    += 1
+      stats[tick.id][:sum]      += tick.price
+    end
+    
+    stats
+  end
+  
   def transaction_contains_only_one_custom_ticket
     if 1 < self.tickets.custom.count
       errors.add_to_base("Only one custom ticket per transaction allowed")

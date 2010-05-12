@@ -9,17 +9,19 @@
       <th>Workshift</th>
       <th>Angel</th>
       <th>Time</th>
+      <th>Valid</th>
       <th>Tickets</th>
       <th class="total">Total</th>
     </tr>
   </thead>
   <tbody>
     <% @transactions.each do |transaction| %>
-    <tr class="<%= cycle("uneven", "even") %>">
+    <tr class="<%= cycle("uneven", "even") %> <%= "canceled" if transaction.canceled  %>">
       <td><%= transaction.id %></td>
       <td><%= transaction.workshift.id %></td>
       <td><%= transaction.workshift.user.login %></td>
       <td><%= transaction.created_at.to_s(:db) %></td>
+      <td><%= transaction.canceled ? "✘" : "✔" %></td>
       <td>
         
         <table class="ticket_summary">

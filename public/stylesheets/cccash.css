@@ -295,6 +295,10 @@ table#transactions tbody td {
   height: 70px;
 }
 
+table#transactions tbody tr.canceled {
+  background-color: #ffbaba;
+}
+
 table.ticket_summary {
   border: none;
 }

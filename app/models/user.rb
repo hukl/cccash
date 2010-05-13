@@ -5,9 +5,9 @@ class User < ActiveRecord::Base
   include Authentication::ByPassword
   include Authentication::ByCookieToken
 
-  has_one :workshift
-  has_many :cleared_workshifts,
-					 :class_name => "Workshift"
+  has_one   :workshift
+  has_many  :cleared_workshifts,
+            :class_name => "Workshift"
 
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
@@ -55,7 +55,8 @@ class User < ActiveRecord::Base
   end
   
   def workshifts
-    Workshift.all(:conditions => {:user_id => id})
+    Workshift.all(
+      :conditions => {:user_id => id}, :order => "created_at desc")
   end
   
   def destroy

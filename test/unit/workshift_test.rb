@@ -10,7 +10,7 @@ class WorkshiftTest < ActiveSupport::TestCase
     assert_equal 'waiting_for_activation', my_workshift.state
   end
   
-  test "login event sets started_at" do
+  test "login and logout callbacks" do
     my_workshift = Workshift.create :user_id    => 1,
                                     :cashbox_id => 1,
                                     :money      => 23
@@ -20,6 +20,22 @@ class WorkshiftTest < ActiveSupport::TestCase
     my_workshift.login!
     assert_not_nil my_workshift.started_at
     assert my_workshift.started_at < Time.now && my_workshift.started_at > 1.seconds.ago
+    
+    my_workshift.deactivate!
+    assert_not_nil my_workshift.ended_at
+    assert my_workshift.ended_at < Time.now && my_workshift.ended_at > 1.seconds.ago
+  end
+
+  test "clearing callbacks" do
+    my_workshift = Workshift.create :user_id    => 1,
+                                    :cashbox_id => 1,
+                                    :money      => 23
+    my_workshift.activate!
+    my_workshift.login!
+    my_workshift.deactivate!
+    my_workshift.clear!
+    assert_not_nil my_workshift.cleared_at
+    assert my_workshift.cleared_at < Time.now && my_workshift.cleared_at > 1.seconds.ago
   end
 
   test "workshift has cashbox" do

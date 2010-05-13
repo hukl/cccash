@@ -44,6 +44,9 @@ class Workshift < ActiveRecord::Base
 
     transitions :from => :standby,
                 :to   => :active
+
+    transitions :from => :active,
+                :to   => :active
   end
 
   aasm_event :logout do

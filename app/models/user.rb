@@ -55,8 +55,15 @@ class User < ActiveRecord::Base
   end
   
   def workshifts
-    Workshift.all(
-      :conditions => {:user_id => id}, :order => "created_at desc")
+    if angel?
+      Workshift.all(
+        :conditions => {:user_id => id}, :order => "created_at desc"
+      )
+    elsif admin?
+      Workshift.all(
+        :conditions => {:cleared_by_id => id}, :order => "created_at desc"
+      )
+    end
   end
   
   def destroy

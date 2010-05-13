@@ -13,7 +13,7 @@ class Workshift < ActiveRecord::Base
 
   named_scope :active,  :conditions => { :cleared => false }
   named_scope :cleared, :conditions => { :cleared => true }
- 
+  
   aasm_initial_state :waiting_for_activation
   
   aasm_state :waiting_for_activation
@@ -56,18 +56,18 @@ class Workshift < ActiveRecord::Base
   def set_ended_at
     update_attributes! :ended_at => Time.now
   end
-
-#  def status
-#    return "waiting for login"      if started_at.blank? and active?
-#    return "waiting for activation" if started_at.blank?
-#    return "inactive"               unless active? and ended_at.blank? or cleared?
-#    return "active"                 if active?
-#    return "cleared"                if cleared? and active == false
-#    "popelnd"
-#  end
   
+  def status
+    state.humanize
+  end
+
   def toggle_activation
-    toggle! :active
+    if aasm_events_for_current_state.include?("activate")
+      activate!
+      return
+    elsif aasm_events_for_current_state.include?("deactivate")
+      deactivate!
+    end
   end
   
   def start!

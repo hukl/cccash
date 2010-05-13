@@ -1,5 +1,10 @@
 <h1>Workshift Details</h1>
-
+<% if @workshift.cleared? %>
+  <p>Cleared by <strong><%= link_to(@workshift.cleared_by.login, user_path(@workshift.cleared_by)) %></strong>
+  at <%= @workshift.cleared_at %>.</p>
+<% else %>
+  <p><strong>Not cleared.</strong>
+<% end %>
 
 <h1>Transactions</h1>
 

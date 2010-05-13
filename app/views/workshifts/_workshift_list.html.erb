@@ -18,8 +18,8 @@
       <td><strong><%= workshift.status %></strong></td>
       <td><strong>
 				<% if workshift.cleared? %>
-					<%= link_to(workshift.cleared_by.login, edit_user_path(workshift.cleared_by)) %>
-				<% end %>
+				  <%= link_to_user(workshift.cleared_by) %>
+        <% end %>
 			</strong></td>
 			<td>
       	<%= link_to 'Transactions', workshift_path(workshift) %>

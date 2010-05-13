@@ -2,6 +2,26 @@ require 'test_helper'
 
 class WorkshiftTest < ActiveSupport::TestCase
   
+  test "workshift inital state" do
+    my_workshift = Workshift.create :user_id    => 1,
+                                    :cashbox_id => 1,
+                                    :money      => 23
+    assert_not_nil my_workshift, "Creation failed"
+    assert_equal 'waiting_for_activation', my_workshift.state
+  end
+  
+  test "login event sets started_at" do
+    my_workshift = Workshift.create :user_id    => 1,
+                                    :cashbox_id => 1,
+                                    :money      => 23
+    my_workshift.activate!
+    assert_equal "waiting_for_login", my_workshift.state
+
+    my_workshift.login!
+    assert_not_nil my_workshift.started_at
+    assert my_workshift.started_at < Time.now && my_workshift.started_at > 1.seconds.ago
+  end
+
   test "workshift has cashbox" do
     assert_nothing_raised { workshifts(:one).cashbox }
   end
@@ -45,5 +65,4 @@ class WorkshiftTest < ActiveSupport::TestCase
     assert_equal false, workshift.valid?, "Workshift should not be valid"
     assert workshift.errors.invalid?(:money)
   end
-  
 end

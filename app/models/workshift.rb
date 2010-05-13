@@ -1,4 +1,6 @@
 class Workshift < ActiveRecord::Base
+  include AASM
+  aasm_column :state
   
   has_many    :transactions
   belongs_to  :cashbox
@@ -11,15 +13,58 @@ class Workshift < ActiveRecord::Base
 
   named_scope :active,  :conditions => { :cleared => false }
   named_scope :cleared, :conditions => { :cleared => true }
+ 
+  aasm_initial_state :waiting_for_activation
   
-  def status
-    return "waiting for login"      if started_at.blank? and active?
-    return "waiting for activation" if started_at.blank?
-    return "inactive"               unless active? and ended_at.blank? or cleared?
-    return "active"                 if active?
-    return "cleared"                if cleared? and active == false
-    "popelnd"
+  aasm_state :waiting_for_activation
+  aasm_state :waiting_for_login
+  aasm_state :active, :enter   => :set_started_at
+  aasm_state :standby
+  aasm_state :inactive, :enter => :set_ended_at
+  aasm_state :cleared
+
+  aasm_event :activate do
+    transitions :from => :waiting_for_activation,
+                :to   => :waiting_for_login
+
+    transitions :from => :inactive,
+                :to   => :waiting_for_login
   end
+
+  aasm_event :deactivate do
+    transitions :from => :active,
+                :to   => :inactive
+  end
+
+  aasm_event :login do
+    transitions :from => :waiting_for_login,
+                :to   => :active
+
+    transitions :from => :standby,
+                :to   => :active
+  end
+
+  aasm_event :clear do
+    transitions :from => :inactive,
+                :to   => :cleared
+  end
+
+  def set_started_at
+    update_attributes! :started_at => Time.now
+  end
+
+  def set_ended_at
+    update_attributes! :ended_at => Time.now
+  end
+
+#  def status
+#    return "waiting for login"      if started_at.blank? and active?
+#    return "waiting for activation" if started_at.blank?
+#    return "inactive"               unless active? and ended_at.blank? or cleared?
+#    return "active"                 if active?
+#    return "cleared"                if cleared? and active == false
+#    "popelnd"
+#  end
   
   def toggle_activation
 		toggle! :active

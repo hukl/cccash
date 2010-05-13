@@ -26,6 +26,11 @@ Rails::Initializer.run do |config|
     :version => '1.3.16'
   )
 
+  config.gem(
+    'aasm',
+    :version => '2.1.5'
+  )
+
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]

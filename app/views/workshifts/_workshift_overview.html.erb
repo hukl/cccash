@@ -15,7 +15,7 @@
     <tr class="<%= cycle('even', 'uneven')%>">
       <td><%= workshift.id %></td>
       <td><%= workshift.cashbox.name %></td>
-      <td><%= workshift.user.login %></td>
+      <td><%= link_to_user(workshift.user) %></td>
       <td class="right"><%= nice_price(workshift.money) %></td>
       <td><strong><%= status %></strong></td>
       <td id="activate_workshift_<%= workshift.id -%>">

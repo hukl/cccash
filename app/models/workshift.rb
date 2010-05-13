@@ -18,10 +18,10 @@ class Workshift < ActiveRecord::Base
   
   aasm_state :waiting_for_activation
   aasm_state :waiting_for_login
-  aasm_state :active, :enter   => :set_started_at
+  aasm_state :active,   :enter => :set_started_at
   aasm_state :standby
   aasm_state :inactive, :enter => :set_ended_at
-  aasm_state :cleared
+  aasm_state :cleared,  :enter => :set_cleared_at
 
   aasm_event :activate do
     transitions :from => :waiting_for_activation,
@@ -45,8 +45,8 @@ class Workshift < ActiveRecord::Base
   end
 
   aasm_event :logout do
-    transition :from => :active,
-               :to   => :standby
+    transitions :from => :active,
+                :to   => :standby
   end
 
   aasm_event :clear do
@@ -60,6 +60,10 @@ class Workshift < ActiveRecord::Base
 
   def set_ended_at
     update_attributes! :ended_at => Time.now
+  end
+
+  def set_cleared_at
+    update_attributes! :cleared_at => Time.now
   end
 
 #  def status

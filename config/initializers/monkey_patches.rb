@@ -10,3 +10,10 @@ class String
       gsub(/ß/,'ss')
   end
 end
+
+
+class Time
+  def timestamp
+    strftime("%Y-%m-%d %H:%M:%S")
+  end
+end

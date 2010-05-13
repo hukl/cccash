@@ -21,6 +21,10 @@
     <td>Transactions:</td>
     <td><%= @workshift.transactions.count %></td>
   </tr>
+  <tr>
+    <td>State</td>
+    <td><%= @workshift.status %></td>
+  </tr>
   <% if @workshift.cleared? %>
   <tr>
     <td>Cleared:</td>
@@ -31,11 +35,6 @@
   <tr>
     <td>Cleared by:</td>
     <td><%= link_to(@workshift.cleared_by.login, user_path(@workshift.cleared_by)) %></td>
-  </tr>
-  <% else %>
-  <tr>
-    <td>Cleared:</td>
-    <td>Not cleared</td>
   </tr>
   <% end %>
 </table>

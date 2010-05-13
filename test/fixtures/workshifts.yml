@@ -11,6 +11,7 @@ one:
   cleared: false
   cleared_at: 
   balanced: false
+  state: active
 
 two:
   id: 2
@@ -23,7 +24,8 @@ two:
   cleared: false
   cleared_at: 
   balanced: false
-
+  state: active
+  
 three:
   id: 3
   user_id: 4
@@ -35,3 +37,4 @@ three:
   cleared: false
   cleared_at: 2009-12-22 13:08:09
   balanced: false
+  state: waiting_for_activation

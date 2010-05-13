@@ -1,10 +1,18 @@
-<h1>User: <%= @user.login %></h1>
+<h1>User Details</h1>
 
 
 <table>
   <tr>
+    <td>Login</td>
+    <td><%= @user.login %></td>
+  </tr>
+  <tr>
+    <td>Name</td>
+    <td><%= @user.name %></td>
+  </tr>
+  <tr>
     <td>Created at:</td>
-    <td><%= @user.created_at.to_s(:db) %></td>
+    <td><%= @user.created_at.timestamp %></td>
   </tr>
 </table>
 
@@ -26,11 +34,11 @@
     <tr class="<%= cycle("uneven", "even") %>">
       <td><%= workshift.id %></td>
       <td><%= nice_price workshift.money %></td>
-      <td><%= workshift.started_at.to_s(:db)  rescue "not started" %></td>
-      <td><%= workshift.ended_at.to_s(:db)    rescue "in progress" %></td>
+      <td><%= workshift.started_at.timestamp  rescue "not started" %></td>
+      <td><%= workshift.ended_at.timestamp    rescue "in progress" %></td>
       <td>
         <%= workshift.cleared ? "✔" : "✘" %>
-        <%= workshift.cleared_at.to_s(:db) if workshift.cleared %>
+        <%= workshift.cleared_at.timestamp if workshift.cleared %>
       </td>
       <td>
         <%= link_to "Billing", billing_workshift_path(workshift) %>

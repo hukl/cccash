@@ -6,7 +6,7 @@ class Workshift < ActiveRecord::Base
   belongs_to  :cashbox
   belongs_to  :user
   belongs_to  :cleared_by,
-							:class_name  => 'User'
+              :class_name  => 'User'
 
   validates_presence_of       :user,  :cashbox, :money
   validates_numericality_of   :money, :greater_than => 0
@@ -67,7 +67,7 @@ class Workshift < ActiveRecord::Base
 #  end
   
   def toggle_activation
-		toggle! :active
+    toggle! :active
   end
   
   def start!

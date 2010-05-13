@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
       if self.current_user.admin?
         redirect_to admin_path
       else
-        self.current_user.workshift.login!
+        self.current_user.active_workshift.login!
         redirect_to cart_path
       end
       flash[:notice] = "Logged in successfully"

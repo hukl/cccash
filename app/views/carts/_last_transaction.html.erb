@@ -1,21 +1,21 @@
-<table>
+<h1>Cancel Transaction: <%= @last_transaction.id %></h1>
+
+<table class="overview">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Workshift</th>
+      <th>Angel</th>
+      <th>Time</th>
+      <th>Valid</th>
+      <th>Tickets</th>
+      <th class="total">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+  <%= render :partial => "transactions/transaction", :locals => {:transaction => @last_transaction} %>
   <tr>
-    <th>Ticket Type</th>
-    <th>Price</th>
+    <td colspan="7" class="right"><strong>Sum: <%= nice_price @last_transaction.total %></strong></td>
   </tr>
-  <% @last_transaction.tickets.group_by(&:id).each do |id, tickets| %>
-  <tr>
-    <td><%= tickets.size %></td>
-    <td><%= tickets.first.name %></td>
-    <td><%= nice_price tickets.inject(0) { |sum,t| sum += t.price } %></td>
-  </tr>
-  <tr>
-    
-  </tr>
-  <% end %>
-  <tr>
-    <td></td>
-    <td><strong>Sum:</strong></td>
-    <td><%= nice_price @last_transaction.total %></td>
-  </tr>
+  </tbody>
 </table>

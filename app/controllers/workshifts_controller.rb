@@ -72,9 +72,12 @@ class WorkshiftsController < ApplicationController
   
   def clear
     @workshift = Workshift.find params[:id]
-    @workshift.update_attributes! :cleared       => true,
-                                  :cleared_at    => DateTime.now,
-                                  :cleared_by_id => current_user.id
+    
+    @workshift.transaction do
+      @workshift.clear!
+      @workshift.update_attributes! :cleared_by_id => current_user.id
+    end
+    
     redirect_to admin_path
   end
 

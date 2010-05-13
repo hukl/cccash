@@ -40,7 +40,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    self.current_user.logout! if self.current_user.angel?
+    self.current_user.workshift.logout! if self.current_user.angel?
     logout_killing_session!
     flash[:notice] = "You have been logged out."
     redirect_back_or_default('/')

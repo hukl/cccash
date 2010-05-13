@@ -38,7 +38,7 @@ class SessionsControllerTest < ActionController::TestCase
     post  :create, :login => 'aaron', :password => 'monkey'
     get   :destroy
     assert_nil session[:user_id]
-    assert_equal "inactive", User.find(2).workshift.status
+    assert_equal "Standby", User.find(2).workshift.status
   end
 
   def test_should_login_and_redirect

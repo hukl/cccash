@@ -45,8 +45,8 @@ class Workshift < ActiveRecord::Base
   end
 
   aasm_event :logout do
-    transition :from => :active,
-               :to   => :standby
+    transitions :from => :active,
+                :to   => :standby
   end
 
   aasm_event :clear do
@@ -67,10 +67,9 @@ class Workshift < ActiveRecord::Base
   end
 
   def toggle_activation
-    if aasm_events_for_current_state.include?("activate")
+    if aasm_events_for_current_state.include?(:activate)
       activate!
-      return
-    elsif aasm_events_for_current_state.include?("deactivate")
+    elsif aasm_events_for_current_state.include?(:deactivate)
       deactivate!
     end
   end

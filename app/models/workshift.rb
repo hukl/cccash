@@ -11,8 +11,7 @@ class Workshift < ActiveRecord::Base
   validates_presence_of       :user,  :cashbox, :money
   validates_numericality_of   :money, :greater_than => 0
 
-  named_scope :active,  :conditions => { :state => 'active' }
-  named_scope :cleared, :conditions => { :state => 'cleared' }
+  named_scope :in_progress, :conditions => ["state != ?", "cleared"]
  
   aasm_initial_state :waiting_for_activation
   
@@ -34,6 +33,9 @@ class Workshift < ActiveRecord::Base
   aasm_event :deactivate do
     transitions :from => :active,
                 :to   => :inactive
+                
+    transitions :from => :waiting_for_login,
+                :to   => :waiting_for_activation
   end
 
   aasm_event :login do

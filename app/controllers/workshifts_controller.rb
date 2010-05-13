@@ -59,7 +59,7 @@ class WorkshiftsController < ApplicationController
     respond_to do |format|
       format.js do
         if workshift.toggle_activation
-          @workshifts = Workshift.active
+          @workshifts = Workshift.in_progress
           render :update do |page|
             page['workshifts'].replace(render(:partial => 'workshift_overview'))
           end

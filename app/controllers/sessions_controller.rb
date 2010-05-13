@@ -21,13 +21,12 @@ class SessionsController < ApplicationController
       if self.current_user.admin?
         redirect_to admin_path
       else
-        self.current_user.workshift.start!
+        self.current_user.workshift.login!
         redirect_to cart_path
       end
       flash[:notice] = "Logged in successfully"
     else
-      
-      if user && user.angel? && !user.workshift.try(:active)
+      if user && user.angel?
         flash[:notice] = "No workshift or workshift deactivated"
       else
         flash[:notice] = "Could not log in"

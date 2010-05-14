@@ -1,6 +1,7 @@
 # This controller handles the login/logout function of the site.  
 class SessionsController < ApplicationController
-	skip_before_filter :login_required, :except => :destroy
+  skip_before_filter :login_required,        :except => :destroy
+  skip_before_filter :admin_status_required
 
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
@@ -39,7 +40,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    self.current_user.workshift.logout! if self.current_user.angel?
+    self.current_user.active_workshift.logout! if self.current_user.angel?
     logout_killing_session!
     flash[:notice] = "You have been logged out."
     redirect_back_or_default('/')

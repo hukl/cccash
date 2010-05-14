@@ -1,4 +1,6 @@
 class SpecialGuestsController < ApplicationController
+
+  skip_before_filter :admin_status_required
   
   def index
     @special_guests = SpecialGuest.paginate :page => params[:page]

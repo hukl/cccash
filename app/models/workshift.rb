@@ -9,7 +9,8 @@ class Workshift < ActiveRecord::Base
               :class_name  => 'User'
 
   validates_presence_of       :user,  :cashbox, :money
-  validates_numericality_of   :money, :greater_than => 0
+  validates_numericality_of   :money, :greater_than => 0 
+  validate :no_busy_angel
 
   named_scope :in_progress, :conditions => ["state != ?", "cleared"]
  
@@ -100,4 +101,7 @@ class Workshift < ActiveRecord::Base
     stats
   end
   
+  private
+  def no_busy_angel
+  end
 end

@@ -47,5 +47,3 @@ class SpecialGuestsController < ApplicationController
   end
 
 end
-
-

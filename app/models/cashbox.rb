@@ -12,7 +12,10 @@ class Cashbox < ActiveRecord::Base
   named_scope(
     :busy,
     :joins => :workshift,
-    :conditions => ["workshifts.cashbox_id = cashboxes.id AND workshifts.cleared = false AND workshifts.active = true"]
+    :conditions => [
+      "workshifts.cashbox_id = cashboxes.id AND workshifts.cleared = false "\
+      "AND workshifts.active = true"
+    ]
   )
   
   def active_workshift

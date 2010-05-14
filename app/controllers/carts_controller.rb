@@ -1,8 +1,10 @@
 class CartsController < ApplicationController
+
+  skip_before_filter :admin_status_required
   
-  before_filter :get_cart, :get_cashbox
-  before_filter :check_for_workshift
-  before_filter :check_valid_session, :only => :checkout
+  before_filter      :get_cart, :get_cashbox
+  before_filter      :check_for_workshift
+  before_filter      :check_valid_session, :only => :checkout
   
   def show
     @cart.reset

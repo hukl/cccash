@@ -7,7 +7,7 @@ class WorkshiftTest < ActiveSupport::TestCase
                                     :cashbox_id => 1,
                                     :money      => 23
     assert_not_nil my_workshift, "Creation failed"
-    assert_equal 'waiting_for_activation', my_workshift.state
+    assert_equal 'inactive', my_workshift.state
   end
   
   test "login and logout callbacks" do
@@ -16,17 +16,20 @@ class WorkshiftTest < ActiveSupport::TestCase
                                     :money      => 23
     my_workshift.activate!
     assert_equal "waiting_for_login", my_workshift.state
-
     my_workshift.login!
     assert_not_nil my_workshift.started_at
     assert my_workshift.started_at < Time.now && my_workshift.started_at > 1.seconds.ago
+    my_started_at = my_workshift.started_at
     
     my_workshift.deactivate!
     assert_not_nil my_workshift.ended_at
     assert my_workshift.ended_at < Time.now && my_workshift.ended_at > 1.seconds.ago
+    
+    my_workshift.activate!
+    assert_equal my_started_at, my_workshift.started_at
   end
 
-  test "clearing callbacks" do
+  test "clear callbacks" do
     my_workshift = Workshift.create :user_id    => 1,
                                     :cashbox_id => 1,
                                     :money      => 23

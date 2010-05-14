@@ -13,19 +13,15 @@ class Workshift < ActiveRecord::Base
 
   named_scope :in_progress, :conditions => ["state != ?", "cleared"]
  
-  aasm_initial_state :waiting_for_activation
+  aasm_initial_state :inactive
   
-  aasm_state :waiting_for_activation
+  aasm_state :inactive
   aasm_state :waiting_for_login
-  aasm_state :active,   :enter => :set_started_at
+  aasm_state :active,   :enter => :set_started_at, :exit => :set_ended_at
   aasm_state :standby
-  aasm_state :inactive, :enter => :set_ended_at
   aasm_state :cleared,  :enter => :set_cleared_at
 
   aasm_event :activate do
-    transitions :from => :waiting_for_activation,
-                :to   => :waiting_for_login
-
     transitions :from => :inactive,
                 :to   => :waiting_for_login
   end
@@ -33,9 +29,6 @@ class Workshift < ActiveRecord::Base
   aasm_event :deactivate do
     transitions :from => :active,
                 :to   => :inactive
-                
-    transitions :from => :waiting_for_login,
-                :to   => :waiting_for_activation
   end
 
   aasm_event :login do
@@ -60,7 +53,7 @@ class Workshift < ActiveRecord::Base
   end
 
   def set_started_at
-    update_attributes! :started_at => Time.now
+    update_attributes! :started_at => Time.now unless started_at
   end
 
   def set_ended_at

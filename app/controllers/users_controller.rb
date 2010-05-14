@@ -27,6 +27,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find params[:id]
+    @workshifts = @user.angel? ? @user.workshifts : @user.cleared_workshifts
   end
 
   def edit

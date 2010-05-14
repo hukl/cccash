@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @user.workshifts.each do |workshift| -%>
+    <% @workshifts.each do |workshift| -%>
     <tr class="<%= cycle("uneven", "even") %>">
       <td><%= workshift.id %></td>
       <td><%= nice_price workshift.money %></td>

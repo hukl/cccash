@@ -6,6 +6,7 @@ one:
   price: 23
   custom: false
   comment: Dummy comment 1
+  position: 1
 
 two:
   id: 2
@@ -13,3 +14,4 @@ two:
   price: 42
   custom: true
   comment: Dummy comment 2
+  position: 2

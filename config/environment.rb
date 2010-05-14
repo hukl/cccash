@@ -31,6 +31,8 @@ Rails::Initializer.run do |config|
     :version => '2.1.5'
   )
 
+  config.gem 'acts_as_list', :version => '0.1.2'
+
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]

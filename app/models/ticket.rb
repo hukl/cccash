@@ -14,6 +14,8 @@ class Ticket < ActiveRecord::Base
   named_scope :available,   :conditions => [
     "available_from < ? and ? < available_until", Time.now,Time.now
   ]
+
+  acts_as_list
   
   def to_bon_line
     line = ''

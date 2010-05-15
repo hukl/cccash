@@ -1,14 +1,15 @@
 <div id="search_results">
-  <table>
-    <tr>
-      <th>ID</th>
-      <th>Forname</th>
-      <th>Name</th>
-      <th>UID</th>
-      <th>Group</th>
-      <th>Ticket Type</th>
-      <th>Price</th>
-    </tr>
+  <table id="special_guests">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Forname</th>
+        <th>Name</th>
+        <th>UID</th>
+        <th>Group</th>
+        <th>Ticket Type</th>
+      </tr>
+    </head>
     <% (@results || []).each do |special_guest| %>
     <tr>
       <td><%= special_guest.id %></td>

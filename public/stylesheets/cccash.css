@@ -277,7 +277,7 @@ td.quantity {
   top: 300px;
 }
 
-table.overview {
+table.overview, table#special_guests {
   width: 840px;
   border-collapse: collapse;
   border: none;
@@ -318,3 +318,6 @@ tbody#tickets, tbody#ticket_list td {
   cursor: move;
 }
 
+table#special_guests thead {
+  border-bottom: 1px 666;
+}

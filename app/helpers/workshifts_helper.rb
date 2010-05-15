@@ -7,7 +7,13 @@ module WorkshiftsHelper
   
   def users_for_select
     available = User.angels - User.busy.angels
-    available.map {|a| [a.login, a.id]}
+    available.map do |a|
+      if a.tainted?
+        ["#{a.login} (tainted!)", a.id]
+      else
+        [a.login, a.id]
+      end
+    end 
   end
   
 end

@@ -76,6 +76,9 @@ class WorkshiftsController < ApplicationController
     @workshift.transaction do
       @workshift.clear!
       @workshift.update_attributes! :cleared_by_id => current_user.id
+      if params[:taint_user]
+        @workshift.user.update_attributes! :tainted => true;
+      end
     end
     
     redirect_to admin_path

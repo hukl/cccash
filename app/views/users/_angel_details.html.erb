@@ -19,8 +19,8 @@
       <td><%= workshift.started_at.timestamp  rescue "not started" %></td>
       <td><%= workshift.ended_at.timestamp    rescue "in progress" %></td>
       <td>
-        <%= workshift.cleared ? "✔" : "✘" %>
-        <%= workshift.cleared_at.timestamp if workshift.cleared %>
+        <%= workshift.cleared? ? "✔" : "✘" %>
+        <%= workshift.cleared_at.timestamp if workshift.cleared? %>
       </td>
       <td>
         <%= link_to "Billing", billing_workshift_path(workshift) %>

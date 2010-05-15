@@ -56,7 +56,14 @@
 </table>
 
 <% unless @workshift.cleared? or @workshift.active? %>
-    <%= button_to 'Ist alles OK', clear_workshift_path(:id => @workshift.id), :confirm => 'Really mark as cleared?' %>
+    <% form_tag clear_workshift_path(:id => @workshift.id), :class => 'hideForPrint' do %>
+      <%= submit_tag 'Ist alles OK', :confirm => 'Really mark as cleared?' %>
+      <% if @workshift.user.tainted? %>
+        <strong>This user is tainted.</strong>
+      <% else %>
+        Taint this user: <%= check_box_tag 'taint_user' %>
+      <% end %>
+    <% end %>
 <% end %>
 
 <div id="kassierer">

@@ -321,3 +321,7 @@ tbody#tickets, tbody#ticket_list td {
 table#special_guests thead {
   border-bottom: 1px 666;
 }
+
+table#special_guests td table {
+  border: 0px;
+}

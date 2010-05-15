@@ -36,7 +36,7 @@ class SpecialGuestsController < ApplicationController
   
   def search
     unless params[:search_term].blank?
-      @results = SpecialGuest.search params[:search_term], :star => true
+      @results = SpecialGuest.search params[:search_term], :star => true, :limit => 10
     else
       @results = []
     end

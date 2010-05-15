@@ -14,8 +14,12 @@
     <td>Created at:</td>
     <td><%= @user.created_at.timestamp %></td>
   </tr>
+  <tr>
+    <td>Tainted:</td>
+    <td><%= @user.tainted? ? "✔" : "✘" %> </td>
+  </tr>
 </table>
-
+<%= link_to "Edit", edit_user_path(@user) %>
 <% if @user.angel? %>
 <%= render :partial => 'angel_details' %>
 <% else %>

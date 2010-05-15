@@ -64,5 +64,16 @@ class TicketsControllerTest < ActionController::TestCase
 
     assert_redirected_to tickets_path
   end
+  
+  test "sorting tickets" do
+    assert_equal 2, Ticket.find(2).position
+    assert_equal 1, Ticket.find(1).position
+    
+    post :sort, :tickets => [2, 1]
+    
+    assert_response :success
+    assert_equal 1, Ticket.find(2).position
+    assert_equal 2, Ticket.find(1).position
+  end
 
 end

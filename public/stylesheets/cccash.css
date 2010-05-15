@@ -314,7 +314,7 @@ table.overview th.total {
   width: 90px;
 }
 
-tbody#ticket_list, tbody#ticket_list td {
+tbody#tickets, tbody#ticket_list td {
   cursor: move;
 }
 

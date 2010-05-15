@@ -12,7 +12,7 @@
     </thead>
     <tbody>
     <% (@results || []).each do |special_guest| %>
-      <tr>
+      <tr class="<%= cycle( "uneven", "even") %>">
         <td><%= special_guest.id %></td>
         <td><%= special_guest.forename %></td>
         <td><%= special_guest.name %></td>

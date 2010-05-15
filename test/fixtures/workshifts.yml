@@ -35,3 +35,15 @@ three:
   cleared_at:
   balanced: false
   state: inactive
+
+four:
+  id: 4
+  user_id: 3
+  cashbox_id: 3
+  money: 1
+  active: false
+  started_at:
+  ended_at:
+  cleared_at:
+  balanced: false
+  state: inactive

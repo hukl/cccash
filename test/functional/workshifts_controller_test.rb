@@ -24,14 +24,14 @@ class WorkshiftsControllerTest < ActionController::TestCase
     assert_difference "Workshift.count", +1 do
       post :create, :workshift => {
         :cashbox  => cashboxes(:four),
-        :user     => users(:aaron),
+        :user     => users(:no_workshift_dude),
         :money    => 100
       }
     end
     
     assert_redirected_to admin_path
     assert_equal 4, Workshift.last.cashbox_id
-    assert_equal "aaron", Workshift.last.user.login
+    assert_equal "nwsd", Workshift.last.user.login
   end
   
   test "get edit" do

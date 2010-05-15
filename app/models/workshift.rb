@@ -10,7 +10,7 @@ class Workshift < ActiveRecord::Base
 
   validates_presence_of       :user,  :cashbox, :money
   validates_numericality_of   :money, :greater_than => 0 
-  validate_on_create :no_busy_angel
+  validate_on_create          :no_busy_angel
 
   named_scope :in_progress, :conditions => ["state != ?", "cleared"]
  

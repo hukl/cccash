@@ -2,18 +2,30 @@ require 'test_helper'
 
 class WorkshiftTest < ActiveSupport::TestCase
   
+  test "no workshifts for busy angels" do
+    my_workshift = workshifts(:three)
+    
+    my_user = User.create! :password              => 'foobar',
+                           :password_confirmation => 'foobar',
+                           :login                 => 'busy_angel'
+
+    workshift_one = my_user.workshifts.create :cashbox => Cashbox.first,
+                                              :money   => 123
+    assert_not_nil workshift_one, "First workshift creation failed"
+    
+    workshift_two = my_user.workshifts.new :cashbox => Cashbox.first,
+                                           :money   => 123
+    assert_equal false, workshift_two.valid?, "Workshift should not be valid"
+  end
+
   test "workshift inital state" do
-    my_workshift = Workshift.create :user_id    => 1,
-                                    :cashbox_id => 1,
-                                    :money      => 23
+    my_workshift = workshifts(:three)
     assert_not_nil my_workshift, "Creation failed"
     assert_equal 'inactive', my_workshift.state
   end
   
   test "login and logout callbacks" do
-    my_workshift = Workshift.create :user_id    => 1,
-                                    :cashbox_id => 1,
-                                    :money      => 23
+    my_workshift = workshifts(:four)
     my_workshift.activate!
     assert_equal "waiting_for_login", my_workshift.state
     my_workshift.login!
@@ -30,9 +42,7 @@ class WorkshiftTest < ActiveSupport::TestCase
   end
 
   test "clear callbacks" do
-    my_workshift = Workshift.create :user_id    => 1,
-                                    :cashbox_id => 1,
-                                    :money      => 23
+    my_workshift = workshifts(:four)
     my_workshift.activate!
     my_workshift.login!
     my_workshift.deactivate!

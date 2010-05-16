@@ -97,7 +97,9 @@ class CartsController < ApplicationController
     end
     
     def get_cashbox
-      @cashbox = current_user.workshift.cashbox
+      if current_user && current_user.workshift
+        @cashbox = current_user.workshift.cashbox
+      end
     end
     
     def check_for_workshift

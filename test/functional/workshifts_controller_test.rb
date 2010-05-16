@@ -43,10 +43,46 @@ class WorkshiftsControllerTest < ActionController::TestCase
         }
       )
     end
-
-
   end
- 
+    
+  test "updating workshift_tickets on workshift" do
+    put(
+      :update,
+      :id => 1,
+      :workshift => {
+        :cashbox  => cashboxes(:four),
+        :user     => users(:no_workshift_dude),
+        :money    => 800,
+        :workshift_tickets_attributes => [
+          {:id => 1, :ticket_id => 1, :amount => 23 },
+          {:id => 2, :ticket_id => 2, :amount => 42 }
+        ]
+      }
+    )
+
+    assert_equal 23, WorkshiftTicket.find(1).amount
+    assert_equal 42, WorkshiftTicket.find(2).amount
+  end
+
+  test "updating workshift_tickets with lower amount shouldn not work" do
+
+    assert_no_difference "WorkshiftTicket.find(1).amount" do
+      put(
+        :update,
+        :id => 1,
+        :workshift => {
+          :cashbox  => cashboxes(:four),
+          :user     => users(:no_workshift_dude),
+          :money    => 800,
+          :workshift_tickets_attributes => [
+            {:id => 1, :ticket_id => 1, :amount => 5 },
+            {:id => 2, :ticket_id => 2, :amount => 1 }
+          ]
+        }
+      )
+    end
+  end
+
   test "get index" do
     get :index
     assert_response :success

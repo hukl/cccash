@@ -110,6 +110,10 @@ class Workshift < ActiveRecord::Base
     stats
   end
 
+  def workshift_tickets_for ticket_id
+    workshift_tickets.find_by_ticket_id(ticket_id).try(:amount) || 0
+  end
+
   private
   def no_busy_angel
     errors.add_to_base("The user you chose is busy") if user && user.workshift

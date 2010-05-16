@@ -12,7 +12,8 @@
         <th>ID</th>
         <th>Ticket Typ</th>
         <th>Preis</th>
-        <th>Anzahl ( -storniert )</th>
+        <th>Verkauft ( -storniert )</th>
+        <th>Retour</th>
         <th>Summe</th>
     </tr>
     <% total = 0 %>
@@ -29,11 +30,13 @@
                 ( -<%= stat[:canceled] -%> )
               <% end %>
             </td>
+            <td><%= stat[:workshift_tickets] - stat[:total] + stat[:canceled]  %></td>
             <td class="right"><%= nice_price(sub_total) %></td>
         </tr>
         <% end %>
         <tr class="bargeld">
             <td>Bargeld:</td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
@@ -44,10 +47,12 @@
             <td></td>
             <td></td>
             <td></td>
-            <td><%= nice_price(total + @workshift.money.to_i) %></td>
+            <td></td>
+            <td class="right"><%= nice_price(total + @workshift.money.to_i) %></td>
         </tr>
         <tr class="ticket-total">
             <td>Einnahmen:</td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>

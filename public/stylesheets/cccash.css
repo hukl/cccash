@@ -325,3 +325,7 @@ table#special_guests thead {
 table#special_guests td table {
   border: 0px;
 }
+
+table table {
+  border: 0px;
+}

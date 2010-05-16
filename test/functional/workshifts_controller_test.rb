@@ -4,6 +4,48 @@ class WorkshiftsControllerTest < ActionController::TestCase
   def setup
     login_as :quentin
   end
+
+  test "create new workshift with cashbox_tickets" do
+    WorkshiftTicket.delete_all
+
+    assert_difference "WorkshiftTicket.count", +2 do
+      post(
+        :create,
+          :workshift => {
+            :cashbox  => cashboxes(:four),
+            :user     => users(:no_workshift_dude),
+            :money    => 800,
+            :workshift_tickets_attributes => [
+              {:ticket_id => 1, :amount => 20 },
+              {:ticket_id => 2, :amount => 40 }
+            ]
+        }
+      )
+    end
+    assert_equal 1,   WorkshiftTicket.first.ticket_id
+    assert_equal 20,  WorkshiftTicket.first.amount
+    assert_equal 2,   WorkshiftTicket.last.ticket_id
+    assert_equal 40,  WorkshiftTicket.last.amount
+  end
+
+  test "creatin a new workshift with invalid workshift_tickets should fail" do
+    assert_no_difference "WorkshiftTicket.count" do
+      post(
+        :create,
+          :workshift => {
+            :cashbox  => cashboxes(:four),
+            :user     => users(:no_workshift_dude),
+            :money    => 800,
+            :workshift_tickets_attributes => [
+              {:ticket_id => 1, :amount => "" },
+              {:ticket_id => 2, :amount => 40 }
+            ]
+        }
+      )
+    end
+
+
+  end
  
   test "get index" do
     get :index

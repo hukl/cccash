@@ -35,7 +35,9 @@ class Cart
   end
   
   def create_transaction options
-    transaction = Transaction.new options.merge(:special_guest_id => @special_guest_id)
+    transaction = Transaction.new(
+      options.merge(:special_guest_id => @special_guest_id)
+    )
     
     @tickets.each do |ticket|
       transaction.tickets << ticket

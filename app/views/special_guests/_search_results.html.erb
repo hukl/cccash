@@ -1,27 +1,27 @@
 <div id="search_results">
-  <table>
-    <tr>
-      <th>ID</th>
-      <th>Forname</th>
-      <th>Name</th>
-      <th>UID</th>
-      <th>Group</th>
-      <th>Ticket Type</th>
-      <th>Price</th>
-    </tr>
+  <table id="special_guests">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Forname</th>
+        <th>Name</th>
+        <th>UID</th>
+        <th>Group</th>
+        <th>Ticket Type</th>
+      </tr>
+    </thead>
+    <tbody>
     <% (@results || []).each do |special_guest| %>
-    <tr>
-      <td><%= special_guest.id %></td>
-      <td><%= special_guest.forename %></td>
-      <td><%= special_guest.name %></td>
-      <td><%= special_guest.uid %></td>
-      <td><%= special_guest.group.name %></td>
-      <td>
-        <table>
-        <% special_guest.available_tickets.each do |ticket| %>
+      <tr class="<%= cycle( "uneven", "even") %>">
+        <td><%= special_guest.id %></td>
+        <td><%= special_guest.forename %></td>
+        <td><%= special_guest.name %></td>
+        <td><%= special_guest.uid %></td>
+        <td><%= special_guest.group.name %></td>
+        <td>
+          <table class="special_guest_tickets">
+          <% special_guest.available_tickets.each do |ticket| %>
           <tr>
-            <td><%= ticket.name %></td>
-            <td><%= nice_price ticket.price %></td>
             <td>
               <%= link_to_remote(
                     ticket.name,
@@ -32,6 +32,7 @@
                     :method => :put
                   ) %>
             </td>
+            <td><%= nice_price ticket.price %></td>
           </tr>
           <% end %>
           
@@ -43,9 +44,10 @@
               <td>
             </tr>
           <% end %>
-        </table>
-      </td>
-    </tr>
+          </table>
+        </td>
+      </tr>
     <% end %>
+    </tbody>
   </table>
 </div>

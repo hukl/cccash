@@ -30,6 +30,9 @@ class Workshift < ActiveRecord::Base
   aasm_event :deactivate do
     transitions :from => :active,
                 :to   => :inactive
+
+    transitions :from => :waiting_for_login,
+                :to   => :inactive
   end
 
   aasm_event :login do

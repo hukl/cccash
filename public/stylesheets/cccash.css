@@ -326,6 +326,16 @@ table#special_guests td table {
   border: 0px;
 }
 
+div.bluff-tooltip {
+  background-color: #eee;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  -moz-box-shadow: 6px 6px 6px #333;
+  -webkit-box-shadow: 6px 6px 6px #333;
+}
+
 table table {
   border: 0px;
 }

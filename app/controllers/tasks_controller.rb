@@ -1,4 +1,7 @@
 class TasksController < ApplicationController
+  skip_before_filter :admin_status_required
+  before_filter :check_for_workshift
+  
   def index
   end
 

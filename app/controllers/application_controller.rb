@@ -18,10 +18,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
-    def check_for_workshift
-      unless current_user && current_user.active_workshift
-        logout_killing_session!
-        redirect_to new_session_path
+  def check_for_workshift
+    unless current_user && current_user.active_workshift
+      logout_killing_session!
+
+      respond_to do |format|
+        format.html { redirect_to new_session_path }
+        format.js do
+          render :update do |page|
+            page.redirect_to("/")
+          end
+        end
       end
     end
+  end
 end

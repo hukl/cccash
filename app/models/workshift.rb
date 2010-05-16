@@ -3,10 +3,13 @@ class Workshift < ActiveRecord::Base
   aasm_column :state
   
   has_many    :transactions
+  has_many    :workshift_tickets
   belongs_to  :cashbox
   belongs_to  :user
   belongs_to  :cleared_by,
               :class_name  => 'User'
+
+  accepts_nested_attributes_for :workshift_tickets
 
   validates_presence_of       :user,  :cashbox, :money
   validates_numericality_of   :money, :greater_than => 0 
@@ -92,6 +95,11 @@ class Workshift < ActiveRecord::Base
     stats = {}
     transactions.each do |tr|
       tr.tickets.flatten.each do |tick|
+
+        workshift_ticketss = workshift_tickets.first(
+          :conditions => { :ticket_id => tick.id }
+        ).try(:amount)
+
         stats[tick.id] ||= {}
         stats[tick.id][:ticket] ||= tick
         stats[tick.id][:total] ||= 0
@@ -99,11 +107,12 @@ class Workshift < ActiveRecord::Base
         stats[tick.id][:valid] ||= 0
         stats[tick.id][(tr.canceled? ? :canceled : :valid)] += 1
         stats[tick.id][:total] += 1
+        stats[tick.id][:workshift_tickets] = workshift_ticketss || 0
       end
     end
     stats
   end
-  
+
   private
   def no_busy_angel
     errors.add_to_base("The user you chose is busy") if user && user.workshift

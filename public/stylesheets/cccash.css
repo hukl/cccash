@@ -336,3 +336,6 @@ div.bluff-tooltip {
   -webkit-box-shadow: 6px 6px 6px #333;
 }
 
+table table {
+  border: 0px;
+}

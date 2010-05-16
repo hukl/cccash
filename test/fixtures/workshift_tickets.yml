@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  workshift_id: 1
+  ticket_id: 1
+  amount: 1
+
+two:
+  workshift_id: 1
+  ticket_id: 1
+  amount: 1

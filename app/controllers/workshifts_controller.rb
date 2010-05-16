@@ -9,7 +9,6 @@ class WorkshiftsController < ApplicationController
 
   def create
     @workshift = Workshift.new params[:workshift]
-    
     if @workshift.save
       redirect_to admin_path
     else

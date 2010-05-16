@@ -15,6 +15,22 @@
       <td><%= f.text_field :money %></td>
     </tr>
     <tr>
+      <td colspan="2">
+        <h4>Tickets in Cashbox</h4>
+        <table>
+          <% Ticket.available.each do |ticket| %>
+          <tr>
+            <td><%= ticket.name %></td>
+            <td>
+              <%= text_field_tag "workshift[workshift_tickets_attributes][][amount]", 0 %>
+              <%= hidden_field_tag "workshift[workshift_tickets_attributes][][ticket_id]", ticket.id %>
+            </td>
+          </tr>
+          <% end %>
+        </table>
+      </td>
+    </tr>
+    <tr>
       <td></td>
       <td><%= f.submit %></td>
     </tr>

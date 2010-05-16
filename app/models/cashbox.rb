@@ -13,7 +13,7 @@ class Cashbox < ActiveRecord::Base
     :busy,
     :joins => :workshift,
     :conditions => [
-      "workshifts.cashbox_id = cashboxes.id AND workshifts.cleared = false "\
+      "workshifts.cashbox_id = cashboxes.id AND workshifts.state <> 'cleared'"\
       "AND workshifts.active = true"
     ]
   )

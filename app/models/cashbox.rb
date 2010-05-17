@@ -29,7 +29,7 @@ class Cashbox < ActiveRecord::Base
   def wait_for_closed_drawer
     cashbox_response_for('/wait_for_close',180).match(/closed/) != nil
   end
-  
+
   def cashbox_response_for( url, timeout=5)
     begin
       http = Net::HTTP.new(ip, port)
@@ -42,9 +42,18 @@ class Cashbox < ActiveRecord::Base
       raise NotFound, "Cashbox did not respond (timeout): #{url(request_uri)}"
     rescue Net::HTTPExceptions => e
       raise Borken, "Cashbox has fundamental issues: #{e}"
+    rescue NoMethodError => e
+      if e.to_s =~ /closed\?/
+        raise NotFound, "Cashbox not reachable! Daemon or Interface down!"
+      else
+        raise "Something went wrong down here. Your guess is as good as mine"
+      end
     end
   end
+
 end
+
+class NotFound < ArgumentError; end;
 
 
 __END__

@@ -31,18 +31,29 @@ class Transaction < ActiveRecord::Base
   def total_mwst
     ((( total*19.0) / 119.0 ).round(2) )
   end
+
+  def transcode_billing_address address
+    unless address.blank?
+      address_lines = address.split(/\r\n/).collect {|l| "  " + l.convert_umlauts[0...Printer::BON_WIDTH-2]}
   
-  def to_bon delimiter="\n"
+      (
+        [ "Leistungsempfaenger:" ] +
+        address_lines
+      ).flatten.compact.collect {|line| line.ljust(Printer::BON_WIDTH)}
+    end
+  end
+  
+  def to_bon billing_address="", delimiter="\n"
     (
     [
       "Chaos Communication Congress".center(Printer::BON_WIDTH),
       "26C3 - Here be dragons".center(Printer::BON_WIDTH),
       "Chaos Computer Club".center(Printer::BON_WIDTH),
       "Veranstaltungsgesellschaft mbH".center(Printer::BON_WIDTH),
-      "Postfach 00 00 00".center(Printer::BON_WIDTH),
-      "00000 Berlin\n".center(Printer::BON_WIDTH)
+      "Postfach 64 02 36".center(Printer::BON_WIDTH),
+      "10048 Berlin\n".center(Printer::BON_WIDTH)
     ] +
-      #bon_rechnungs_part +
+      [transcode_billing_address(billing_address)] +
     [
       "Ticket                                 EUR",
       "-" * Printer::BON_WIDTH,
@@ -54,8 +65,8 @@ class Transaction < ActiveRecord::Base
       "Leistungsdatum gleich Rechnungsdatum".center(Printer::BON_WIDTH),
       "Preise inkl. 19% MwSt".center(Printer::BON_WIDTH),
       "VIELEN DANK!\n".center(Printer::BON_WIDTH),
-      "AG Charlottenburg HRB 00000".center(Printer::BON_WIDTH),
-      "USt-ID: DE000000000".center(Printer::BON_WIDTH),
+      "AG Charlottenburg HRB 71629".center(Printer::BON_WIDTH),
+      "USt-ID: DE203286729".center(Printer::BON_WIDTH),
       (Time.now.strftime('%d. %b %Y - %H:%M ') + workshift.cashbox.name).center(Printer::BON_WIDTH),
       ("Belegnummer: " + self.id.to_s).center(Printer::BON_WIDTH)
       

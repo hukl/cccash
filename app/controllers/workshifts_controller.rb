@@ -60,4 +60,10 @@ class WorkshiftsController < ApplicationController
     end
   end
 
+  def clear
+    @workshift = Workshift.find params[:id]
+    @workshift.update_attributes(:cleared => true)
+    redirect_to admin_path
+  end
+
 end

@@ -1,3 +1,5 @@
 User
-<%= link_to "Logout", session_path, :method => :delete %>
-<%= link_to "Storno", cancel_most_recent_cart_path %>
+<%= link_to "Logout", session_path, :method => :delete %> |
+<%= link_to "Cart",   cart_path %> |
+<%= link_to "Storno", cancel_most_recent_cart_path %> |
+<%= link_to "Tasks",  :controller => :tasks, :action => :index %>

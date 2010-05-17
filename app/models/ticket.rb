@@ -23,4 +23,10 @@ class Ticket < ActiveRecord::Base
     line << " " * ( Printer::BON_WIDTH - (p.length + t.length) )
     line << p
   end
+
+  def sales_grouped_by_day(fmt='%d', shift=6.hours)
+    ticket_sales.group_by do |ts|
+      (ts.transaction.created_at-shift).strftime(fmt)
+    end
+  end
 end

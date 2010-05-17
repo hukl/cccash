@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     logout_keeping_session!
     user = User.authenticate(params[:login], params[:password])
     
-    if user && (user.admin? || user.workshift.try(:active))
+    if user && (user.admin? || user.active_workshift)
       self.current_user = user
       new_cookie_flag = (params[:remember_me] == "1")
       handle_remember_cookie! new_cookie_flag

@@ -57,6 +57,18 @@ namespace :cccash do
       puts special_guest.name
     end
   end
+
+  desc "Import Guests"
+  task :import_guests => :environment do
+    CSV::Reader.parse(File.open(File.join(Rails.root, "db", "guests.csv")), ";") do |row|
+      group = Group.find_by_name("Guest") || Group.create(:name => "Guest")
+      ticket_full = Ticket.find(:first, :conditions => {:name => "standard", :price => 0, :custom => true}) || create_custom_ticket("standard", 0, true)
+
+      special_guest = SpecialGuest.create( :name => row[0], :group_id => group.id )
+      special_guest.tickets << ticket_full
+      puts special_guest.name
+    end
+  end
   
   desc "Import our friends"
   task :import_friends => :environment do 

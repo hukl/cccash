@@ -45,7 +45,15 @@ class CartsController < ApplicationController
     @transaction = @cart.create_transaction(:workshift => current_user.workshift)
     
     if @transaction.errors.empty?
-      @cashbox.open_drawer
+      begin
+        @cashbox.open_drawer
+      rescue => e
+        @transaction.cancel
+        flash[:notice] = "( #{e.class} ) - #{e.message}\n" \
+                        "Last Transaction will be canceled"
+        redirect_to cart_path
+        return
+      end
       @cashbox.printer.print(@transaction.to_bon)
       render
       @cart.reset

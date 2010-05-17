@@ -1,5 +1,6 @@
 class Transaction < ActiveRecord::Base
-  
+  include Statistics
+
   has_many    :ticket_sales
   has_many    :tickets,      :through => :ticket_sales
   belongs_to  :workshift

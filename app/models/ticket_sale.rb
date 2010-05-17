@@ -1,4 +1,6 @@
 class TicketSale < ActiveRecord::Base
+  include Statistics
+
   belongs_to :transaction
   belongs_to :ticket
   

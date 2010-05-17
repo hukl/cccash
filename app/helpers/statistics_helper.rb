@@ -19,4 +19,11 @@ module StatisticsHelper
     )
   end
   
+  def line_chart(title, id, data, size)
+    javascript_tag do
+      "document.observe('dom:loaded', function() {
+        new Chart('line', '#{title}', '#{id}', #{data.to_json}, '#{size}');
+      });"
+    end
+  end
 end

@@ -1,6 +1,6 @@
 class WorkshiftsController < ApplicationController
-
   def index
+    @workshifts = Workshift.find :all
   end
 
   def new
@@ -9,7 +9,6 @@ class WorkshiftsController < ApplicationController
 
   def create
     @workshift = Workshift.new params[:workshift]
-    
     if @workshift.save
       redirect_to admin_path
     else
@@ -18,6 +17,16 @@ class WorkshiftsController < ApplicationController
   end
 
   def show
+    @workshift    = Workshift.find params[:id]
+    @transactions = Transaction.paginate(
+      :page       => params[:page],
+      :per_page   => 15,
+      :conditions => {:workshift_id => @workshift.id},
+      :order      => "created_at desc"
+    )
+  end
+  
+  def billing
     @workshift = Workshift.find params[:id]
   end
 
@@ -49,15 +58,29 @@ class WorkshiftsController < ApplicationController
     respond_to do |format|
       format.js do
         if workshift.toggle_activation
-          @workshifts = Workshift.all
+          @workshifts = Workshift.in_progress
           render :update do |page|
-            page['workshifts'].replace(render(:partial => 'workshift_list'))
+            page['workshifts'].replace(render(:partial => 'workshift_overview'))
           end
         else
           render :nothing => true
         end
       end
     end
+  end
+  
+  def clear
+    @workshift = Workshift.find params[:id]
+    
+    @workshift.transaction do
+      @workshift.clear!
+      @workshift.update_attributes! :cleared_by_id => current_user.id
+      if params[:taint_user]
+        @workshift.user.update_attributes! :tainted => true;
+      end
+    end
+    
+    redirect_to admin_path
   end
 
 end

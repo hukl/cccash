@@ -1,10 +1,9 @@
 class AdminController < ApplicationController
-  
-  before_filter :login_required
-  
+
   def index
-    @cashboxes  = Cashbox.all
+    @cashboxes  = Cashbox.all(:order => "created_at asc")
     @printers   = Printer.all
-    @workshifts = Workshift.unfinished
+    @workshifts = Workshift.in_progress
   end
+
 end

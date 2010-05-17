@@ -1,4 +1,6 @@
 class SpecialGuestsController < ApplicationController
+
+  skip_before_filter :admin_status_required
   
   def index
     @special_guests = SpecialGuest.paginate :page => params[:page]
@@ -34,7 +36,7 @@ class SpecialGuestsController < ApplicationController
   
   def search
     unless params[:search_term].blank?
-      @results = SpecialGuest.search params[:search_term], :star => true
+      @results = SpecialGuest.search params[:search_term], :star => true, :limit => 10
     else
       @results = []
     end
@@ -45,5 +47,3 @@ class SpecialGuestsController < ApplicationController
   end
 
 end
-
-

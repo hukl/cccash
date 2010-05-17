@@ -1,6 +1,7 @@
 class Cashbox < ActiveRecord::Base
 
   has_one     :workshift
+  
   belongs_to  :printer
 
   validates_presence_of   :ip,    :port, :name, :printer_id
@@ -11,8 +12,15 @@ class Cashbox < ActiveRecord::Base
   named_scope(
     :busy,
     :joins => :workshift,
-    :conditions => ["workshifts.cashbox_id = cashboxes.id"]
+    :conditions => [
+      "workshifts.cashbox_id = cashboxes.id AND workshifts.state <> 'cleared'"\
+      "AND workshifts.active = true"
+    ]
   )
+  
+  def active_workshift
+    Workshift.find(:cashbox_id => cashbox.id, :cleared => false)
+  end
   
   def open_drawer
     cashbox_response_for('/open').match(/open/) != nil

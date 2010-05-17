@@ -40,7 +40,6 @@ melchior:
   remember_token_expires_at: 
   remember_token:
 
-
 old_password_holder:
   id:                        5
   login:                     old_password_holder
@@ -49,4 +48,12 @@ old_password_holder:
   crypted_password:          00742970dc9e6319f8019fd54864d3ea740f04b1 # test
   created_at:                <%= 1.days.ago.to_s :db %>
 
-
+no_workshift_dude:
+  id:                        6
+  login:                     nwsd
+  email:                     nwsd@example.com
+  salt:                      da4b9237bacccdf19c0760cab7aec4a8359010b0 # SHA1('1')
+  crypted_password:          a8b2cafd5ec2020bfed72872687f475082020e36 # 'monkey'
+  created_at:                <%= 1.days.ago.to_s :db %>
+  remember_token_expires_at: 
+  remember_token:

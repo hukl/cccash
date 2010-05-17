@@ -5,35 +5,46 @@
 </p>
 
 <table>
-  <tr>
-    <th>
-      Name
-    </th>
-    <th>
-      Price
-    </th>
-    <th>
-      Custom?
-    </th>
-    <th>
-      Actions
-    </th>
-  </tr>
-  <% @tickets.each do |ticket| %>
-  <tr>
-    <td>
-      <%= ticket.name %>
-    </td>
-    <td>
-      <%= ticket.price %>
-    </td>
-    <td>
-      <%= ticket.custom? ? "✔" : "✘" %>
-    </td>
-    <td>
-      <%= link_to "edit", edit_ticket_path(ticket) %>
-      <%= link_to "delete", ticket_path(ticket), :method => :delete, :confirm => "Sure?" %>
-    </td>
-  </tr>
-  <% end %>
+  <thead>
+    <tr>
+      <th>
+        Name
+      </th>
+      <th>
+        Price
+      </th>
+      <th>
+        Custom?
+      </th>
+      <th>
+        Actions
+      </th>
+    </tr>
+  </thead>
+  <tbody id="tickets">
+    <% @tickets.each do |ticket| %>
+    <tr id="ticket_<%= ticket.id %>">
+      <td>
+        <%= ticket.name %>
+      </td>
+      <td>
+        <%= ticket.price %>
+      </td>
+      <td>
+        <%= ticket.custom? ? "✔" : "✘" %>
+      </td>
+      <td>
+        <%= link_to "edit", edit_ticket_path(ticket) %>
+        <%= link_to "delete", ticket_path(ticket), :method => :delete, :confirm => "Sure?" %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
 </table>
+
+<%= sortable_element "tickets",
+  :url => {:action => "sort"},
+  :complete => visual_effect(:highlight, "ticket_list"),
+  :tag => "tr",
+  :handle => "move"
+%>

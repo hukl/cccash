@@ -1,0 +1,27 @@
+<h1>User Details</h1>
+
+
+<table>
+  <tr>
+    <td>Login</td>
+    <td><%= @user.login %></td>
+  </tr>
+  <tr>
+    <td>Name</td>
+    <td><%= @user.name %></td>
+  </tr>
+  <tr>
+    <td>Created at:</td>
+    <td><%= @user.created_at.timestamp %></td>
+  </tr>
+  <tr>
+    <td>Tainted:</td>
+    <td><%= @user.tainted? ? "✔" : "✘" %> </td>
+  </tr>
+</table>
+<%= link_to "Edit", edit_user_path(@user) %>
+<% if @user.angel? %>
+<%= render :partial => 'angel_details' %>
+<% else %>
+<%= render :partial => 'admin_details' %>
+<% end %>

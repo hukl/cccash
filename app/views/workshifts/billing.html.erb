@@ -1,0 +1,82 @@
+<h1>Chaos Computer Club Veranstaltungsgesellschaft mbH</h1>
+<h3>Chaos Communication Congress <%= Time.now.year %></h3>
+<h3>Kassenabrechnung:</h3>
+<ul id="kassenabrechnung">
+  <li>Kasse: <%= @workshift.cashbox.name %> [Schicht: <%= @workshift.id  %>]</li>
+  <li>Zeitraum: <%= @workshift.started_at.to_s(:db) if @workshift.started_at %> Uhr bis: <%= @workshift.ended_at.to_s(:db) if @workshift.ended_at %> Uhr (Berlin)</li>
+  <li>Kassierer/in: <%= @workshift.user.name %></li>
+</ul>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Ticket Typ</th>
+        <th>Preis</th>
+        <th>Verkauft ( -storniert )</th>
+        <th>Retour</th>
+        <th>Summe</th>
+    </tr>
+    <% total = 0 %>
+    <% @workshift.grouped_tickets_count.each do |id, stat| %>
+        <tr class="<%= cycle('even', 'uneven')%>">
+            <% sub_total = (stat[:valid] * stat[:ticket].price) %>
+            <% total += sub_total %>
+            <td><%= id %></td>
+            <td><%= stat[:ticket].name %></td>
+            <td class="right"><%= nice_price(stat[:ticket].price) %></td>
+            <td class="centered">
+              <%= stat[:total] %>
+              <% if stat[:canceled] > 0 %>
+                ( -<%= stat[:canceled] -%> )
+              <% end %>
+            </td>
+            <td><%= stat[:workshift_tickets] - stat[:total] + stat[:canceled]  %></td>
+            <td class="right"><%= nice_price(sub_total) %></td>
+        </tr>
+        <% end %>
+        <tr class="bargeld">
+            <td>Bargeld:</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="right"><%= nice_price(@workshift.money) %></td>
+        </tr>
+        <tr class="ticket-sum">
+            <td>Betrag:</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="right"><%= nice_price(total + @workshift.money.to_i) %></td>
+        </tr>
+        <tr class="ticket-total">
+            <td>Einnahmen:</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="right"><%= nice_price(total) %></td>
+        </tr>
+</table>
+
+<% if @workshift.inactive? %>
+    <% form_tag clear_workshift_path(:id => @workshift.id), :class => 'hideForPrint' do %>
+      <%= submit_tag 'Ist alles OK', :confirm => 'Really mark as cleared?' %>
+      <% if @workshift.user.tainted? %>
+        <strong>This user is tainted.</strong>
+      <% else %>
+        Taint this user: <%= check_box_tag 'taint_user' %>
+      <% end %>
+    <% end %>
+<% end %>
+
+<div id="kassierer">
+  <legend>Unterschrift Kassierer</legend>
+</div>
+
+<div id="schichtleiter">
+  <legend>Unterschrift Schichtleiter</legend>
+</div>
+
+

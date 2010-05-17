@@ -1,0 +1,15 @@
+<h1>Statistics</h1>
+
+
+<p>Total number of tickets sold at cashboxes: <%= @ticket_sales.size %></p>
+<p>Total ammount of money collected through ticket sales: <%= nice_price( @ticket_sales.map {|ts| ts.ticket.price}.sum ) %></p>
+
+<%= 
+time_table(@tickets) do |ticket|
+  ticket ? ticket.size : 0
+end
+%>
+<%=
+  line_chart('Ticket sales by hour', 'container', @data, '850x300')
+%>
+<canvas id="container" style="width:850px;height:300px;"></canvas>

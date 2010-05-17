@@ -42,4 +42,12 @@ class TicketsController < ApplicationController
     redirect_to tickets_path
   end
 
+  def sort
+    params[:tickets].each_with_index do |id, index|
+      Ticket.update_all( ["position = ?", index+1], ["id = ?", id] )
+    end
+
+    render :nothing => true
+  end
+
 end

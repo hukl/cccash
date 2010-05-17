@@ -9,6 +9,12 @@
     <%= stylesheet_link_tag 'cccash' %>
     <%= stylesheet_link_tag "cccash_print", :media => "print" %>
     <%= javascript_include_tag :defaults %>
+    <!--[if IE]>
+      <%= javascript_include_tag 'excanvas' %>
+    <![endif]-->
+    <%= javascript_include_tag 'js-class' %>
+    <%= javascript_include_tag 'bluff-min' %>
+    <%= javascript_include_tag 'charts' %>
   </head>
   
   <body>

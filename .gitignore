@@ -5,3 +5,4 @@ db/schema.rb
 .DS_Store
 config/*.sphinx.conf
 db/sphinx
+db/*.csv

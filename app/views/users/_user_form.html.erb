@@ -21,10 +21,16 @@
     <tr>
       <td>Admin?</td>
       <td>
-        <%= f.check_box :admin, :disabled => true if @user.id == current_user.id %>
-        <%= f.check_box :admin if not @user.id == current_user.id %>
+        <%= f.check_box :admin, :disabled => (@user.id == current_user.id) %>
       </td>
     </tr>
+    <tr>
+      <td>Tainted?</td>
+      <td>
+        <%= f.check_box :tainted  %>
+      </td>
+    </tr>
+
     <tr>
       <td></td>
       <td><%= f.submit %></td>

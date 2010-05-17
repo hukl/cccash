@@ -14,6 +14,8 @@ class Ticket < ActiveRecord::Base
   named_scope :available,   :conditions => [
     "available_from < ? and ? < available_until", Time.now,Time.now
   ]
+
+  acts_as_list
   
   def to_bon_line
     line = ''
@@ -22,5 +24,11 @@ class Ticket < ActiveRecord::Base
     line << t
     line << " " * ( Printer::BON_WIDTH - (p.length + t.length) )
     line << p
+  end
+  
+  def sales_grouped_by_day(fmt='%d', shift=6.hours)
+    ticket_sales.group_by do |s| 
+      (s.transaction.created_at-shift).strftime(fmt)
+    end
   end
 end

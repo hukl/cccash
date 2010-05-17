@@ -20,6 +20,7 @@
       <%= user.name %>
     </td>
     <td>
+      <%= link_to "show", user_path(user) %>
       <%= link_to "edit", edit_user_path(user) %>
       <%= link_to "delete", user_path(user), :method => :delete, :confirm => "Sure?" if not user.id == current_user.id %>
     </td>
@@ -44,6 +45,7 @@
       <%= user.name %>
     </td>
     <td>
+      <%= link_to "show", user_path(user) %>
       <%= link_to "edit", edit_user_path(user) %>
       <%= link_to "delete", user_path(user), :method => :delete, :confirm => "Sure?" %>
     </td>

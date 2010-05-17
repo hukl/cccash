@@ -22,7 +22,10 @@
 
 </div>
 
+
 <div id="special_guest_search">
+
+  <h4>Search</h4>
   <%= text_field_tag :search_term %>
   <%= observe_field(
         :search_term, 
@@ -30,7 +33,7 @@
         :with => :search_term,
         :frequency => 1 
       ) %>
-  <%= render :partial => 'special_guests/search_results' %>
+  <div id="search_results"></div>
 </div>
 
 

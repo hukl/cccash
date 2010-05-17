@@ -1,7 +1,4 @@
 class UsersController < ApplicationController
-  
-  before_filter :login_required
-  
   def index
     @admins = User.admins
     @angels = User.angels
@@ -28,7 +25,9 @@ class UsersController < ApplicationController
     end
   end
 
-    def show
+  def show
+    @user = User.find params[:id]
+    @workshifts = @user.angel? ? @user.workshifts : @user.cleared_workshifts
   end
 
   def edit

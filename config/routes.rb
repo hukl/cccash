@@ -23,7 +23,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :groups
   map.resources :printers
   map.resources :tickets
-  map.resources :workshifts,      :member     => { :toggle_activation => :put }
+  map.resources :workshifts,      :member     => { 
+    :toggle_activation => :put,
+    :clear => :post
+  }
   map.resources :special_guests,  :collection => { :search => :get }
   map.resources :transactions
 

@@ -13,6 +13,10 @@ class Cashbox < ActiveRecord::Base
     :joins => :workshift,
     :conditions => ["workshifts.cashbox_id = cashboxes.id"]
   )
+
+  def active_workshift
+    Workshift.find(:cashbox_id => cashbox.id, :cleared => false)
+  end
   
   def open_drawer
     cashbox_response_for('/open').match(/open/) != nil

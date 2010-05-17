@@ -34,6 +34,11 @@ class User < ActiveRecord::Base
   # We really need a Dispatch Chain here or something.
   # This will also let us return a human error message.
   #
+
+  def active_workshift
+    Workshift.find(:first, :conditions => {:user_id => self.id, :cleared => false, :active => true} )
+  end
+
   def self.authenticate(login, password)
     return nil if login.blank? || password.blank?
     u = find_by_login(login.downcase) # need to get the salt

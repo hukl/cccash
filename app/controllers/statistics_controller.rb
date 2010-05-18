@@ -4,10 +4,10 @@ class StatisticsController < ApplicationController
     @ticket_sales = TicketSale.all
     
     start_time = Transaction.minimum(:created_at).to_date
-    end_time   = Transaction.maximum(:created_at).to_date + 2.day
+    end_time   = Transaction.maximum(:created_at).to_date + 1.day
     @sales_by_day = sales_by_day(start_time, end_time)
     @sales_by_ticket = sales_by_ticket
-    @transactions_by_hour = get_transactions_by_hour(1.day.ago, end_time)
+    @transactions_by_hour = get_transactions_by_hour(start_time, end_time)
   end
 
   private
@@ -57,6 +57,12 @@ class StatisticsController < ApplicationController
       transactions = Transaction.count_time_series(:start => start_time,
                                                    :end   => end_time,
                                                    :step  => 'hour')
+
+      ticket_sales = TicketSale.count_time_series(:start => start_time,
+                                                  :end   => end_time,
+                                                  :step  => 'hour')
+
+
       # Map the timestamp column to labels
       labels = {}
       transactions.each_with_index do |t, idx|
@@ -69,11 +75,13 @@ class StatisticsController < ApplicationController
       end
 
       # Map the count columns of each series
-      data = transactions.map{ |t| t.count.to_i }
+      transaction_data = transactions.map{ |t| t.count.to_i }
+      ticket_sale_data = ticket_sales.map{ |t| t.count.to_i }
 
       return { :x_axis => 'Days',
                :y_axis => 'Sales',
-               :series => {'Transactions' => data},
+               :series => {'Transactions' => transaction_data,
+                           'Ticket sales' => ticket_sale_data},
                :labels => labels }
 
     end

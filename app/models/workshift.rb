@@ -15,7 +15,8 @@ class Workshift < ActiveRecord::Base
   validates_numericality_of   :money, :greater_than => 0 
   validate_on_create          :no_busy_angel
 
-  named_scope :in_progress, :conditions => ["state != ?", "cleared"]
+  named_scope :in_progress, :conditions => ["state != ?", "cleared"],
+                            :order      => "state, created_at"
  
   aasm_initial_state :inactive
   
@@ -115,6 +116,14 @@ class Workshift < ActiveRecord::Base
 
   def workshift_tickets_for ticket_id
     workshift_tickets.find_by_ticket_id(ticket_id).try(:amount) || 0
+  end
+
+  def self.count_by_state
+    {'active'             => 0,
+     'waiting_for_login'  => 0,
+     'inactive'           => 0,
+     'standby'            => 0,
+     'cleared'            => 0}.merge(self.count(:group => :state))
   end
 
   private

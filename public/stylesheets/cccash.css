@@ -336,6 +336,45 @@ div.bluff-tooltip {
   -webkit-box-shadow: 6px 6px 6px #333;
 }
 
+.badge {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-box-shadow: 4px 4px 4px #333;
+  -webkit-box-shadow: 4px 4px 4px #333;
+  padding: 0px 6px 3px 6px;
+  font-size: 0.8em;
+  color: #fff;
+}
+
+.state_waiting_for_login {
+  background-color: #c22;
+}
+
+.state_active {
+  background-color: #2d2;
+}
+
+.state_inactive {
+  background-color: #dd2;
+}
+
+.state_cleared {
+  background-color: #44c;
+}
+
+div#dashboard-cashboxes {
+  width: 420px;
+  margin: 20px auto;
+  float: left;
+}
+
+div#dashboard-printers {
+  width: 420px;
+  margin: 20px auto;
+  float: right;
+}
+
+
 table table {
   border: 0px;
 }

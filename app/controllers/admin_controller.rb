@@ -5,6 +5,7 @@ class AdminController < ApplicationController
     @printers   = Printer.all
     @workshifts = Workshift.in_progress
     @transactions_by_minute = get_transactions_by_minute(30.minutes.ago, Time.now)
+    @workshift_count = Workshift.count_by_state
   end
 
   private

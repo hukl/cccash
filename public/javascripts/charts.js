@@ -20,7 +20,7 @@ var Chart = function(chart_type, title, id, data, size) {
       chart.top_margin    = 10;
       chart.bottom_margin = -20;
       chart.left_margin   = -30;
-      chart.right_margin  = 0;
+      chart.right_margin  = 10;
       chart.title_margin  = 0;
       chart.legend_margin = 0;
       

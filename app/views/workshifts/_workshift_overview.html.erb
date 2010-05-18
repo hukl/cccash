@@ -1,4 +1,10 @@
 <div id="workshifts">
+  <h1>Workshifts
+    <span class='badge state_active'><%= @workshift_count['active'] %> active</span>
+    <span class='badge state_waiting_for_login'><%= @workshift_count['waiting_for_login'] + @workshift_count['standby'] %> waiting</span>
+    <span class='badge state_inactive'><%= @workshift_count['inactive'] %> inactive</span>
+    <span class='badge state_cleared'><%= @workshift_count['cleared'] %> cleared</span></h1>
+
   <p><%= link_to "Create new Workshift", new_workshift_path %></p>
   
   <table>
@@ -8,23 +14,27 @@
       <th>Angel</th>
       <th>Money</th>
       <th>Status</th>
-      <th>Actions</th>
+      <th colspan='4'>Actions</th>
     </tr>
     <% @workshifts.group_by(&:status).each do |status, workshifts| %>
     <% workshifts.each do |workshift| %>
-    <tr class="<%= cycle('even', 'uneven')%>">
+      <tr class="<%= cycle('even', 'uneven')%>">
       <td><%= workshift.id %></td>
       <td><%= workshift.cashbox.name %></td>
       <td><%= link_to_user(workshift.user) %></td>
       <td class="right"><%= nice_price(workshift.money) %></td>
-      <td><strong><%= status %></strong></td>
+      <td class='<%= "state_#{workshift.state}" %>'><strong><%= status %></strong></td>
       <td id="activate_workshift_<%= workshift.id -%>">
         <%= toggle_activation_link workshift %>
-      <% if workshift.transactions.empty? %>
-        <%= link_to 'Delete', workshift_path(workshift), :method => :delete, :confirm => "Are you sure?" %>
-      <% end %>
-      <%= link_to 'Billing', billing_workshift_path(workshift) %>
-      <%= link_to 'Details', workshift_path(workshift) %>
+      </td>
+      <td>
+        <% if workshift.transactions.empty? %>
+          <%= link_to 'Delete', workshift_path(workshift), :method => :delete, :confirm => "Are you sure?" %>
+        <% end %>
+      </td>
+
+      <td><%= link_to 'Billing', billing_workshift_path(workshift) %></td>
+      <td><%= link_to 'Details', workshift_path(workshift) %></td>
       </td>
     </tr>
     <% end %>

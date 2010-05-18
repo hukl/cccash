@@ -80,6 +80,10 @@ class Workshift < ActiveRecord::Base
     state.humanize
   end
 
+  def event_possible? requested_event
+    aasm_events_for_current_state.include? requested_event
+  end
+
   def toggle_activation
     if aasm_events_for_current_state.include?(:activate)
       activate!

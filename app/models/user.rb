@@ -80,4 +80,11 @@ class User < ActiveRecord::Base
     Workshift.find(:first, :conditions => ["state IN (?) AND user_id = ?", ["waiting_for_login", "active", "standby"], id])
   end
   
+  
+  def end_workshift
+    if active_workshift && active_workshift.event_possible?(:logout)
+      active_workshift.logout!
+    end
+  end
+  
 end

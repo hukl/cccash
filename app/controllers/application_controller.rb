@@ -17,21 +17,29 @@ class ApplicationController < ActionController::Base
       render :nothing => true, :status => 401
     end
   end
+  
+  def workshift_active?
+    current_user && current_user.active_workshift
+  end
+
+  def cashbox_valid?
+    if current_user && current_user.active_workshift
+      request.remote_ip == current_user.active_workshift.cashbox.ip
+    end
+  end
 
   def check_workshift_and_ip
-    unless current_user &&
-           current_user.active_workshift &&
-           ip_allowed = request.remote_ip == current_user.active_workshift.cashbox.ip
-      flash[:notice] = if not ip_allowed
-        "This is not your cashbox"
-      else
-        "Your workshift has ended"
+    return unless current_user
+  
+    unless workshift_active? && cashbox_valid?
+      if !workshift_active?
+        flash[:notice] = "Your workshift has ended"
+      elsif !cashbox_valid?
+        flash[:notice] = "This is not your cashbox"
       end
-
-      if current_user.workshift &&
-         current_user.workshift.aasm_events_for_current_state.include?(:logout)
-        current_user.workshift.logout!
-      end
+  
+      current_user.end_workshift
+  
       logout_keeping_session!
       respond_to do |format|
         format.html { redirect_to new_session_path }
@@ -43,4 +51,5 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
 end

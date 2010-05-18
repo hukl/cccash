@@ -42,24 +42,26 @@ class CartsController < ApplicationController
   # template is rendered. If not it redirects back to the cart to start over.
   def checkout
     session[:valid] = false
-    @transaction = @cart.create_transaction(:workshift => current_user.workshift)
-    
-    if @transaction.errors.empty?
-      begin
-        @cashbox.open_drawer
-      rescue => e
-        @transaction.cancel
-        flash[:notice] = "( #{e.class} ) - #{e.message}\n" \
-                        "Last Transaction will be canceled"
-        redirect_to cart_path
-        return
+
+    begin
+      Transaction.transaction do
+        @transaction = @cart.create_transaction(:workshift => current_user.workshift)
+
+        if @transaction.errors.empty?
+          @cashbox.open_drawer
+          @cashbox.printer.print(@transaction.to_bon)
+          render
+          @cart.reset
+        else
+          flash[:notice] = "Invalid Transaction: #{transaction_errors}"
+          redirect_to cart_path
+        end
       end
-      @cashbox.printer.print(@transaction.to_bon)
-      render
-      @cart.reset
-    else
-      flash[:notice] = "Invalid Transaction: #{transaction_errors}"
+    rescue => e
+      flash[:notice] = "( #{e.class} ) - #{e.message}\n" \
+                       "Last Transaction will be canceled"
       redirect_to cart_path
+      return
     end
   end
   

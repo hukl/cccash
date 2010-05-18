@@ -1,7 +1,14 @@
 require 'test_helper'
 
 class WorkshiftTest < ActiveSupport::TestCase
-  
+
+  test "no workshift without tickets" do
+    workshift = Workshift.new :user    => users(:no_workshift_dude),
+                              :money   => 123,
+                              :cashbox => cashboxes(:one)
+    assert_equal false, workshift.valid?, "Workshift should not be valid"
+  end
+
   test "no workshifts for busy angels" do
     my_workshift = workshifts(:three)
     

@@ -103,7 +103,11 @@ class WorkshiftsControllerTest < ActionController::TestCase
       post :create, :workshift => {
         :cashbox  => cashboxes(:four),
         :user     => users(:no_workshift_dude),
-        :money    => 100
+        :money    => 100,
+        :workshift_tickets_attributes => [
+          {:ticket_id => 1, :amount => 20 },
+          {:ticket_id => 2, :amount => 40 }
+        ]
       }
     end
     

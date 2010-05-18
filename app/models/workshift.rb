@@ -14,6 +14,7 @@ class Workshift < ActiveRecord::Base
   validates_presence_of       :user,  :cashbox, :money
   validates_numericality_of   :money, :greater_than => 0 
   validate_on_create          :no_busy_angel
+  validate_on_create          :must_have_tickets
 
   named_scope :in_progress, :conditions => ["state != ?", "cleared"],
                             :order      => "state, created_at"
@@ -132,5 +133,15 @@ class Workshift < ActiveRecord::Base
   private
   def no_busy_angel
     errors.add_to_base("The user you chose is busy") if user && user.workshift
+  end
+
+  def must_have_tickets
+    ticket_amount = workshift_tickets.inject(0) do |memo, wt|
+      memo += wt.amount || 0
+    end
+    
+    if ticket_amount == 0
+      errors.add_to_base("You have not supplied any tickets")
+    end
   end
 end

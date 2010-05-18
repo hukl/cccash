@@ -28,7 +28,8 @@ class ApplicationController < ActionController::Base
         "Your workshift has ended"
       end
 
-      if current_user.workshift.aasm_events_for_current_state.include?(:logout)
+      if current_user.workshift &&
+         current_user.workshift.aasm_events_for_current_state.include?(:logout)
         current_user.workshift.logout!
       end
       logout_keeping_session!

@@ -1,3 +1,10 @@
+<%=
+  mini_line_chart('Transactions by minute', 'transactions_by_minute', @transactions_by_minute, '901x100')
+%>
+<div style="margin: -50px -20px 0 -20px;">
+<canvas id="transactions_by_minute" style="width:901px;height:100px;"></canvas>
+</div>
+
 <h1>Workshifts</h1>
 <%= render :partial => 'workshifts/workshift_overview' %>
 

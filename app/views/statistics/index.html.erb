@@ -10,6 +10,22 @@ time_table(@tickets) do |ticket|
 end
 %>
 <%=
-  line_chart('Ticket sales by hour', 'container', @data, '850x300')
+  stacked_bar_chart('Sales by day', 'sales_by_day', @sales_by_day, '420x300')
 %>
-<canvas id="container" style="width:850px;height:300px;"></canvas>
+
+<div style="float: left">
+  <canvas id="sales_by_day" style="width:420px;height:300px;"></canvas>
+</div>
+<%=
+  pie_chart('Sales by ticket', 'sales_by_ticket', @sales_by_ticket, '420x300')
+%>
+<div style="float: right; margin-bottom: 20px">
+  <canvas id="sales_by_ticket" style="width:420px;height:300px;"></canvas>
+</div>
+
+<%=
+  line_chart('Transactions by hour', 'transactions_by_hour', @transactions_by_hour, '860x300')
+%>
+<div style="clear: both;">
+  <canvas id="transactions_by_hour" style="width:860px;height:300px;"></canvas>
+</div>

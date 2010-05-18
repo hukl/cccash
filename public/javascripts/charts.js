@@ -25,11 +25,15 @@ var Chart = function(chart_type, title, id, data, size) {
       chart.title_margin  = 0;
       chart.legend_margin = 0;
       
-      chart.line_width = 1;
-      chart.hide_dots = true
+      chart.line_width = 2;
+
+      chart.line_color = 'red';
+      chart.hide_dots = true;
       chart.hide_title = true;
       chart.hide_legend = true;
       chart.theme_37signals();
+      chart.set_theme({ colors: ['#ff0000'],
+                        marker_color: '#666'});
       break;
 
     case "stackedbar":

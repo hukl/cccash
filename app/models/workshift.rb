@@ -14,8 +14,11 @@ class Workshift < ActiveRecord::Base
   validates_presence_of       :user,  :cashbox, :money
   validates_numericality_of   :money, :greater_than => 0 
   validate_on_create          :no_busy_angel
+  validate_on_create          :must_have_tickets
+  validate_on_create          :cashbox_availability
 
-  named_scope :in_progress, :conditions => ["state != ?", "cleared"]
+  named_scope :in_progress, :conditions => ["state != ?", "cleared"],
+                            :order      => "state, created_at"
  
   aasm_initial_state :inactive
   
@@ -35,6 +38,9 @@ class Workshift < ActiveRecord::Base
                 :to   => :inactive
 
     transitions :from => :waiting_for_login,
+                :to   => :inactive
+
+    transitions :from => :standby,
                 :to   => :inactive
   end
 
@@ -73,6 +79,10 @@ class Workshift < ActiveRecord::Base
   
   def status
     state.humanize
+  end
+
+  def event_possible? requested_event
+    aasm_events_for_current_state.include? requested_event
   end
 
   def toggle_activation
@@ -117,8 +127,32 @@ class Workshift < ActiveRecord::Base
     workshift_tickets.find_by_ticket_id(ticket_id).try(:amount) || 0
   end
 
+  def self.count_by_state
+    {'active'             => 0,
+     'waiting_for_login'  => 0,
+     'inactive'           => 0,
+     'standby'            => 0,
+     'cleared'            => 0}.merge(self.count(:group => :state))
+  end
+
   private
   def no_busy_angel
     errors.add_to_base("The user you chose is busy") if user && user.workshift
+  end
+
+  def must_have_tickets
+    ticket_amount = workshift_tickets.inject(0) do |memo, wt|
+      memo += wt.amount || 0
+    end
+    
+    if ticket_amount == 0
+      errors.add_to_base("You have not supplied any tickets")
+    end
+  end
+
+  def cashbox_availability
+    if Cashbox.busy.include? self.cashbox
+      errors.add_to_base("Cashbox is already in use by other Workshift")
+    end
   end
 end

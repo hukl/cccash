@@ -27,3 +27,10 @@ four:
   port: 4444
   name: Dummy Cashbox 4
   printer_id: 2
+
+five:
+  id: 5
+  ip: 42.42.42.5
+  port: 4444
+  name: Dummy Cashbox 5
+  printer_id: 2

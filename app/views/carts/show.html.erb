@@ -1,19 +1,16 @@
 <div id="ticket_selection">
-    
   <h1>Tickets</h1>
   <table id="tickets">
-    <tr>
-      <th>Ticket</th>
-      <th>Price</th>
-    </tr>
     <% Ticket.standard.available.each do |ticket| %>
-    <tr class="<%= cycle('even', 'uneven')%>">
+    <tr>
       <td>
+        <div class="ticket_badge">
         <%= link_to_remote(
               ticket.name, 
               :url => add_ticket_to_cart_path(:id => ticket.id), 
               :method => :put
-            ) %>
+        ) %>
+      </div>
       </td>
       <td class="price"><%= nice_price ticket.price %></td>
     </tr>

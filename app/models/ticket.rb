@@ -31,4 +31,11 @@ class Ticket < ActiveRecord::Base
       (s.transaction.created_at-shift).strftime(fmt)
     end
   end
+
+  def count_sales_series(start_time, end_time, step)
+    TicketSale.count_time_series :start => start_time,
+                                 :end   => end_time,
+                                 :step  => step,
+                                 :conditions => { :ticket_id => self.id }
+  end
 end

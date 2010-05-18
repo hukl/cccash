@@ -13,8 +13,7 @@ class Cashbox < ActiveRecord::Base
     :busy,
     :joins => :workshift,
     :conditions => [
-      "workshifts.cashbox_id = cashboxes.id AND workshifts.state <> 'cleared'"\
-      "AND workshifts.active = true"
+      "workshifts.cashbox_id = cashboxes.id AND workshifts.state <> 'cleared'"
     ]
   )
   
@@ -37,9 +36,9 @@ class Cashbox < ActiveRecord::Base
       response, data = http.get( url, nil )
       return data
     rescue Errno::ECONNREFUSED
-      raise NotFound, "Cashbox refused connection: #{url(request_uri)}"
+      raise NotFound, "Cashbox refused connection: #{url} (request_uri)"
     rescue Timeout::Error
-      raise NotFound, "Cashbox did not respond (timeout): #{url(request_uri)}"
+      raise NotFound, "Cashbox did not respond (timeout): #{url} (request_uri)"
     rescue Net::HTTPExceptions => e
       raise Borken, "Cashbox has fundamental issues: #{e}"
     rescue NoMethodError => e

@@ -1,8 +1,16 @@
-<h1>Workshifts</h1>
+<%= mini_line_chart('Transactions by minute', 'transactions_by_minute', @transactions_by_minute, '901x100') %>
+<div style="margin: -50px -20px 0 -20px;">
+  <canvas id="transactions_by_minute" style="width:901px;height:100px;"></canvas>
+</div>
+
 <%= render :partial => 'workshifts/workshift_overview' %>
 
-<h1>Cashboxes</h1>
-<%= render :partial => 'cashboxes/cashbox_list' %>
+<div id="dashboard-cashboxes">
+  <h1>Cashboxes</h1>
+  <%= render :partial => 'cashboxes/cashbox_list' %>
+</div>
 
-<h1>Printers</h1>
-<%= render :partial => 'printers/printer_list' %>
+<div id="dashboard-printers">
+  <h1>Printers</h1>
+  <%= render :partial => 'printers/printer_list' %>
+</div>

@@ -15,6 +15,7 @@ class Workshift < ActiveRecord::Base
   validates_numericality_of   :money, :greater_than => 0 
   validate_on_create          :no_busy_angel
   validate_on_create          :must_have_tickets
+  validate_on_create          :cashbox_availability
 
   named_scope :in_progress, :conditions => ["state != ?", "cleared"],
                             :order      => "state, created_at"
@@ -146,6 +147,12 @@ class Workshift < ActiveRecord::Base
     
     if ticket_amount == 0
       errors.add_to_base("You have not supplied any tickets")
+    end
+  end
+
+  def cashbox_availability
+    if Cashbox.busy.include? self.cashbox
+      errors.add_to_base("Cashbox is already in use by other Workshift")
     end
   end
 end

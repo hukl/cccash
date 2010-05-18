@@ -2,6 +2,30 @@ require 'test_helper'
 
 class WorkshiftTest < ActiveSupport::TestCase
 
+  test "activating two workshifts with the same cashbox should not work" do
+    Workshift.delete_all
+    workshift_a = Workshift.create!(
+      :user     => users(:aaron),
+      :money    => 200,
+      :cashbox  => cashboxes(:five),
+      :workshift_tickets_attributes => [
+        { :ticket_id  => 1, :amount => 20 }
+      ]
+    )
+
+    expexted_message = "Cashbox is already in use by other Workshift"
+    assert_raise(ActiveRecord::RecordInvalid, expexted_message) do
+      workshift_b = Workshift.create!(
+        :user     => users(:yesper),
+        :money    => 200,
+        :cashbox  => cashboxes(:five),
+        :workshift_tickets_attributes => [
+          { :ticket_id  => 1, :amount => 20 }
+        ]
+      )
+    end
+  end
+
   test "no workshift without tickets" do
     workshift = Workshift.new :user    => users(:no_workshift_dude),
                               :money   => 123,

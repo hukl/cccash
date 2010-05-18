@@ -10,6 +10,7 @@ var Chart = function(chart_type, title, id, data, size) {
       chart.marker_font_size = 10;
       chart.line_width = 2;
       chart.dot_radius = 3;
+      chart.theme_keynote();
       break;
     case "miniline":
       chart = new Bluff.Line(id, size);
@@ -28,18 +29,20 @@ var Chart = function(chart_type, title, id, data, size) {
       chart.hide_dots = true
       chart.hide_title = true;
       chart.hide_legend = true;
+      chart.theme_37signals();
       break;
 
     case "stackedbar":
       chart = new Bluff.StackedBar(id, size);
+      chart.theme_keynote();
       break;
     case "pie":
       chart = new Bluff.Pie(id, size);
+      chart.theme_keynote();
   }
 
   // Add styling
   chart.title = title;
-  chart.theme_keynote();
   chart.tooltips = true;
 
   // Add data and labels

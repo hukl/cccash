@@ -4,6 +4,7 @@ class CartsControllerTest < ActionController::TestCase
   
   def setup
     login_as :aaron
+    @request.env['REMOTE_ADDR'] = '42.42.42.2'
   end
   
   test "cart has an empty tickets array" do

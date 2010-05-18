@@ -393,6 +393,10 @@ div.bluff-tooltip {
   background-color: #c22;
 }
 
+.state_standby {
+  background-color: #c22;
+}
+
 .state_active {
   background-color: #2d2;
 }

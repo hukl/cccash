@@ -1,31 +1,37 @@
 <h1>Statistics</h1>
 
+<p>Total number of tickets sold at cashboxes: <span class='ticket_badge' ><%= @ticket_sales.size %></span></p>
+<p>Total ammount of money collected through ticket sales: <span class='ticket_badge'><%= nice_price( @ticket_sales.map {|ts| ts.ticket.price}.sum ) %></span></p>
 
-<p>Total number of tickets sold at cashboxes: <%= @ticket_sales.size %></p>
-<p>Total ammount of money collected through ticket sales: <%= nice_price( @ticket_sales.map {|ts| ts.ticket.price}.sum ) %></p>
+<% content_tag 'table' do %>
+  <% content_tag 'tr' do %>
+    <%= content_tag 'th', 'Ticket' %>
+    <% @days.each do |d| %>
+      <%= content_tag 'th', d %>
+    <% end %>
+  <% end %>
+  
+  <% @sales_series.each do |ticket_name, series| %>
+    <% content_tag 'tr', :class => cycle('odd', 'even') do %>
+      <%= content_tag 'td', ticket_name %>
+      <% series.each do |s| %>
+        <%= content_tag 'td', s.count %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
 
-<%= 
-time_table(@tickets) do |ticket|
-  ticket ? ticket.size : 0
-end
-%>
-<%=
-  stacked_bar_chart('Sales by day', 'sales_by_day', @sales_by_day, '420x300')
-%>
-
+<%= stacked_bar_chart('Sales by day', 'sales_by_day', @sales_by_day, '420x300') %>
 <div style="float: left">
   <canvas id="sales_by_day" style="width:420px;height:300px;"></canvas>
 </div>
-<%=
-  pie_chart('Sales by ticket', 'sales_by_ticket', @sales_by_ticket, '420x300')
-%>
+
+<%= pie_chart('Sales by ticket', 'sales_by_ticket', @sales_by_ticket, '420x300') %>
 <div style="float: right; margin-bottom: 20px">
   <canvas id="sales_by_ticket" style="width:420px;height:300px;"></canvas>
 </div>
 
-<%=
-  line_chart('Transactions by hour', 'transactions_by_hour', @transactions_by_hour, '860x300')
-%>
+<%= line_chart('Transactions by hour', 'transactions_by_hour', @transactions_by_hour, '860x300') %>
 <div style="clear: both;">
   <canvas id="transactions_by_hour" style="width:860px;height:300px;"></canvas>
 </div>

@@ -48,6 +48,10 @@ class SpecialGuest < ActiveRecord::Base
     custom_ticket
   end
   
+  def checked_in
+    return (self.transactions.to_a.size > 0 || self.transactions.find_by_canceled(true).to_a.size > 1)
+  end
+  
   def bought_tickets
     tickets = self.transactions.map {|tr| tr.tickets.custom}
     tickets.flatten

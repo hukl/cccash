@@ -267,7 +267,7 @@ td.quantity {
 
 #flash_container {
   width: 900px;
-  height: 30px;
+  height: 60px;
   margin: 0 auto;
   background-color: #ffffff;
 }
@@ -276,6 +276,7 @@ td.quantity {
   padding-top: 6px;
   padding-bottom: 8px;
   background-color: yellow;
+  font-size: 23pt;
 }
 
 .strike {
@@ -356,6 +357,13 @@ div.bluff-tooltip {
   color: #fff;
 }
 
+.ticket_badge a {
+  width: 100%;
+  height: 100%;
+  display: block;
+  text-decoration: none;
+}
+
 .ticket_badge:hover {
   background-color:#A2FF00;
 }
@@ -374,11 +382,47 @@ div.bluff-tooltip {
   color:#474040;
 }
 
-.ticket_badge a {
+.ticket_badge_reservation {
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-box-shadow: 4px 4px 4px #333;
+  -webkit-box-shadow: 4px 4px 4px #333;
+  padding: 0px 6px 3px 6px;
+  margin: 5px;
+  margin-bottom: 60px;
+  width: 90%;
+  background-color:#F5F7BD;
+  border:3px solid #DEDFC5;
+  font-size:20px;
+  color:#474040;
+}
+
+.ticket_badge_reservation:hover {
+  background-color:#DEDFC5;
+}
+
+.ticket_badge_reservation a {
   width: 100%;
   height: 100%;
   display: block;
   text-decoration: none;
+}
+
+.ticket_reservation_price {
+    padding: 0px 6px 3px 6px;
+    margin: 5px;
+    margin-bottom: 60px;
+}
+
+#open_cashbox a {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-box-shadow: 4px 4px 4px #333;
+    -webkit-box-shadow: 4px 4px 4px #333;
+    margin-bottom: 10px;
+    background-color: #DEDFC5;
+    text-decoration:none;
+    padding: 5px;
 }
 
 #checkout a {

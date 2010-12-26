@@ -10,7 +10,8 @@ class Ticket < ActiveRecord::Base
   validates_numericality_of :price, :greater_than_or_equal_to => 0
   
   named_scope :custom,      :conditions => {:custom => true}
-  named_scope :standard,    :conditions => {:custom => false}
+  named_scope :standard,    :conditions => {:custom => false,:upgrade => nil,:presale => nil}
+  named_scope :presale,     :conditions => {:presale => true}
   named_scope :available,   :conditions => [
     "available_from < ? and ? < available_until", Time.now,Time.now
   ]

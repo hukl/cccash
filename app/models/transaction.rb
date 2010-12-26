@@ -9,7 +9,7 @@ class Transaction < ActiveRecord::Base
   validates_presence_of :tickets, :message => "You must sell something!"
   validates_presence_of :workshift
   
-  validate :transaction_contains_only_one_custom_ticket
+  validate :transaction_contains_only_one_custom_ticket, :transaction_contains_only_one_presale_ticket
   
   def grouped_tickets
     stats = {}
@@ -35,12 +35,26 @@ class Transaction < ActiveRecord::Base
     end
   end
   
+  def transaction_contains_only_one_presale_ticket
+    if 1 < self.tickets.presale.count
+      errors.add_to_base("Only one presale ticket per transaction allowed")
+    end
+  end
+  
   def total
     tickets.inject(0) {|sum, ticket| sum += ticket.price}
   end
   
   def total_mwst
     
+  end
+  
+  def presale
+    self.tickets.each do |ticket|
+      if ticket.presale? then
+        return true
+      end
+    end
   end
   
   def cancel

@@ -24,7 +24,7 @@ class PrintersController < ApplicationController
   end
 
   def update
-    @printer = Printer.find(1)
+    @printer = Printer.find(params[:id])
     
     if @printer.update_attributes(params[:printer])
       redirect_to admin_path

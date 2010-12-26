@@ -1,0 +1,44 @@
+<div id="cart">
+  <h1>Cart</h1>
+  <table>
+    <tr>
+      <th>Ticket</th>
+      <th>Price</th>
+      <th>Action</th>
+    </tr>
+    <% @cart.tickets.each_with_index do |ticket, index| %>
+    <tr class="<%= cycle('even', 'uneven') -%>">
+      <td>
+        <%= ticket.name %>
+      </td>
+      <td class="right"><%= nice_price ticket.price %></td>
+      <td>
+        <span class="button_delete">
+          <%= link_to_remote(
+                'Delete', 
+                :url => remove_ticket_from_cart_path(:position => index),
+                :method => :delete
+              ) %>
+        </span>
+        <%# if ticket.member and ticket.member.comment %>
+          <%#=h ticket.member.comment %>
+        <%# end %>
+      </td>
+    </tr>
+    <% end %>
+    <tr>
+      <td colspan="3" class="divider"></td>
+    </tr>
+    <tr>
+      <td colspan="1"><h1>Total:</h1></td>
+      <td colspan="2"><h1><%= nice_price @cart.total_price %></h1></td>
+    </tr>
+    <tr>
+      <td colspan="3" id="checkout">
+        <% unless params[:action] == "checkout" %>
+          <%= link_to 'Checkout!', checkout_cart_path %>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+</div>

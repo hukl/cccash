@@ -1,2 +1,54 @@
-<h1>SpecialGuests#show</h1>
-<p>Find me in app/views/special_guests/show.html.erb</p>
+<div id="ticket_selection">
+  <h1>Tickets for <%= @special_guest.uid %></h1>
+  <table id="tickets">
+    <% Ticket.presale.available.sort_by(&:price).each do |ticket| %>
+    <% if @special_guest.reservations[0].ticket.price < (@special_guest.reservations[0].ticket.price+ticket.price) || ticket.price == 0 %>
+    <% if ticket.name == @special_guest.reservations[0].ticket.name %>
+    <tr class="ticket_reservation">
+    <% else %>
+    <tr>
+    <% end %>
+      <td>
+        <% if ticket.name == @special_guest.reservations[0].ticket.name %>
+        <div class="ticket_badge_reservation">
+        <% else %>
+        <div class="ticket_badge">
+        <%end%>
+            <%= link_to_remote(
+                  ticket.name,
+                  :url => add_ticket_to_cart_path(
+                    :id => ticket.id,
+                    :special_guest_id => @special_guest.id
+                  ), 
+                  :method => :put
+            ) %>
+      </div>
+      </td>
+      <% if ticket.name == @special_guest.reservations[0].ticket.name %>
+      <td class="price"><div class="ticket_reservation_price"><%= nice_price ticket.price %></div></td>
+      <% else %>
+      <td class="price"><%= nice_price ticket.price %></td>
+      <% end %>
+    </tr>
+    <% end %>
+    <% end %>
+  </table>
+
+</div>
+
+
+<div id="special_guest_search">
+
+  <h4>Search</h4>
+  <%= text_field_tag :search_term %>
+  <%= observe_field(
+        :search_term, 
+        :url => search_special_guests_path, 
+        :with => :search_term,
+        :frequency => 1 
+      ) %>
+  <div id="search_results"></div>
+</div>
+
+
+<%= render  :partial => 'cart' %>

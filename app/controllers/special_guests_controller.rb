@@ -23,6 +23,15 @@ class SpecialGuestsController < ApplicationController
   end
 
   def show
+          @special_guest = SpecialGuest.find(params[:id])
+          if !@special_guest.checked_in then
+            @cart = ( session[:cart] ||= Cart.new )
+            @cart.reset
+            session[:valid] = true
+          else
+            flash[:notice] = "This guest already checked in!"
+            redirect_to cart_path
+          end
   end
 
   def edit

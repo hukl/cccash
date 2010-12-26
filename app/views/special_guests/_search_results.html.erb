@@ -19,6 +19,17 @@
         <td><%= special_guest.uid %></td>
         <td><%= special_guest.group.name %></td>
         <td>
+        <% if !special_guest.checked_in %>
+            ✔
+          <% else %>
+           ✘
+          <% end %><%= link_to special_guest.reservations[0].ticket.name,
+                        :controller => :special_guests,
+                        :action => :show,
+                        :id => special_guest.id
+            %>
+        </td>
+        <td>
           <table class="special_guest_tickets">
           <% special_guest.available_tickets.each do |ticket| %>
           <tr>

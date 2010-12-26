@@ -46,10 +46,12 @@ class CartsController < ApplicationController
     begin
       Transaction.transaction do
         @transaction = @cart.create_transaction(:workshift => current_user.workshift)
-
         if @transaction.errors.empty?
           @cashbox.open_drawer
-          @cashbox.printer.print(@transaction.to_bon)
+          if !@transaction.presale then
+            @cashbox.printer.print(@transaction.to_bon)
+          end
+          
           render
           @cart.reset
         else
@@ -63,6 +65,12 @@ class CartsController < ApplicationController
       redirect_to cart_path
       return
     end
+  end
+  
+  def open_cashbox
+    @cashbox.open_drawer
+    flash[:notice] = "Opened cashbox"
+    redirect_to cart_path
   end
   
   def cancel_most_recent

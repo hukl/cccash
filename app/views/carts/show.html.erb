@@ -2,11 +2,12 @@
   <h1>Tickets</h1>
   <table id="tickets">
     <% Ticket.standard.available.each do |ticket| %>
+    <% if ticket.name =~ /(^friends_|frei$)/ then next end %>
     <tr>
       <td>
         <div class="ticket_badge">
         <%= link_to_remote(
-              ticket.name, 
+              ticket.name,
               :url => add_ticket_to_cart_path(:id => ticket.id), 
               :method => :put
         ) %>
@@ -18,7 +19,7 @@
   </table>
 </div>
 
-<div id="special_guest_search">
+<div id="main_special_guest_search">
 
   <h4>Search</h4>
   <%= text_field_tag :search_term %>

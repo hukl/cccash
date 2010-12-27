@@ -17,13 +17,16 @@
         Custom?
       </th>
       <th>
+        Presale?
+      </th>
+      <th>
         Actions
       </th>
     </tr>
   </thead>
   <tbody id="tickets">
     <% @tickets.each do |ticket| %>
-    <tr id="ticket_<%= ticket.id %>">
+    <tr id="ticket_<%= ticket.id %>" class="<%= cycle('even', 'uneven') %>">
       <td>
         <%= ticket.name %>
       </td>
@@ -32,6 +35,9 @@
       </td>
       <td>
         <%= ticket.custom? ? "✔" : "✘" %>
+      </td>
+      <td>
+        <%= ticket.presale? ? "✔" : "✘" %>
       </td>
       <td>
         <%= link_to "edit", edit_ticket_path(ticket) %>

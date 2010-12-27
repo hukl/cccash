@@ -8,12 +8,12 @@ class Printer < ActiveRecord::Base
   validates_uniqueness_of :name, :cups_name
   
   def print(data)
-    if Rails.env == "production"
+#    if Rails.env == "production"
       IO.popen("/usr/bin/lpr -P #{cups_name}", 'w+') do |m|
         m.puts data
       end
-    else
-      logger.info data
-    end
+#    else
+#      logger.info data
+#    end
   end
 end

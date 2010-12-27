@@ -7,7 +7,9 @@
         <th>Name</th>
         <th>UID</th>
         <th>Group</th>
-        <th>Ticket Type</th>
+	<th>Checked in?</th>
+        <th>Add to cart</th>
+        <th>Upgrade</th>
       </tr>
     </thead>
     <tbody>
@@ -19,17 +21,13 @@
         <td><%= special_guest.uid %></td>
         <td><%= special_guest.group.name %></td>
         <td>
-        <% if !special_guest.checked_in %>
-            ✔
+	  <% if !special_guest.checked_in %>
+           ✔
           <% else %>
            ✘
-          <% end %><%= link_to special_guest.reservations[0].ticket.name,
-                        :controller => :special_guests,
-                        :action => :show,
-                        :id => special_guest.id
-            %>
-        </td>
-        <td>
+          <% end %>
+	</td>
+	<td>
           <table class="special_guest_tickets">
           <% special_guest.available_tickets.each do |ticket| %>
           <tr>
@@ -56,7 +54,16 @@
             </tr>
           <% end %>
           </table>
+         <td>
+	<% if special_guest.reservations[0].ticket.presale then %>
+	<%= link_to special_guest.reservations[0].ticket.name,
+                        :controller => :special_guests,
+                        :action => :show,
+                        :id => special_guest.id
+            %>
+	<% end %>
         </td>
+       </td>
       </tr>
     <% end %>
     </tbody>

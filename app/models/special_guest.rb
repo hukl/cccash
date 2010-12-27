@@ -58,7 +58,7 @@ class SpecialGuest < ActiveRecord::Base
   end
 
   def available_tickets
-    available_tickets = tickets.custom.available - bought_tickets.flatten
+    available_tickets = tickets.available - bought_tickets.flatten
   end
 
 end

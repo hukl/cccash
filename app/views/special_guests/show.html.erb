@@ -1,8 +1,8 @@
 <div id="ticket_selection">
-  <h1>Tickets for <%= @special_guest.uid %></h1>
+  <h1><%= @special_guest.uid %></h1>
   <table id="tickets">
     <% Ticket.presale.available.sort_by(&:price).each do |ticket| %>
-    <% if @special_guest.reservations[0].ticket.price < (@special_guest.reservations[0].ticket.price+ticket.price) || ticket.price == 0 %>
+    <% if @special_guest.reservations[0].ticket.price < (@special_guest.reservations[0].ticket.price+ticket.price) || ticket.name == @special_guest.reservations[0].ticket.name %>
     <% if ticket.name == @special_guest.reservations[0].ticket.name %>
     <tr class="ticket_reservation">
     <% else %>
@@ -34,12 +34,10 @@
     <% end %>
   </table>
 
-</div>
+<%= render  :partial => 'cart' %>
 
-
-<div id="special_guest_search">
-
-  <h4>Search</h4>
+<div id="special_guests_search"> 
+<h4>Search</h4>
   <%= text_field_tag :search_term %>
   <%= observe_field(
         :search_term, 
@@ -47,8 +45,8 @@
         :with => :search_term,
         :frequency => 1 
       ) %>
-  <div id="search_results"></div>
+   <div id="search_results"></div>
 </div>
 
 
-<%= render  :partial => 'cart' %>
+ 

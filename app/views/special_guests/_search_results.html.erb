@@ -7,7 +7,9 @@
         <th>Name</th>
         <th>UID</th>
         <th>Group</th>
-        <th>Ticket Type</th>
+	<th>Checked in?</th>
+        <th>Add to cart</th>
+        <th>Upgrade</th>
       </tr>
     </thead>
     <tbody>
@@ -19,21 +21,18 @@
         <td><%= special_guest.uid %></td>
         <td><%= special_guest.group.name %></td>
         <td>
-        <% if !special_guest.checked_in %>
-            ✔
-          <% else %>
+	  <% if !special_guest.checked_in %>
            ✘
-          <% end %><%= link_to special_guest.reservations[0].ticket.name,
-                        :controller => :special_guests,
-                        :action => :show,
-                        :id => special_guest.id
-            %>
-        </td>
-        <td>
+          <% else %>
+           ✔
+          <% end %>
+	</td>
+	<td>
           <table class="special_guest_tickets">
           <% special_guest.available_tickets.each do |ticket| %>
           <tr>
             <td>
+	      <% if !special_guest.checked_in %>
               <%= link_to_remote(
                     ticket.name,
                     :url => add_ticket_to_cart_path(
@@ -42,6 +41,9 @@
                     ), 
                     :method => :put
                   ) %>
+	      <% else %>
+		Checked in already
+	      <% end %>
             </td>
             <td><%= nice_price ticket.price %></td>
           </tr>
@@ -52,11 +54,21 @@
               <td colspan="3" class="strike">
                 <%= ticket.name %>
                 <%= nice_price ticket.price %>
+		(Checked in)
               <td>
             </tr>
           <% end %>
           </table>
+         <td>
+	<% if special_guest.reservations[0].ticket.presale && !special_guest.checked_in then %>
+	<%= link_to special_guest.reservations[0].ticket.name,
+                        :controller => :special_guests,
+                        :action => :show,
+                        :id => special_guest.id
+            %>
+	<% end %>
         </td>
+       </td>
       </tr>
     <% end %>
     </tbody>

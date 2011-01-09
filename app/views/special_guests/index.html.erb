@@ -2,6 +2,8 @@
 
 <p><%= link_to 'Add new Special Guest', new_special_guest_path %></p>
 
+<p><%= will_paginate @special_guests %></p>
+
 <table>
   <tr>
     <th>Group</th>
@@ -15,17 +17,18 @@
   <tr>
     <td><%= special_guest.group.name %></td>
     <td><%= special_guest.forename %></td>
-    <td><%= special_guest.name %></td>
+    <td><%= special_guest.name rescue "-"%></td>
     <td><%= special_guest.uid %></td>
     <td>
       <table>
       <% special_guest.reservations.each do |reservation| %>
       <tr>
-        <td><%= reservation.ticket.name %></td>
-        <td><%= nice_price reservation.ticket.price %></td>
+        <td><%= reservation.ticket.name rescue "-" %></td>
+        <td><%= nice_price reservation.ticket.price rescue "-" %></td>
       </tr>
       <% end %>
       </table>
     </td>
   </tr>
 <% end %>
+

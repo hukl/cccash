@@ -36,7 +36,7 @@ table.checkouts {
   margin: 0 auto;
   padding-top: 20px;
   width: 860px;
-  min-height: 800px;
+  min-height: 900px;
   background-color: #ffffff;
   padding-left: 20px;
   padding-right: 20px;
@@ -91,10 +91,11 @@ table.checkouts {
 }
 
 #tickets td {
-  padding-left: 10px;
+  padding-left: 40px;
   padding-right: 5px;
   padding-top: 2px;
   padding-bottom: 2px;
+  max-width: 200px;
 }
 
 table#tickets {
@@ -164,8 +165,11 @@ table#tickets {
 }
 
 #cart {
-  float: left;
-  margin-left: 150px;
+  top: 50px;
+  right: 200px;
+  position: absolute;
+  margin-left: 100px;
+  max-width: 120px;
 }
 
 #cart table {
@@ -283,9 +287,16 @@ td.quantity {
   color: red;
 }
 
+#main_special_guest_search {
+    position: absolute;
+    top: 350px;
+}
+
 #special_guest_search {
+  margin-top: 300px;
   position: absolute;
-  top: 350px;
+  left: 10px;
+  bottom: 5px;
 }
 
 table.overview, table#special_guests {
@@ -423,6 +434,8 @@ div.bluff-tooltip {
     background-color: #DEDFC5;
     text-decoration:none;
     padding: 5px;
+    right: 2;
+    position: absolute;
 }
 
 #checkout a {

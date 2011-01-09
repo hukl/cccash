@@ -25,7 +25,11 @@ class SpecialGuest < ActiveRecord::Base
     base_ticket   = Ticket.find(options[:base_ticket_id])
     price         = options[:price].to_i
     
-    custom_ticket = find_or_create_custom_ticket(base_ticket, price)
+    if options[:price].to_i == 0 && !options[:custom] then
+      custom_ticket = base_ticket
+    else 
+      custom_ticket = find_or_create_custom_ticket(base_ticket, price)
+    end
     
     self.tickets << custom_ticket
   end
@@ -58,7 +62,7 @@ class SpecialGuest < ActiveRecord::Base
   end
 
   def available_tickets
-    available_tickets = tickets.custom.available - bought_tickets.flatten
+    available_tickets = tickets.available - bought_tickets.flatten
   end
 
 end

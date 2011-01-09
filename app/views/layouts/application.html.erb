@@ -15,9 +15,11 @@
     <%= javascript_include_tag 'js-class' %>
     <%= javascript_include_tag 'bluff-min' %>
     <%= javascript_include_tag 'charts' %>
+    <script type="text/javascript">
+    </script>
   </head>
   
-  <body>
+  <body onload="javascript:document.getElementById('search_term').focus();">
     <div id="header">
       <%= image_tag 'kasse-06.jpg' %>
     </div>

@@ -22,9 +22,9 @@
         <td><%= special_guest.group.name %></td>
         <td>
 	  <% if !special_guest.checked_in %>
-           ✔
-          <% else %>
            ✘
+          <% else %>
+           ✔
           <% end %>
 	</td>
 	<td>
@@ -32,6 +32,7 @@
           <% special_guest.available_tickets.each do |ticket| %>
           <tr>
             <td>
+	      <% if !special_guest.checked_in %>
               <%= link_to_remote(
                     ticket.name,
                     :url => add_ticket_to_cart_path(
@@ -40,6 +41,9 @@
                     ), 
                     :method => :put
                   ) %>
+	      <% else %>
+		Checked in already
+	      <% end %>
             </td>
             <td><%= nice_price ticket.price %></td>
           </tr>
@@ -50,12 +54,13 @@
               <td colspan="3" class="strike">
                 <%= ticket.name %>
                 <%= nice_price ticket.price %>
+		(Checked in)
               <td>
             </tr>
           <% end %>
           </table>
          <td>
-	<% if special_guest.reservations[0].ticket.presale then %>
+	<% if special_guest.reservations[0].ticket.presale && !special_guest.checked_in then %>
 	<%= link_to special_guest.reservations[0].ticket.name,
                         :controller => :special_guests,
                         :action => :show,

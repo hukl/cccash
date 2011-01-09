@@ -25,6 +25,10 @@
       <td><%= select_tag 'ticket[base_ticket_id]', options_for_select(tickets_for_select) %></td>
     </tr>
     <tr>
+      <td>Custom?</td>
+      <td><%= check_box_tag 'ticket[custom]', false %></td>
+    </tr>
+    <tr>
       <td>Custom Price</td>
       <td><%= text_field_tag 'ticket[price]' %></td>
     </tr>

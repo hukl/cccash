@@ -14,6 +14,8 @@ namespace :presale do
     CSV::Reader.parse(File.open(File.join(Rails.root, "db", "ticket_codes.csv")), ",") do |row|
       group = Group.find_by_name("Presale") || Group.create(:name => "Presale")
       ticket = Ticket.find(row[2])
+
+      next if SpecialGuest.find_by_uid(row[1])
       
       special_guest = SpecialGuest.create!  :name => row[0],
                                             :uid => row[1],

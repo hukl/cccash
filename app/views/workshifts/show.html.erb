@@ -29,7 +29,7 @@
   <tr>
     <td>Cleared:</td>
     <td>
-      <%= @workshift.cleared_at.timestamp if @workshift.cleared %>
+      <%= @workshift.cleared_at.timestamp if @workshift.cleared? %>
     </td>
   </tr>
   <tr>
